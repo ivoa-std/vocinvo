@@ -1,0 +1,16 @@
+The source of the 2.0 version of Vocabularies in the VO.  Version 1
+was moved to semantics/attic for now because no meaningful diff exists
+but it's still the current norm.  Remove it when this version 2 goes to
+REC.
+
+This also contains some code to validate and parse vocabularies.  To
+validate all semantics-managed vocabuaries, check out
+
+https://volute.g-vo.org/svn/trunk/projects/semantics
+
+and then say:
+
+$ cd voc_source
+$ python convert.py ALL
+$ cd ../Vocabularies
+$ find .. -name "*.rdf" | xargs python3 revovo.py

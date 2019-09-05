@@ -114,6 +114,8 @@ def _make_url_prefixifier():
         >>> prefixify_url("abc")
         'abc'
         """
+        if url is None:
+            return None
         mat = prefix_re.match(url)
         if mat:
             return "{}:{}".format(PREFIX_DEF[mat.group(1)], mat.group(2))
@@ -478,7 +480,8 @@ class ValidatingVocabulary(Vocabulary):
                     " have up to one wider term, but {} has {}.".format(
                     term, ", ".join(wider)))
 
-def load_vocabulary(voc_spec):
+
+def load_vocabulary(voc_spec, debug=False):
     """returns a Vocabulary instance for voc_spec.
 
     voc_spec is either a (http/https) URL or a path to a local file.
@@ -489,8 +492,10 @@ def load_vocabulary(voc_spec):
     else:
         in_file = open(voc_spec)
 
+    voc_class = ValidatingVocabulary if debug else Vocabulary
+
     try:
-        return Vocabulary.from_file(in_file)
+        return voc_class.from_file(in_file)
     finally:
         in_file.close()
 
@@ -499,9 +504,24 @@ def check_one(voc_spec):
     """reads a vocabulary and emits errors and properties about it on
     stdout.
     """
-    voc = load_vocabulary(voc_spec)
-    print("{} terms, e.g., {}".format(
-        len(voc.terms), list(voc.terms.keys())[0] if voc.terms else "-"))
+    voc = load_vocabulary(voc_spec, debug=True)
+    print("Vocabulary URI: {}".format(voc.uri))
+    print("A(n) {} vocabulary".format(voc.flavour))
+    print("#terms: {}        #preliminary: {}     #deprecated: {}".format(
+        len(voc.terms), 
+        len(voc.preliminary_terms), 
+        len(voc.deprecated_terms)))
+    print("#terms with parent(s): {}".format(len(voc.wider_terms)))
+
+    if voc.warnings:
+        print("The vocabulary violates some SHOULD constraints:\n  {}"
+            .format("\n  ".join(voc.warnings)))
+
+    if voc.errors:
+        print("The vocabulary violates some MUST constraints:\n  {}"
+            .format("\n  ".join(voc.errors)))
+    
+    return voc.errors!=[]
 
 
 def _test():
@@ -517,13 +537,21 @@ def main():
         sys.exit("Usage: {} <voc-spec> {{<voc-spec>}}\nwhere <voc-spec>"
             " either references a local RDF/X file or the vocabulary"
             " URL.".format(sys.argv[0]))
-  
+ 
+    errs_seen = False
     for voc_spec in sys.argv[1:]:
-        print("\n=== Vocabulary {}".format(voc_spec))
-        check_one(voc_spec)
+        print("\n\nReading from {}...".format(voc_spec))
+        errs_here = check_one(voc_spec)
+        if errs_here:
+            print("...INVALID")
+        else:
+            print("...Ok")
+        errs_seen = errs_seen or errs_here
+
+    return 1 if errs_seen else 0
 
 
 if __name__=="__main__":
-  main()
+  sys.exit(main())
 
 # vim:et:sta:sw=4
