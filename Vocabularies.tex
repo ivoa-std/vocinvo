@@ -192,7 +192,7 @@ underlying W3C standards are normative where applicable.
 When we speak of \emph{term} here, this strictly means a \vocterm{skos:Concept}
 in SKOS vocabularies, an \vocterm{rdfs:Class} in RDF class vocabularies,
 and an \vocterm{rdf:Property} in RDF property vocabularies.  Informally,
-we use ``term'' primarily for ``the string behind the hash character in
+we use ``term'' primarily for ``the string after the hash character in
 the term URI'' and only distinguish between the two meanings where there
 is a risk of confusion.
 
@@ -469,7 +469,7 @@ then add notices to that effect in their outputs.
 
 Vocabulary files need to be cacheable without applications having to
 manage extra metadata (e.g., the URL from which the file was obtained)
-in order to easily satisfy use case!\ref{uc:offline} (or simply schemes
+in order to easily satisfy use case~\ref{uc:offline} (or simply schemes
 in which vocabulary sources do not need to be retrieved from the IVOA
 site for each session).
 
@@ -575,10 +575,10 @@ literal, and only one preferred label is permitted
 English-language definition.  It is obviously impossible to define
 ``non-trivial'' in a rigorous way; a suggested criterion is that a
 domain expert would, given the definition, presumably arrive at a
-similar preferred label.  Definitions that contain the preferred label
-itself are at least suspicious.  Definitions in non-English
-languages are not permitted [again, this helps
-requirement~\ref{req:mtm}].
+similar preferred label, and recursive definitions (i.e., those using
+the label itself) should be avoided whenever possible.  Definitions in
+non-English languages are not permitted, and only one definition is
+permitted [again, this helps requirement~\ref{req:mtm}].
 
 \item General properties discussed in \ref{sect:genprop} [this is
 for requirements~\ref{req:deprecating} and
@@ -611,6 +611,8 @@ in RDF/XML serialisation:
 \begin{lstlisting}[language=XML]
 <skos:Concept rdf:about="http://ivoa.net/rdf/AstronomicalObjects#AGN">
 	<skos:prefLabel>AGN</skos:prefLabel>
+	<skos:definition>A compact object in the center of a galaxy showing 
+	  unusual emission ("active galactic nucleus").</skos:definition>
 	<skos:broader rdf:resource
 	  ="http://ivoa.net/rdf/theory/AstronomicalObjects#OpticalSource"/>
 	<skos:broader rdf:resource
@@ -682,7 +684,8 @@ one such label is permitted.
 \item \vocterm{rdfs:comment} -- all concepts MUST have a non-trivial
 English-language comment serving as a human-oriented definition of the
 term.  The considerations for \vocterm{skos:definition} in
-sect.~\ref{sect:skosvoc-prop} apply.
+sect.~\ref{sect:skosvoc-prop} apply.  As for those, only one
+\vocterm{rdfs:comment} per term is allowed.
 
 \item \vocterm{rdfs:subPropertyOf} -- interpreted as in RDFS to induce
 the hierarchy of terms; a term MUST NOT appear as subject of more than
@@ -790,7 +793,8 @@ one such label is permitted.
 \item \vocterm{rdfs:comment} -- all concepts MUST have a non-trivial
 English-language comment serving as a human-oriented definition of the
 term.  The considerations for \vocterm{skos:definition} in
-sect.~\ref{sect:skosvoc-prop} apply.
+sect.~\ref{sect:skosvoc-prop} apply.  As for those, only one
+\vocterm{rdfs:comment} per term is allowed.
 
 \item \vocterm{rdfs:subClassOf} -- interpreted as in RDFS to induce
 the hierarchy of terms; a term MUST NOT appear as subject of more than
@@ -1072,7 +1076,7 @@ Relationships: rdfs:subProperyOf(this)
 Rationale: 
 
 The terms are mainly intended for projects with data releases.
-IsPreviousVersionOf allows marking up links to (typically
+IsPreviousVersionOf allows services to mark up links to (typically
 datalink documents for) later version(s) of this data set.  It
 allows a client to alert users that a newer, probably improved,
 rendition of the current dataset is available and should
@@ -1206,8 +1210,10 @@ relative URIs are allowed in the RDF/XML renditions, i.e., one cannot
 write \verb|#term| instead of \verb|<vocabulary-uri>#term|.  Also, in
 IVOA-served RDF/XML, for term class for the vocabulary flavour, the
 \vocterm{rdf:type} triple MUST be expressed as a typed node element as
-per sect.~2.13 of \citet{std:xmlsyntax}.
-Both constraints are imposed to
+per sect.~2.13 of \citet{std:xmlsyntax}.  Also, all predicates MUST be
+written as elements even if the objects are literals, i.e., using
+attributes names to represent predicates is not allowed.
+All these constraints are imposed to
 facilitate parsing with plain XML tooling.
 
 \end{itemize}
@@ -1282,7 +1288,10 @@ with five columns.  These columns are:
 \end{description}
 
 Non-ASCII characters are allowed in label and description; files must be
-encoded in UTF-8.
+encoded in UTF-8, the column separator currently is required to be a
+semicolon in order to save on escaping with descriptions (which very
+commonly contains commas).  Fields that contain semicolons are escaped
+with double quotes, embedded double quotes are doubled.
 
 The following properties are supported in the more\_relationships
 column:
@@ -1422,37 +1431,11 @@ lists and their addresses.
 
 \section{Changes from Previous Versions}
 
-\subsection{Changes from the Sneak Preview (Temporary)}
-
-Until we put out the first WD, we list changes vs.~the last internal
-working draft here for the benefit of persons following the early
-development.  This will all be long gone by the time we get to REC.
+\subsection{Changes from WD-2019-09-05}
 
 \begin{itemize}
-\item Now requiring RDF class and property vocabularies to have
-tree-like hierarchies.
-
-\item SKOS now uses wider rather than narrower so its direction matches
-that of the RDF c/p flavours.
-
-\item Added the common property ivoasem:vocflavour, mainly to let
-clients figure out what vocabulary they're dealing with.
-
-\item Added sample code to parse the vocabularies (``revovo'') both as a
-proof of concept and as the seed of a validator.
-
-\item Added XML advice (and an example) for the common properties.
-
-\item Requiring absolute URIs in RDF/XML.
-
-\item New use case/requirement on offline operation.
-
-\item Now requiring RDF/XML to use typed node elements for our term
-classes.
-
-\item No longer linking ivoasem:deprecated and ivoasem:useInstead to
-roughly matching owl terms (that's technically a bit challenging and
-probably not worth it).
+\item Now explicitly forbidding the representation of predicates
+with attribute names in IVOA RDF/XML.
 \end{itemize}
 
 \bibliography{local.bib,ivoatex/ivoabib,ivoatex/docrepo}

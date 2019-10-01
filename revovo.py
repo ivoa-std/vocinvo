@@ -6,7 +6,9 @@ conforming to version 2 of the Vocabularies in the VO recommendation.
 
 It can be used as a standalone so-so validator (it's not checking every
 conceivable aspect), and it can be dropped into other software (and then
-licensed as required there) and used as a library.
+licensed as required there) and used as a library.  In that latter case,
+use load_vocabulary and read the docstring of Vocabulary to figure out
+how to use it.
 
 To run the embedded doctests, run the script without arguments.
 
