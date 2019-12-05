@@ -8,6 +8,7 @@
 
 \definecolor{termcolor}{rgb}{0.6,0.1,0.1}
 \newcommand{\vocterm}[1]{\emph{\color{termcolor}#1}}
+\newcommand{\vepitem}[1]{\emph{#1}}
 
 \title{Vocabularies in the VO}
 
@@ -1050,9 +1051,6 @@ Semantics WG might then decree that the VEP still needs to be split.}.
 In the latter case, two very different rationales would have
 to be put forward, which is a clear sign that two VEPs are in order.
 
-If during discussion it is found that a VEP should be split, the
-original VEP must be withdrawn and two new VEPs be prepared.
-
 \begin{figure}
 \begin{verbatim}
 Vocabulary: http://www.ivoa.net/rdf/datalink/core
@@ -1065,6 +1063,7 @@ Label: Newer Version
 Description: This dataset in a previous edition, e.g., processed 
 with an older pipeline, as part of an older data release.
 Relationships: rdfs:subProperyOf(this)
+Used-in: http://example.org/datalink?ID=doc-v1
 
 New Term: IsNewVersionOf
 Action: Addition
@@ -1072,6 +1071,7 @@ Label: Previous Version
 Description: This dataset in a newer edition, e.g., processed
 with a newer pipeline, as part of a newer data release.
 Relationships: rdfs:subProperyOf(this)
+Used-in: http://example.org/datalink?ID=doc-v2
 
 Rationale: 
 
@@ -1095,36 +1095,38 @@ The terms are taken from the relationship types of DataCite.
 A VEP is a semistructured text file containing the following items:
 
 \begin{itemize}
-\item Vocabulary: The URL or the vocabulary
-\item Author: An e-mail address for a contact person for the author(s) of
+\item \vepitem{Vocabulary:} The URL or the vocabulary
+\item \vepitem{Author:}  Contact information for the author(s) of
 the VEP.
-\item Date: The date on which the VEP was posted.
-\item Term: The identifier of the new term.
-\item Action: one of \textit{Addition}, \textit{Deprecation}, or
+\item \vepitem{Date:} The date on which the VEP was posted.
+\item \vepitem{Term:} The identifier of the new term.
+\item \vepitem{Action:} one of \textit{Addition}, \textit{Deprecation}, or
 \textit{Modification}.
-\item Label: The English-language, human-readable label of the new term.
-\item Description: The description that will come with the term.
-\item Relationships: If applicable, relationships the new
+\item \vepitem{Label:} The English-language, human-readable label of the new term.
+\item \vepitem{Description:} The description that will come with the term.
+\item \vepitem{Relationships}: If applicable, relationships the new
 term will have to existing terms, using the properties defined in
 the present document.
-\item Rationale: A discussion of use cases, the role of the new term in
+\item \vepitem{Used-In}: At least one URI of a document using a term.
+\item \vepitem{Rationale}: A discussion of use cases, the role of the new term in
 the vocabulary, and the like.  In particular, an actual application of
 the term should be given.
 \end{itemize}
 
-The items \textit{Term}, \textit{Action}, \textit{Label},
-\textit{Description}, and \textit{Relationships} may be repeated if
+The items \vepitem{Term}, \vepitem{Action}, \vepitem{Label},
+\vepitem{Description}, \vepitem{Used-in}, 
+and \vepitem{Relationships},  may be repeated if
 multiple terms are affected by a VEP.  In \textit{Addition} VEPs, all items
-except \textit{Relationships} are mandatory.
+except \vepitem{Relationships} are mandatory.
 
-When \textit{Action} is \textit{Deprecation}, \textit{Label},
-\textit{Description}, and \textit{Relationships} are optional but can be
+When \vepitem{Action} is \textit{Deprecation}, \vepitem{Label},
+\vepitem{Description}, and \vepitem{Relationships} are optional but can be
 given if useful for understanding the VEP.  The rationale MUST discuss
 the reasons for a deprecation.  Usually, one or more replacement
 term(s) will be proposed within the same VEP.
 
-When \textit{Action} is \textit{Modification}, \textit{Label},
-\textit{Description}, and \textit{Relationships} give the proposed new
+When \vepitem{Action} is \textit{Modification}, \vepitem{Label},
+\vepitem{Description}, and \vepitem{Relationships} give the proposed new
 values of the term.  The term itself cannot be modified.  The rationale
 will usually detail the changes proposed while mentioning the previous 
 values.
@@ -1140,8 +1142,8 @@ The Semantics working group maintains a web-based repository for VEPs
 (see Appendix~\ref{app:curtech} for the technical details).  There, a
 running number is assigned to the VEP at the time of the upload.  This
 will be used to identify the VEP, where the running number is expanded
-to three digits.  The first VEP will thus be VEP-001, the second
-VEP-002, and so on.
+to three digits.  The first VEP will thus be VEP-0001, the second
+VEP-0002, and so on.
 
 Once the VEP is uploaded, it is announced to the IVOA Semantics Working
 Group and all other IVOA Working Groups concerned (again, the technical
@@ -1161,16 +1163,25 @@ modification VEPs have no immediate effect.
 
 Discussion of a VEP takes place in the WGs' discussion forums (again,
 see Appendix~\ref{app:curtech}).  The chair of the Semantics WG will
-summarise the discussion in the VEP in a \textit{Discussion} section
-(that may be updated during the process).
+summarise the discussion in the VEP in a \textit{Discussion} section.
+
+During the process, all parts of the VEP may be changed except the
+term(s) proposed.
 
 Once the chair of the Semantics WG sees a sufficient consensus reached,
 they announce the VEP in the TCG.  If, at the next meeting of the TCG,
 no Working Group objects to the VEP, it is accepted and the marker that
-a term is preliminary is removed from the relationships of any new terms
-in the vocabulary.  In the case of deprecation or modification VEPs, the
+a term is preliminary is removed from the relationships of any terms
+added by the VEP.  In the case of deprecation or modification VEPs, the
 requested actions are taken at this point.
 
+If, on the other hand, discussion of an addition request results in the
+realisation that terms proposed need to be changed, the VEP in question
+must be withdrawn, its effects on the vocabulary be undone, and zero or
+more new VEPs are posted containing proposals for terms for which
+consensus appears feasible.  The VEP withdrawn receives a
+\vepitem{Superceded-by} item referencing any new VEPs, any new VEPs have
+a \vepitem{Supercedes} item referencing the original VEP.
 
 \section{Vocabulary Deployment}
 \label{sect:deployment}
@@ -1434,6 +1445,12 @@ lists and their addresses.
 \subsection{Changes from WD-2019-09-05}
 
 \begin{itemize}
+\item Now requiring a \emph{Used-in} item in addition VEPs, implying
+that only terms that are already applied may be proposed.
+
+\item Adding \emph{Supercedes} and \emph{Superceded-by} items,
+formalising the previous language on ``splitting'' VEPs a bit.
+
 \item Now explicitly forbidding the representation of predicates
 with attribute names in IVOA RDF/XML.
 \end{itemize}
