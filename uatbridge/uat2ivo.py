@@ -10,14 +10,15 @@ What this outputs is a SKOS file for consumption by the IVOA ingestor.
 
 import re
 import warnings
-warnings.filterwarnings("ignore", message="Non-Concept:")
+#warnings.filterwarnings("ignore", message="Non-Concept:")
 
 from xml.etree import ElementTree
 import requests
 
 
-# TBD: is there a stable URI for "latest version"?
-UAT_RDF_SOURCE = "https://vocabs.ands.org.au/registry/api/resource/downloads/1091/aas_the-unified-astronomy-thesaurus_3-1-0.rdf"
+UAT_RDF_SOURCE = "https://raw.githubusercontent.com/astrothesaurus/UAT/master/UAT.rdf"
+# for now, convert what's coming from there with
+# rapper -o rdfxml-abbrev input-from-github.rdf > input.rdf
 UAT_TERM_PREFIX = "http://astrothesaurus.org/uat/"
 IVO_TERM_PREFIX = "http://www.ivoa.net/rdf/uat#"
 
@@ -36,7 +37,7 @@ del _prefix, _uri
 
 ABOUT_ATTR = ElementTree.QName(NS_MAPPING["rdf"], "about")
 RESOURCE_ATTR = ElementTree.QName(NS_MAPPING["rdf"], "resource")
-DESCRIPTION_TAG = ElementTree.QName(NS_MAPPING["rdf"], "Description")
+DESCRIPTION_TAG = ElementTree.QName(NS_MAPPING["skos"], "Concept")
 IVOA_DEPRECATED_TAG = ElementTree.QName(NS_MAPPING["ivoasem"], "deprecated")
 
 
@@ -66,15 +67,6 @@ def iter_uat_concepts(tree:ElementTree.ElementTree, chatty:bool):
 	"""
 	for desc_node in tree.iter(DESCRIPTION_TAG):
 		concept_uri = desc_node.get(ABOUT_ATTR)
-		# filter out anything that's not a skos:Concept; that's
-		# all IOVA vocabularies know about.
-		is_concept = desc_node.find("rdf:type[@rdf:resource="
-			"'http://www.w3.org/2004/02/skos/core#Concept']", NS_MAPPING)
-
-		if is_concept is None:
-			if chatty and concept_uri.startswith(UAT_TERM_PREFIX):
-				warnings.warn("Non-Concept: {}".format(concept_uri))
-			continue
 
 		if not concept_uri.startswith(UAT_TERM_PREFIX):
 			if chatty:
@@ -132,7 +124,7 @@ class ConceptMapping:
 		label = desc_node.find("skos:prefLabel[@xml:lang='en']", NS_MAPPING)
 
 		if label is None:
-			# fall back to rdfs:label for now if necessary
+			warnings.warn("Concept without prefLabel: {}".format(uat_uri))
 			label = desc_node.find("rdfs:label[@xml:lang='en']", NS_MAPPING)
 
 		if label is None:
