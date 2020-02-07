@@ -364,6 +364,15 @@ references positions (e.g., figure out that a given space probe is in L1
 and use that as reference position).  To do that, it wants to use a
 previously downloaded copy of the vocabulary.
 
+\subsubsection{UAT in VOResource}
+\label{uc:uat}
+
+VOResource 1.1, in the description of the \xmlel{subject} element, says
+that its content ``should be drawn from the Unified Astronomy Theaurus''
+(here: UAT).  This is intended to later facilitate interactive topic
+navigation within the Registry or semantic expansion of Registry queries
+(``include narrower terms'').
+
 
 \subsection{Requirements}
 \label{sect:requirements}
@@ -473,6 +482,35 @@ manage extra metadata (e.g., the URL from which the file was obtained)
 in order to easily satisfy use case~\ref{uc:offline} (or simply schemes
 in which vocabulary sources do not need to be retrieved from the IVOA
 site for each session).
+
+\subsubsection{Extrnally Curated Vocabularies and VO Tooling}
+
+Regrettably, VOResource does not explain how use case~\ref{uc:uat} would
+look like in actual documents, and the example given in the document
+clearly does not use UAT concepts. 
+
+The first difficulty in a straightforward uptake is that UAT URIs look
+like \url{http://astrothesaurus.org/uat/1774}. Given that, should
+publishers have such URIs in \xmlel{subject}?  Or should they rather use
+just the last URI segment for conciseness?  Or perhaps the preferred
+labels, in keeping with the style of existing subject content and its
+use by clients (which typically look for natural language in subject),
+even though the labels are not considered stable?
+
+Regardless of how VOResource clarifies this matter, UAT artefacts (e.g.,
+SKOS files), do not match some of our other requirements, in particular
+the human-readable URIs from \ref{req:lists}, the specific way we
+satisfy \ref{req:machine}, and the non-RDF requirement \ref{req:xml} are
+not immediately satisfied by the UAT as distributed at the time of
+writing.
+
+For simple, uniform use of such externally curated vocabularies, it
+should be possible to have some sort of endorsement process and then
+distribute the vocabularies in a form compliant with this specification.
+This will entail IVOA-specific concept URIs, and we must be able to
+express that these resources have the same meaning as the ones
+externally maintained.
+
 
 \subsection{Non-Requirement}
 
@@ -1148,7 +1186,7 @@ VEPs formally valid then receive a running number. The first VEP i
 is VEP-0001, the second VEP-0002, and so on.  On behalf of the
 Semantics working group, the chair of the Semantics WG maintains a
 web-based repository for VEPs (see Appendix~\ref{app:curtech} for the
-technical details), and at this point then new VEP is addad there with
+technical details), and at this point then new VEP is added there with
 a link to the VEP's text (in general, a location in a version control
 system).
 
