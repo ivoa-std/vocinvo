@@ -11,6 +11,15 @@ Bradner, S.  \harvardyearleft 1997\harvardyearright , `Key words for use in
   {RFCs} to indicate requirement levels', RFC 2119.
 \newline\url{http://www.ietf.org/rfc/rfc2119.txt}
 
+\harvarditem[{Demleitner} \harvardand\ {Harrison} et~al.]{{Demleitner},
+  {Harrison}, {Molinaro}, {Greene}, {Dower} \harvardand\
+  {Perdikeas}}{2019}{2019ivoa.spec.1011D}
+{Demleitner}, M., {Harrison}, P., {Molinaro}, M., {Greene}, G., {Dower}, T.
+  \harvardand\ {Perdikeas}, M.  \harvardyearleft 2019\harvardyearright , `{IVOA
+  Registry Relational Schema Version 1.1}', IVOA Recommendation 11 October
+  2019.
+\newline\url{https://ui.adsabs.harvard.edu/abs/2019ivoa.spec.1011D}
+
 \harvarditem[{Dowler} \harvardand\ {Bonnarel} et~al.]{{Dowler}, {Bonnarel},
   {Michel} \harvardand\ {Demleitner}}{2015}{2015ivoa.spec.0617D}
 {Dowler}, P., {Bonnarel}, F., {Michel}, L. \harvardand\ {Demleitner}, M.
@@ -25,7 +34,7 @@ Bradner, S.  \harvardyearleft 1997\harvardyearright , `Key words for use in
   M., {Hanisch}, R.~J. \harvardand\ {Rino}, B.  \harvardyearleft
   2017\harvardyearright , `{IVOA Document Standards Version 2.0}', IVOA
   Recommendation 17 May 2017.
-\newline\url{https://ui.adsabs.harvard.edu/abs/2017ivoa.spec.0517G}
+\newline\url{http://doi.org/10.5479/ADS/bib/2017ivoa.spec.0517G}
 
 \harvarditem{Gray}{2015}{local:normanspaper}
 Gray, N.  \harvardyearleft 2015\harvardyearright , Rdf, the semantic web,
@@ -45,15 +54,15 @@ Gray, N.  \harvardyearleft 2015\harvardyearright , Rdf, the semantic web,
 \newline\url{http://doi.org/10.5479/ADS/bib/2012ivoa.spec.0503L}
 
 \harvarditem[{Ochsenbein} \harvardand\ {Taylor} et~al.]{{Ochsenbein}, {Taylor},
-  {Williams}, {Davenhall}, {Demleitner}, {Durand}, {Fernique}, {Giaretta},
-  {Hanisch}, {McGlynn}, {Szalay} \harvardand\
-  {Wicenec}}{2013}{2013ivoa.spec.0920O}
-{Ochsenbein}, F., {Taylor}, M., {Williams}, R., {Davenhall}, C., {Demleitner},
-  M., {Durand}, D., {Fernique}, P., {Giaretta}, D., {Hanisch}, R., {McGlynn},
-  T., {Szalay}, A. \harvardand\ {Wicenec}, A.  \harvardyearleft
-  2013\harvardyearright , `{VOTable Format Definition Version 1.3}', IVOA
-  Recommendation 20 September 2013.
-\newline\url{http://doi.org/10.5479/ADS/bib/2013ivoa.spec.0920O}
+  {Donaldson}, {Williams}, {Davenhall}, {Demleitner}, {Durand}, {Fernique},
+  {Giaretta}, {Hanisch}, {McGlynn}, {Szalay} \harvardand\
+  {Wicenec}}{2019}{2019ivoa.spec.1021O}
+{Ochsenbein}, F., {Taylor}, M., {Donaldson}, T., {Williams}, R., {Davenhall},
+  C., {Demleitner}, M., {Durand}, D., {Fernique}, P., {Giaretta}, D.,
+  {Hanisch}, R., {McGlynn}, T., {Szalay}, A. \harvardand\ {Wicenec}, A.
+  \harvardyearleft 2019\harvardyearright , `{VOTable Format Definition Version
+  1.4}', IVOA Recommendation 21 October 2019.
+\newline\url{https://ui.adsabs.harvard.edu/abs/2019ivoa.spec.1021O}
 
 \harvarditem[{Plante} \harvardand\ {Demleitner} et~al.]{{Plante}, {Demleitner},
   {Benson}, {Graham}, {Greene}, {Harrison}, {Lemson}, {Linde} \harvardand\

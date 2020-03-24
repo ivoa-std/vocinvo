@@ -124,7 +124,7 @@ and \emph{What} elements which, while not formally required to be drawn
 from a specific vocabulary in version 1.11, certainly become much more
 useful if they are.
 
-\item[VOTable \citep{2013ivoa.spec.0920O}] VOTable, in its version 1.4,
+\item[VOTable \citep{2019ivoa.spec.1021O}] VOTable, in its version 1.4,
 introduces vocabularies for time scales and reference positions.
 
 \item[SimDM \citep{2012ivoa.spec.0503L}] The Simulation Data Model has
@@ -241,8 +241,9 @@ will lead to hard-to-debug problems in data discovery.
 \subsubsection{Controlled Vocabularies in VOTable}
 \label{uc:votvoc}
 
-VOTable 1.4 will have vocabularies of reference positions and time
-scales.  While with time scales the situation is not fundamentally
+VOTable 1.4 constrains the attributes of TIMESYS reference positions and time
+scales using vocabularies.  
+While with time scales the situation is not fundamentally
 different from the VOResource case discussed in
 sect.~\ref{uc:simplevoc} -- a simple enumeration of agreed-upon strings
 is enough to uniquely determine what operations need to be performed to
@@ -253,14 +254,15 @@ given time, several important use cases can already be satisfied if a
 client knows that it is in lower Earth orbit (e.g., assuming a reference
 position Geocenter and adjusting the systematic error estimates).  For
 this, a client needs information of the type ``\vocterm{HST}
-\vocterm{is-close-to} \vocterm{GEOCENTER}\/'' (or similar).
+\vocterm{is-close-to} \vocterm{GEOCENTER\/}'' (or similar).
 
 There is also another difference between this and at least the
 VOResource relationship vocabulary from use case~\ref{uc:simplevoc}
 in that the latter is property-like, as
 in ``Resource-1 \vocterm{isServedBy} Resource-2\/''.  In constrast with
-this, a time scale would be used like ``Time-coordinate \vocterm{uses}
-\vocterm{TT}\/''.  In RDFS terminology, they are therefore better modelled
+this, a time scale would be used like ``Time-coordinate
+\vocterm{is-given-in}
+\vocterm{TT\/}''.  In RDFS terminology, they are therefore better modelled
 as classes rather than properties.
 
 \subsubsection{Datalink Link Selection}
@@ -316,7 +318,7 @@ version, it cannot forbid the old terms.  It can, however, say not only
 available machine-readably, validators can warn against the use of
 deprecated terms and user interfaces can transparently replace 
 deprecated terms with current ones.  This latter use case is is
-already specified in RegTAP 1.1 \citep{TODO}.
+already specified in RegTAP 1.1 \citep{2019ivoa.spec.1011D}.
 
 Another use case in the context of VOResource and vocabulary updating
 is the definition of content levels.  In VOResource 1.0, a list of
@@ -445,13 +447,15 @@ To support use case~\ref{uc:discovering}, all terms in IVOA vocabularies
 MUST come with a non-trivial description.
 
 \subsubsection{Simple Cases do not Require RDF Tooling}
-\label{req:xml}
+\label{req:nordf}
 
 (Not derived from any specific use case).  Since libraries implementing
 (some subset of) RDF tend to be rather massive and thus appear
 unproportional when all a client wants is an up-to date list of terms
-with their descriptions, this specification tries hard to facilitate
-some basic operations using just common XML tools (e.g., xpath).
+with their descriptions, at least the basic use cases must not require
+specific RDF tooling.  Indeed, simple uses should not require an
+understanding of RDF in the first place.
+
 
 \subsubsection{Vocabulary Evolution}
 \label{req:evolution}
@@ -484,6 +488,7 @@ in which vocabulary sources do not need to be retrieved from the IVOA
 site for each session).
 
 \subsubsection{Extrnally Curated Vocabularies and VO Tooling}
+\label{req:external}
 
 Regrettably, VOResource does not explain how use case~\ref{uc:uat} would
 look like in actual documents, and the example given in the document
@@ -500,7 +505,7 @@ even though the labels are not considered stable?
 Regardless of how VOResource clarifies this matter, UAT artefacts (e.g.,
 SKOS files), do not match some of our other requirements, in particular
 the human-readable URIs from \ref{req:lists}, the specific way we
-satisfy \ref{req:machine}, and the non-RDF requirement \ref{req:xml} are
+satisfy \ref{req:machine}, and the non-RDF requirement \ref{req:nordf} are
 not immediately satisfied by the UAT as distributed at the time of
 writing.
 
@@ -578,7 +583,7 @@ therefore subject to different requirements.
 Although the requirements are largely non-contradicting, each vocabulary must
 be clearly identified as \emph{either} giving SKOS concepts, RDFS
 classes or RDF properties so clients know how to extract word lists and
-hierarchies [by requirement~\ref{req:xml}]; see sect.~\ref{sect:genprop}
+hierarchies; see sect.~\ref{sect:genprop}
 for details.
 
 
@@ -608,7 +613,7 @@ requirement~\ref{req:hierarchy}].
 English-language preferred label, which is an RDF plain literal [by
 requirement~\ref{req:mtm}].  No RDF language label is allowed on the
 literal, and only one preferred label is permitted
-[these help requirement~\ref{req:xml}].
+[these help requirement~\ref{req:nordf}].
 
 \item \vocterm{skos:definition} -- all concepts MUST have a non-trivial
 English-language definition.  It is obviously impossible to define
@@ -658,40 +663,6 @@ in RDF/XML serialisation:
 	  ="http://ivoa.net/rdf/theory/AstronomicalObjects#CompoundObject"/>
 </skos:Concept>
 \end{lstlisting}
-
-\subsubsection{Usage with Plain XML Tooling}
-\label{sect:xml-skos}
-
-To use IVOA SKOS vocabularies with plain XML tooling (i.e., without RDF
-libraries), retrieve the vocabulary URL with the \verb|accept| header
-set to \verb|application/rdf+xml|\footnote{Here and elsewhere in this
-specification, this is intended to mean any accept header leading to
-an RFC 2616 content negotiation resulting in the client preferring
-\texttt{application/rdf+xml}.}.
-
-To find all terms, in this file collect all \xmlel{rdf:about} attributes 
-of \xmlel{skos:Concept} elements starting with the vocabulary URI.  The
-terms are the fragments of these URIs.  To gather the labels and
-definitions of the terms, look for 
-\xmlel{skos:prefLabel} and \xmlel{skos:definition} children of elements
-with an \xmlel{rdf:about} attribute equal to the full term URI; the
-labels and definitions are the element content.
-
-Clients also interested in the hierarchy of terms extract the
-\xmlel{skos:broader} children of elements with \xmlel{rdf:about}
-attributes equal to full term URIs found during term collection.
-The content of the \xmlel{skos:broader} is a wider term than the
-fragment identifier of the \xmlel{rdf:about} URI.  Note that in contrast
-to our RDFS-based vocabulary flavours, multiple
-wider terms are allowed in SKOS.
-
-Clients requiring something like 
-\vocterm{skos:narrower} must invert the graph obtained in this
-way rather than look for \vocterm{skos:narrower} elements, as these are not
-guaranteed in IVOA vocabularies.\todo{That is not formally the correct
-thing to do, as broader and narrower in SKOS aren't guaranteed to be the
-inverse of each other (or so I think).  Do we bother?}
-
 
 \subsection{RDF Properties Vocabularies}
 \label{sect:refpropvoc}
@@ -773,32 +744,6 @@ is considered equivalent to the one above:
 Over general RDF, however, we require each term to have at least one
 rdf:Property element with the full term URI in \xmlel{rdf:about}.
 
-See the next section for how to robustly use such vocabularies without
-RDF tooling.
-
-\subsubsection{Usage with Plain XML Tooling}
-\label{sect:xml-rdfprop}
-
-To use IVOA RDF properties vocabularies with plain XML tooling (i.e.,
-without RDF libraries), retrieve the vocabulary URL with the
-\verb|accept| header set to \verb|application/rdf+xml|.  
-
-To obtain a list of terms from an IVOA RDF property vocabulary,
-collect all values of \xmlel{rdf:about} attribute in
-\xmlel{rdf:Property} elements.  Any
-strings obtained in this way that do not begin with the vocabulary URI
-are discarded.  The terms are the fragments of the remaining URIs.
-
-To obtain a label for a term, get the contents of an \xmlel{rdfs:label}
-child of an element with its \xmlel{rdf:about} attribute set to the
-term's URI.  Analogously, definitions are obtained using
-\xmlel{rdfs:comment} elements.
-
-To obtain the hierarchy of terms, get all \xmlel{rdfs:subPropertyOf}
-elements and form pairs of the enclosing elements' \xmlel{rdf:about}
-attributes (the more specific term) and the subPropertyOf elements'
-\xmlel{rdf:resource} attribute.
-
 \subsection{RDF Class Vocabularies}
 
 RDF class vocabularies should be used when the terms in the vocabulary
@@ -869,28 +814,6 @@ additional requirement that each term has at least one
 \xmlel{rdfs:Class} element with the full vocabulary URI in its
 \xmlel{rdf:about} attribute.
 
-\subsubsection{Usage with Plain XML Tooling}
-\label{sect:xml-rdfclass}
-
-To use IVOA RDF class vocabularies with plain XML tooling (i.e.,
-without RDF libraries), retrieve the vocabulary URL with the
-\verb|accept| header set to \verb|application/rdf+xml|.  
-
-To obtain a list of terms from an IVOA RDF property vocabulary,
-collect all values of \xmlel{rdf:about} attribute in
-\xmlel{rdf:Class} elements.  Any
-strings obtained in this way that do not begin with the vocabulary URI
-are discarded.  The terms are the fragments of the remaining URIs.
-
-To obtain a label for a term, get the contents of an \xmlel{rdfs:label}
-child of an element with its \xmlel{rdf:about} attribute set to the
-term's URI.  Analogously, definitions are obtained using
-\xmlel{rdfs:comment} elements.
-
-To obtain the hierarchy of terms, get all \xmlel{rdfs:subClassOf}
-elements and form pairs of the enclosing elements' \xmlel{rdf:about}
-attributes (the more specific term) and the subClassOf elements'
-\xmlel{rdf:resource} attribute.
 
 \subsection{General Properties}
 \label{sect:genprop}
@@ -969,55 +892,6 @@ objects, clients should normally just ignore the objects.
 </rdf:Description>
 \end{lstlisting}
 
-\subsubsection{Usage with Plain XML Tooling}
-\label{sect:xml-common}
-
-To collect information encoded using the common properties in IVOA
-vocabularies with plain XML tooling (i.e., without RDF libraries), again
-retrieve the vocabulary URL with the \verb|accept| header set to
-\verb|application/rdf+xml|.  
-
-To find the vocabulary URI, in the retrieved document look for an
-element named \xmlel{ivoasem:vocflavour}.  The parent element's
-\xmlel{rdf:about} attribute then is the vocabulary URI.  The body of the
-element itself gives the vocabulary flavour, encoded as described in the
-bullet point on \vocterm{ivoasem:vocflavour} above.
-
-To obtain the version stamp of the vocabulary, look for a
-\xmlel{dc:created} element the parent of which has an \xmlel{rdf:about}
-attribute equal to the vocabulary URI.  The content of the element
-itself then is the date stamp.
-
-To collect a list of preliminary terms, look for
-\xmlel{ivoasem:preliminary} elements.  For each such element, ignore 
-content or attributes; if the parent element's \xmlel{rdf:about}
-attribute starts with the vocabulary URI, its fragment part gives a
-preliminary term.  In the unlikely case that a client needs to establish
-whether a vocabulary as a whole is preliminary, it can compare the set
-of terms with the set of preliminary terms and consider the entire
-vocabulary preliminary if the sets are equal.
-
-To collect a list of deprecated terms, look for
-\xmlel{ivoasem:deprecated} elements. For each such element, ignore 
-content or attributes; if the parent element's \xmlel{rdf:about}
-attribute starts with the vocabulary URI, its fragment part gives a
-deprecated term.
-
-To gather a mapping from deprecated terms to terms that should be used
-instead, look for \xmlel{ivoasem:useInstead} elements.  For each such
-element, get the \xmlel{rdf:resource} attribute value and store it as
-the new term.  If the parent element's \xmlel{rdf:resource} attribute
-starts with the vocabulary URI, its fragment part gives the term to be
-mapped, otherwise the mapping is ignored (because it talks about a term
-in another vocabulary).  
-
-Note that this specification explicitly allows having multiple such maps
-for a single term (e.g., when several more specialised terms replace the
-deprecated one).  Also, we do not forbid cross-vocabulary
-\vocterm{ivoasem:useInstead} triples.  This means that the URIs of the
-replacement term MUST NOT be blindly split at the hash character to
-get to a term. Depending on the application, clients MAY
-discard useInstead triples referencing out-of-vocabulary terms, though.
 
 \section{Vocabulary Management}
 \label{sect:management}
@@ -1257,21 +1131,9 @@ user agents [requirement~\ref{req:mtm}].
 \item a Turtle rendition of the vocabulary if the accept header
 indicates that \verb|text/turtle| documents are preferred.
 
-\item an RDF/XML rendition of the vocabulary subject to the constraints
-implied by sects.~\ref{sect:xml-skos}, \ref{sect:xml-rdfprop}, or
-\ref{sect:xml-rdfclass} as applicable and sect.~\ref{sect:xml-common}
+\item an RDF/XML rendition of the vocabulary
 if the accept header indicates that
-\verb|application/rdf+xml| documents are preferred.  In particular, no
-relative URIs are allowed in the RDF/XML renditions, i.e., one cannot
-write \verb|#term| instead of \verb|<vocabulary-uri>#term|.  Also, in
-IVOA-served RDF/XML, for term class for the vocabulary flavour, the
-\vocterm{rdf:type} triple MUST be expressed as a typed node element as
-per sect.~2.13 of \citet{std:xmlsyntax}.  Also, all predicates MUST be
-written as elements even if the objects are literals, i.e., using
-attributes names to represent predicates is not allowed.
-All these constraints are imposed to
-facilitate parsing with plain XML tooling.
-
+\verb|application/rdf+xml| documents are preferred. 
 \end{itemize}
 
 Individual vocabularies may be available in additional formats.
@@ -1410,58 +1272,6 @@ their terms.csv file in there.  They should then edit \verb|vocabs.conf|
 and add a section named after their directory with the content discussed
 in sect.~\ref{sect:vocmeta}.
 
-\subsection{Consuming and Validating Vocabularies}
-
-This document is accompanied by a Python module called revovo (``Reading
-Vocabularies in the VO'')\footnote{\auxiliaryurl{revovo.py}} that shows
-how the vocabularies can be consumed with plain XML tooling
-and that can be used as drop-in
-code for Python programmes interfacing to VO vocabularies.
-
-The module's API consists of
-
-\begin{itemize}
-\item a class \verb|Vocabulary| that is usually constructed using its
-\verb|from_file| class method accepting a file instance, and 
-
-\item a factory function \verb|load_vocabulary(voc_spec)| that returns
-a vocabulary instance from either a path to a local file or the URI of a
-vocabulary deployed in accord with the rules laid down in
-sect.~\ref{sect:deployment}.
-\end{itemize}
-
-A \verb|Vocabulary| instance has the following documented attributes:
-
-
-\begin{description}
-\item[terms] A dictionary mapping terms to pairs of (label, description).
-\item[deprecated\_terms] A dictionary mapping deprecated terms to a
-list of their replacements.  An empty list indicates terms deprecated
-without replacement.
-\item[preliminary\_terms] A set of preliminary terms.
-\item[wider\_terms] A dictionary mapping terms to lists of
-wider terms (where the length of the lists will be 1 except for
-SKOS-flavoured vocabularies).
-\item[uri] The vocabulary URI.  This is the URI declared by the
-vocabulary and used by its terms and is unrelated to where the source
-was obtained from.
-\item[flavour] The flavour of the vocabulary.
-\end{description}
-
-The module also contains a class
-\verb|ValidatingVocabulary| for use by vocabulary validators. 
-In addition to the attributes of \verb|Vocabulary|, it provides attributes
-\verb|errors| and \verb|warnings|, both containing diagnostics as plain
-strings.  This is used in a small command line interface; calling the
-module with either a local file name or a vocabulary URI will perform a
-validation, output diagnostics and return either 0 or 1 depending on
-whether the vocabulary is valid or not.
-
-While we attempt to provide useful validation, like this appendix the
-implementation is non-normative.  Even a successful run of revovo does
-not make a vocabulary valid if it violates constraints defined in this
-specification.
-
 
 \section{Current Network Resources (non-normative)}
 \label{app:curtech}
@@ -1490,6 +1300,14 @@ lists and their addresses.
 \subsection{Changes from WD-2019-09-05}
 
 \begin{itemize}
+\item We no longer forsee that non-RDF clients use RDF/XML.  We have
+therefore removed the ``usage with plain XML tooling'' sections.  We
+have also removed the description of the revovo python module from the
+toolset appendix.
+
+\item Adding a use case and requirement for the UAT (and, perhaps,
+similar externally curated vocabularies).
+
 \item Now requiring a \emph{Used-in} item in addition VEPs, implying
 that only terms that are already applied may be proposed.
 
@@ -1499,9 +1317,6 @@ formalising the previous language on ``splitting'' VEPs a bit.
 \item We now forsee a formal validation of VEPs by the semantics chair.
 The responsibility for ``uploading'' the VEP, i.e., adding it to the VEP
 index, is now assigned to them.
-
-\item Now explicitly forbidding the representation of predicates
-with attribute names in IVOA RDF/XML.
 \end{itemize}
 
 \bibliography{local.bib,ivoatex/ivoabib,ivoatex/docrepo}
