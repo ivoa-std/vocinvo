@@ -20,8 +20,8 @@ Demleitner}
 
 \editor{Markus Demleitner}
 
-% \previousversion[????URL????]{????Concise Document Label????}
-\previousversion{This is the first public release}
+\previousversion[http://ivoa.net/documents/Vocabularies/20190905/]
+  {WD-20190905}
        
 
 \begin{document}
@@ -1214,12 +1214,15 @@ consensus appears feasible.  The VEP withdrawn receives a
 \vepitem{Superceded-by} item referencing any new VEPs, any new VEPs have
 a \vepitem{Supercedes} item referencing the original VEP.
 
-\section{Vocabulary Deployment}
+\section{Publishing Vocabularies}
 \label{sect:deployment}
 
 This section is an adaptation of \citet{note:cooluris} and is
 intended to satisfy requirements~\ref{req:machine}
-and~\ref{req:mtm}.
+and~\ref{req:mtm}.  It also briefly discusses how IVOA vocabularies
+should be referenced.
+
+\subsection{Deploying Vocabularies}
 
 All IVOA-approved vocabularies are accessible as children of
 \url{http://www.ivoa.net/rdf}.  Dereferencing that URI will lead to an
@@ -1246,6 +1249,10 @@ indicates that \verb|text/turtle| documents are preferred.
 \item an RDF/XML rendition of the vocabulary
 if the accept header indicates that
 \verb|application/rdf+xml| documents are preferred. 
+
+\item an ad-hoc JSON rendition of the vocabulary as specified in
+sect.~\ref{sect:desise} if the accept header indicates that
+\verb|text/json;content=desise| documents are preferred.
 \end{itemize}
 
 Individual vocabularies may be available in additional formats.
@@ -1258,6 +1265,42 @@ externally.  In particular, a URI like
 RDF meaning by this standard and must never be used in publicly visible
 RDF triples.  Always use URIs of the form
 \url{http://www.ivoa.net/rdf/example#term}.
+
+\subsection{Referencing Vocabularies}
+
+Since IVOA vocabularies, at least after some time, generally are a
+collective effort with a continious evolution, it is inappropriate to
+cite them in the conventional author-title-year format.
+
+However, the vocabulary URI is intended to be stable and uniquely
+identifies the vocabulary as such.  Hence, this URI is what should
+normally be cited.  The standard style would be along the lines of
+\begin{lstlisting}[language={}]
+Terms in this field must be taken from the IVOA vocabulary
+\url{http://www.ivoa.net/rdf/voresource/content_level}.
+\end{lstlisting}
+or, in formats where footnotes are appropriate and inline URIs should be
+avoided for typographical reasons
+\begin{lstlisting}[language={}]
+Terms in this field must be taken from the IVOA vocabulary
+\emph{Content levels for VO resources}\footnote{
+\url{http://www.ivoa.net/rdf/voresource/content_level}}.
+\end{lstlisting}
+-- the footnote anchor should be the vocabulary name as given in the
+IVOA vocabulary repository\footnote{\url{http://www.ivoa.net/rdf}}.
+
+Except in the rare cases in which version-sharp references are actually
+necessary (for instance, descriptions of errors), it is inappropriate to
+references URLs with dates (e.g.,
+\url{http://ivoa.net/rdf/voresource/content_level/2016-08-17/}).  URIs
+to actual resources (e.g., the XML or Turtle renditions) must never be
+used to reference vocabularies.
+
+We do not see a relevant use case for having IVOA vocabularies formally
+cited in reference sections or scholarly works: such references will not
+aid in finding them, and there is no credible benefit in tracking their
+usage from citation in literature.
+
 
 \appendix
 \section{The 2019 IVOA Vocabulary Toolset (non-normative)}
@@ -1462,10 +1505,14 @@ notwithstanding, contrived.
 \subsection{Changes from WD-2019-09-05}
 
 \begin{itemize}
-\item We no longer forsee that non-RDF clients use RDF/XML.  We have
+\item We no longer recommend that non-RDF clients use RDF/XML.  We have
 therefore removed the ``usage with plain XML tooling'' sections.  We
 have also removed the description of the revovo python module from the
 toolset appendix.
+
+\item Instead, we now have the custom ``desise'' format described in a
+new section that doubles as a very quick introduction for adopters not
+interested in RDF.
 
 \item Adding a use case and requirement for the UAT (and, perhaps,
 similar externally curated vocabularies).
@@ -1475,6 +1522,8 @@ that only terms that are already applied may be proposed.
 
 \item Adding \emph{Supercedes} and \emph{Superceded-by} items,
 formalising the previous language on ``splitting'' VEPs a bit.
+
+\item Adding advice on referencing vocabularies.
 
 \item We now demand a formal validation of VEPs by the semantics chair.
 The responsibility for ``uploading'' the VEP, i.e., adding it to the VEP
