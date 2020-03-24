@@ -182,13 +182,28 @@ while some core requirements found later
 were not addressed, it was decided to prepare a new major version of the
 Vocabularies in the VO standard.
 
-\subsection{Terminology, Conventions, Typography}
+\subsection{Reading Guide}
+
+We hope that software authors or annotators just wanting to consume IVOA
+vocabularies or use them to annotate instances documents will be able to
+do so after reading just section~\ref{sect:withoutrdf}.  In particular, no
+deeper understanding of RDF should be necessary.
+
+Persons intending to participate vocabulary evolution should skim
+sect.~\ref{sect:voccontent}, in particular the subsection on the kind of
+vocabulary they want to modify, and must study
+sect.~\ref{sect:management}.
 
 Readers unfamiliar with RDF should read \citet{local:normanspaper} before
-this specification.  In particular, we assume familiarity with all RDF
+reading anything outside of section~\ref{sect:withoutrdf}.  
+In particular, we assume familiarity with all RDF
 terminology discussed there.  Concepts not covered by Gray's
 essay will be informally introduced here.  Of course, the
 underlying W3C standards are normative where applicable.
+
+
+
+\subsection{Terminology, Conventions, Typography}
 
 When we speak of \emph{term} here, this strictly means a \vocterm{skos:Concept}
 in SKOS vocabularies, an \vocterm{rdfs:Class} in RDF class vocabularies,
@@ -542,6 +557,103 @@ semantics in the VO in mind; tools restricting their operations to the ones
 discussed here should not break when future specifications enrich
 existing vocabularies towards full ontologies.
 
+
+\section{Using IVOA Vocabularies without RDF Tooling}
+\label{sect:withoutrdf}
+
+The W3C's Resource Description Framework \citep{note:rdfprimer} is a
+powerful system for expressing a wide range of semantics and enrich
+various documents with semantic information in a globally distributed
+fashion.  Due to its generality, handling its artefacts is relatively
+involved and in general requires special tooling, non-neglible
+investment in understanding RDF, and non-trivial management of URIs and
+prefix mappings.
+
+To lower the bar for an adoption of IVOA vocabularies, they are given in
+two formats usable without RDF tooling or, indeed, deeper knowledge of
+RDF.  This section discusses these.
+
+\subsection{Choosing Terms From IVOA Vocabularies}
+
+Resource annotators can usually treat IVOA Vocabularies as simple lists
+of (case-sensitive) strings with definitions.  These lists can be
+inspected with a simple web browser.
+
+Each IVOA vocabulary has an associated URI starting with
+\url{http://www.ivoa.net/rdf}.  Dereferencing that URI yields a list of
+the vocabularies approved or discussed.  An individual vocabulary has a
+URI like \url{http://ivoa.net/rdf/refposition}.  Dereferencing this URI
+with a web browser -- or, indeed, any user agent indicating it prefers
+text/html media -- redirects to a tabular representation of the vocabulary,
+giving \emph{terms} – the strings actually used in annotation –,
+\emph{labels} – strings that should be presented to humans instead of
+the slightly formalised terms – and \emph{descriptions}, which should
+to be sufficiently precise to allow someone with a certain amount
+of domain expertise to decide whether a certain ``thing'' is or is not
+covered by the term.
+
+Adding the term as a URI fragment (e.g.,
+\url{http://ivoa.net/rdf/refposition#BARYCENTER}) references the
+table row corresponding to the term; how this is represented depends on
+the user agent.
+
+Some terms may be marked as deprecated, in which case they should no
+longer be used in new annotations.  In most cases, deprecated terms will
+come with information what to use instead.
+
+Some terms may be marked as preliminary.  Such terms might disappear
+without further notice.  Casual users should avoid the use of such
+terms; if they find they want to use them, the semantics working group
+requests notification over its mailing list, since such use is clearly
+relevant to the term's adoption process.
+
+
+\subsection{Reading IVOA Vocabularies Without RDF Tooling}
+\label{sect:desise}
+
+Many VO components need a machine-readable representation of the
+vocabulary, for instance (cf.~sect.~\ref{sect:usecases}):
+
+\begin{compactitem}
+\item Displaying labels and descriptions to users
+\item Query expansion or similar exploitation of hierarchical
+relationships
+\item Validating annotated instances for the use of correct and current terms
+\end{compactitem}
+
+
+
+To let VO programs perform such tasks with minimal technical overhead,
+in addition to the RDF artefacts described in
+sect.~\ref{sect:deployment}, IVOA vocabularies are also available in an
+ad-hoc format called desise (``dead simple semantics'').  Clients can
+obtain vocabularies in desise by retrieving the vocabulary URI with the
+HTTP accept header set to \texttt{text/json;content=desise}.
+
+What is returned is a JSON-encoded \citep{std:JSON} dictionary
+containing the following keys:
+
+\begin{description}
+\item[uri] The vocabulary URI.  All terms occurring in desise documents
+can be turned into full, RDF-compliant resource URIs by prefixing them
+with this URI and a hash character.
+\item[flavour] The flavour of the vocabulary (can generally be ignored;
+see sect.~\ref{sect:voccontent})
+\item[terms] A dictionary mapping the (machine-readable) terms to a pair
+(2-list) of (human-readable) label and free text description.
+\item[deprecated\_terms] A list of terms that are deprecated (i.e.,
+validators should warn against their use)
+\item[preliminary\_terms] A list of terms that are not yet fully
+reviewed and therefore can disappear again
+\item[wider\_terms] A dictionary mapping terms to lists of ``wider''
+terms, usable for query expansion and the like.  Unless \emph{flavour}
+is ``SKOS'', the lists of wider terms are guaranteed to have length 1
+\end{description}
+
+Only uri, flavour, and terms are mandatory.
+
+See appendix~\ref{app:desiseexample} for a example of such a
+desise vocabulary.
 
 \section{Vocabulary Content}
 \label{sect:voccontent}
@@ -1295,6 +1407,56 @@ on the appropriate  mailing list(s).  See
 \url{http://ivoa.net/members/index.html} for a directory of IVOA mailing
 lists and their addresses.
 
+\section{An Example for a Vocabulary in Desise (non-normative)}
+\label{app:desiseexample}
+
+The following example shows how a vocabulary in desise looks like.  The
+content is, superficial similarities to real vocabularies
+notwithstanding, contrived.
+
+\begin{lstlisting}[language=python]
+{
+  "uri": "http://www.ivoa.net/rdf/example",
+  "flavour": "RDF Class",
+  "terms": {
+    "EQUATORIAL": [
+      "Equatorial",
+      "Umbrella term for all sorts of equatorial frames."
+    ],
+    "ICRS": [
+      "ICRS",
+      "As defined by 1998AJ....116..516M."
+    ],
+    "B1875.0": [
+      "Bonner Durchmusterung System",
+      "Deprecated term for the reference system implied by BD/CD"
+     ],
+     "BD": [
+      "Bonner Durchmusterung System",
+      "The reference system implied by BD/CD"
+     ],
+     "ICRS2": [
+      "ICRS 2",
+      "The reference system defined by 2027A&A..1234...12B"
+     ]
+  },
+  "deprecated_terms": [
+    "B1875.0"
+  ],
+  "preliminary_terms": [
+    "ICRS2"
+  ],
+  "wider_terms": {
+    "ICRS": [
+      "EQUATORIAL"
+    ],
+    "ICRS2": [
+      "EQUATORIAL"
+    ]
+  }
+}
+\end{lstlisting}
+
 \section{Changes from Previous Versions}
 
 \subsection{Changes from WD-2019-09-05}
@@ -1314,7 +1476,7 @@ that only terms that are already applied may be proposed.
 \item Adding \emph{Supercedes} and \emph{Superceded-by} items,
 formalising the previous language on ``splitting'' VEPs a bit.
 
-\item We now forsee a formal validation of VEPs by the semantics chair.
+\item We now demand a formal validation of VEPs by the semantics chair.
 The responsibility for ``uploading'' the VEP, i.e., adding it to the VEP
 index, is now assigned to them.
 \end{itemize}

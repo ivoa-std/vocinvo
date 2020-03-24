@@ -11,6 +11,11 @@ Bradner, S.  \harvardyearleft 1997\harvardyearright , `Key words for use in
   {RFCs} to indicate requirement levels', RFC 2119.
 \newline\url{http://www.ietf.org/rfc/rfc2119.txt}
 
+\harvarditem{Bray}{2017}{std:JSON}
+Bray, T.  \harvardyearleft 2017\harvardyearright , `{The {JavaScript} Object
+  Notation ({JSON}) Data Interchange Format}', {IETF RFC 7159}.
+\newline\url{https://tools.ietf.org/html/rfc8259}
+
 \harvarditem[{Demleitner} \harvardand\ {Harrison} et~al.]{{Demleitner},
   {Harrison}, {Molinaro}, {Greene}, {Dower} \harvardand\
   {Perdikeas}}{2019}{2019ivoa.spec.1011D}
@@ -91,7 +96,7 @@ Sauermann, L. \harvardand\ Cyganiak, R.  \harvardyearleft 2008\harvardyearright
 
 \harvarditem{Schreiber \harvardand\ Raimond}{2014}{note:rdfprimer}
 Schreiber, G. \harvardand\ Raimond, Y.  \harvardyearleft 2014\harvardyearright
-  , `Rdf 1.1 primer', {W3C Interest Group Note}.
+  , `{RDF} 1.1 primer', {W3C Interest Group Note}.
 \newline\url{https://www.w3.org/TR/rdf11-primer/}
 
 \harvarditem[{Seaman} \harvardand\ {Williams} et~al.]{{Seaman}, {Williams},
