@@ -1214,6 +1214,47 @@ consensus appears feasible.  The VEP withdrawn receives a
 \vepitem{Superceded-by} item referencing any new VEPs, any new VEPs have
 a \vepitem{Supercedes} item referencing the original VEP.
 
+\subsubsection{Guidelines for Creating Concepts (non-normative)}
+
+When introduing concepts, it is useful to consider a very simple
+semantic model, where the world is a set of (tangible or non-tangible)
+``things'' in the sense of naive set theory.
+
+A vocabulary has a scope, which is a subset of the world; this could be
+``reference systems'' or ``astronomical object types'' or even something
+as concrete as ``observatories''.
+
+In this picture, a term denotes a certain subset (its ``extension'') of
+a vocabulary's scope.  Now, in an ideal vocabulary the extensions of its
+terms are disjunct (meaning: each thing in scope of the vocabulary
+belongs to not more than one term's extension) and the terms cover the
+entire scope (meaning: for each thing in the scope, there is at least
+one term's extension that contains that thing): The terms are
+equivalence classes over the vocabulary's scope.
+
+When natural language is involved, this ideal generally is unreachable.
+But when proposing a term and its definition, proposers should try to
+make sure that 
+
+\begin{compactenum}
+\item their new term has a useful extension (i.e., consumers actually
+want to know whether a thing is or is not inside it)
+\item the extension is reasonably disjunct from existing terms, or is a
+true superset (in which case the other terms are narrower), or is true
+subset (in which case they are wider) of other terms' extensions.
+\end{compactenum}
+
+Put another way: When designing terms, it is as important to say what is
+not coveread as to clearly say what is.
+
+This is a major reason why it is important to give clear definitions
+whenever these definitions are not uniquely given by the domain.  For
+instance, while an object type vocabulary probably does not need to be
+very diligent in defining $\delta$~Cephei stars because the extension of
+that term is uncontroversial to first order\footnote{Although it might
+seem desirable to clarify whether, say, W~Virginis stars are or are not
+excluded}, a term like ``dataset'' should come with a precise
+definition, ideally containing a reference to a longer explanation.
 \section{Publishing Vocabularies}
 \label{sect:deployment}
 
@@ -1528,6 +1569,9 @@ formalising the previous language on ``splitting'' VEPs a bit.
 \item We now demand a formal validation of VEPs by the semantics chair.
 The responsibility for ``uploading'' the VEP, i.e., adding it to the VEP
 index, is now assigned to them.
+
+\item Adding a soapbox section with advice on what to do when proposing
+new terms and introducing a native semantics model.
 \end{itemize}
 
 \bibliography{local.bib,ivoatex/ivoabib,ivoatex/docrepo}
