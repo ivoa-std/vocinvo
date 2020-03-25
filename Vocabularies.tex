@@ -502,7 +502,7 @@ in order to easily satisfy use case~\ref{uc:offline} (or simply schemes
 in which vocabulary sources do not need to be retrieved from the IVOA
 site for each session).
 
-\subsubsection{Extrnally Curated Vocabularies and VO Tooling}
+\subsubsection{Externally Curated Vocabularies and VO Tooling}
 \label{req:external}
 
 Regrettably, VOResource does not explain how use case~\ref{uc:uat} would
@@ -518,7 +518,7 @@ use by clients (which typically look for natural language in subject),
 even though the labels are not considered stable?
 
 Regardless of how VOResource clarifies this matter, UAT artefacts (e.g.,
-SKOS files), do not match some of our other requirements, in particular
+SKOS files), do not match some of our other requirements. In particular,
 the human-readable URIs from \ref{req:lists}, the specific way we
 satisfy \ref{req:machine}, and the non-RDF requirement \ref{req:nordf} are
 not immediately satisfied by the UAT as distributed at the time of
@@ -569,7 +569,8 @@ involved and in general requires special tooling, non-neglible
 investment in understanding RDF, and non-trivial management of URIs and
 prefix mappings.
 
-To lower the bar for an adoption of IVOA vocabularies, they are given in
+To lower the bar for an adoption of IVOA vocabularies
+[requirement~\ref{req:nordf}], they are given in
 two formats usable without RDF tooling or, indeed, deeper knowledge of
 RDF.  This section discusses these.
 
@@ -736,6 +737,11 @@ the label itself) should be avoided whenever possible.  Definitions in
 non-English languages are not permitted, and only one definition is
 permitted [again, this helps requirement~\ref{req:mtm}].
 
+\item \vocterm{skos:exactMatch} -- for externally managed vocabularies
+the IVOA has endorsed (see sect.~\ref{sect:externally-managed}), this
+property links the IVOA term (subject) to the external RDF resource
+(object).
+
 \item General properties discussed in \ref{sect:genprop} [this is
 for requirements~\ref{req:deprecating} and
 \ref{req:preliminary}].  The \vocterm{ivoasem:vocflavour} of these
@@ -743,7 +749,7 @@ vocabularies is \verb|SKOS|.
 \end{itemize}
 
 This specification does not include requirements on the use or the
-interpretation of \vocterm{skos:related}, \vocterm{skos:exactMatch},
+interpretation of \vocterm{skos:related}, 
 \vocterm{skos:closeMatch}, \vocterm{skos:broadMatch},
 \vocterm{skos:narrowMatch}, \vocterm{skos:ConceptScheme},
 \vocterm{skos:inScheme}, \vocterm{skos:hasTopconcept},
@@ -1018,6 +1024,7 @@ problem is up to the TCG chair.
 
 
 \subsection{New Vocabularies}
+\label{sect:new-vocabularies}
 
 New vocabularies in the VO should be introduced with a document going
 through the normal IVOA approval process, i.e., intended to become a
@@ -1046,6 +1053,7 @@ terms in IVOA vocabularies cannot be removed.  They can,
 however, be marked as deprecated.
 
 \subsection{Updating Vocabularies}
+\label{sect:updating-vocabularies}
 
 IVOA vocabularies can be extended as domain requirements develop
 [requirement~\ref{req:evolution}].  Clients
@@ -1255,6 +1263,73 @@ that term is uncontroversial to first order\footnote{Although it might
 seem desirable to clarify whether, say, W~Virginis stars are or are not
 excluded}, a term like ``dataset'' should come with a precise
 definition, ideally containing a reference to a longer explanation.
+
+\subsection{Externally Managed Vocabularies}
+\label{sect:externally-managed}
+
+The IVOA is not the only body developing vocabularies, and of course VO
+components are free to use other, non-IVOA vocabularies whenever
+convenient or even required for interoperability beyond the IVOA.
+
+Sometimes, however, it is advantageous to subject an external vocabulary
+to the requirements set forth by this specification.  The motivating use
+case here is \ref{uc:uat}, the Unified Astronomy Thesaurus.  As derived
+in requirement~\ref{req:external}, multiple considerations make a
+``mirror'' of the vocabulary in the IVOA RDF repository highly
+desirable.  Regrettably, since RDF resources (i.e., what we call terms
+here) are identified by their full URIs, this will create new RDF
+resources, and hence care must be taken that RDF tools can work out the
+identity of the mirrored IVOA terms and the original RDF resources.
+
+Also, the processes from sects.~\ref{sect:new-vocabularies}
+and~\ref{sect:updating-vocabularies} obviously cannot apply to such
+vocabularies, which have their own management procedures.
+
+To address these issues, the following rules apply:
+
+When a vocabulary managed by an IVOA-external body needs to be made
+available in the form prescribed by this specification, a proposal for
+doing this needs to pass the endorsed notes process of the IVOA as laid
+out in the IVOA Document Standards \citep{2017ivoa.spec.0517G}.  As it
+concerns external relationships of the IVOA, it additionally needs
+endorsment by the IVOA Execuive Committee to become effective.
+
+This proposal has to specify:
+
+\begin{itemize}
+\item The basic metadata for the vocabulary on the IVOA side.
+\item The rules for mapping the external RDF resource URIs to IVOA term
+URIs, together with a plan for how this mapping is kept stable.
+\item If during the mapping of the vocabulary, external RDF triples are
+discarded (which likely is necessary to ensure adherence to our
+constraints), what triples are discarded.
+\item A description of and reference to software that performs this
+mapping.
+\item A description of the external management process.
+\end{itemize}
+
+The proposing party has to provide software to automatically translate
+resources from the external format to a suitable input for the IVOA
+vocabulary tooling.
+
+Each term in the IVOA vocabulary mirror MUST declare its identity to
+the original, external RDF resources.  At this point, this is only
+defined for SKOS-flavoured vocabularies, where the IVOA term must be the
+subject of exactly one triple with the \vocterm{skos:exactMatch}
+property.  The object of that triple is the URI of the external RDF
+resource.
+
+For other flavours, no such mechanism is defined in this version of the
+specification, which means that for now, externally managed vocabularies
+must use the SKOS flavour.
+
+Once an external vocabulary is endorsed by both the TCG and the
+Executive Committee, the chair of the Semantics working group has the
+responsibility to keep the IVOA mirror of the vocabulary synchronised,
+ideally by using a monitored, automatised process like a post-commit
+action on an external version control system.
+
+
 \section{Publishing Vocabularies}
 \label{sect:deployment}
 
