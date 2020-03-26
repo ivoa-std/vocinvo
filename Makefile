@@ -7,7 +7,7 @@ DOCNAME = Vocabularies
 DOCVERSION = 2.0
 
 # Publication date, ISO format; update manually for "releases"
-DOCDATE = 2019-09-05
+DOCDATE = 2020-03-26
 
 # What is it you're writing: NOTE, WD, PR, REC, PEN, or EN
 DOCTYPE = WD
