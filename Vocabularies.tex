@@ -651,8 +651,18 @@ can be turned into full, RDF-compliant resource URIs by prefixing them
 with this URI and a hash character.
 \item[flavour] The flavour of the vocabulary (can generally be ignored;
 see sect.~\ref{sect:voccontent}).
-\item[terms] A dictionary mapping the (machine-readable) terms to a pair
-(2-list) of (human-readable) label and free text description.
+
+\item[terms] A dictionary mapping the (machine-readable) terms to a
+dictionary containing at least the keys
+\begin{description}
+\item[label] A human-readable label for display purposes; clients should
+always try to display this rather than the raw term.
+\item[description] A human-readable definition of the underlying
+concept.
+\end{description}
+The keys in this dictionary are the strings used in machine-readable
+data and are thus what, for instance, validators would look at.
+
 \item[deprecated\_terms] A list of terms that are deprecated (i.e.,
 validators should warn against their use).
 \item[preliminary\_terms] A list of terms that are not yet fully
