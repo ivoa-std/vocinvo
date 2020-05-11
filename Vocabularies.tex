@@ -1522,6 +1522,15 @@ keys are understood:
   draft set to \texttt{True}.  This will add language to the effect that
   terms may still vanish from the vocabulary and mark all terms as
   preliminary.  Once the vocabulary is approved, this key is deleted.
+\item[licenseuri]
+  IVOA-managed vocabularies are always made available under CC-0 and
+  hence do not use this key.  External vocabularies as per
+  sect.~\ref{sect:externally-managed} may be subject to actual licenses,
+  in which case this field holds a URI containing the license's
+  conditions.
+\item[licensename]
+  This is a human-readable representation of licenseuri.  Again, not to
+  be used with IVOA-managed vocabularies.
 \end{description}
 
 Currently, the global metadata is maintained in a file
@@ -1614,6 +1623,17 @@ notwithstanding, contrived.
 \end{lstlisting}
 
 \section{Changes from Previous Versions}
+
+\subsection{Changes from WD-2020-03-26}
+
+\begin{itemize}
+\item Desise term values are now dicts with label and description to
+make it a bit more self-explanatory.
+\item Mentioning licenseuri and licensename in the non-normative part on
+managing vocabulary metadata. Also stating there\todo{Should there be anything normative to this effect?} that IVOA-managed
+vocabularies are CC-0.
+\end{itemize}
+
 
 \subsection{Changes from WD-2019-09-05}
 
