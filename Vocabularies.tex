@@ -216,7 +216,7 @@ in SKOS vocabularies, an \vocterm{rdfs:Class} in RDF class vocabularies,
 and an \vocterm{rdf:Property} in RDF property vocabularies.  We also use
 \emph{term} for ``the string after the hash character in
 the RDF resource URI'', i.e., the machine-readable string typically used
-in annoation.  It is rarely necessary to distinguish between the two
+in annotation.  It is rarely necessary to distinguish between the two
 meanings.
 
 We refer to classes and properties by CURIEs.  The prefixes in this
@@ -339,7 +339,7 @@ terms \vocterm{IsServedBy} and \vocterm{IsServiceFor}.  Arguably, the VO should,
 as far as sensible, take up standards in the wider data management
 community, and so VOResource 1.1 adopts the DataCite terms.  In a minor
 version, it cannot forbid the old terms.  It can, however, say not only
-``\vocterm{served-by\/} is the same as \vocterm{isServedBy/}'' but also
+``\vocterm{served-by\/} is the same as \vocterm{isServedBy}'' but also
 ``Use the latter term in preference to the former''.  If this information is
 available machine-readably, validators can warn against the use of
 deprecated terms and user interfaces can transparently replace 
@@ -396,7 +396,7 @@ previously downloaded copy of the vocabulary.
 \label{uc:uat}
 
 VOResource 1.1, in the description of the \xmlel{subject} element, says
-that its content ``should be drawn from the Unified Astronomy Theaurus''
+that its content ``should be drawn from the Unified Astronomy Thesaurus''
 (here: UAT).  This is intended to later facilitate interactive topic
 navigation within the Registry or semantic expansion of Registry queries
 (``include narrower terms'').
@@ -424,7 +424,7 @@ however: in the datalink use-case, strict \vocterm{is-a} relationships
 are what clients need (e.g., ``give me all kinds of previews'').  In the
 VOEvent case, however, a somewhat softer sort of hierarchy is required.
 For instance, a filter for accretion disks might very well expand to
-both match quasars and cataclysmic variables.  Hence, we want to
+match both quasars and cataclysmic variables.  Hence, we want to
 be able to represent strict class hierarchies as well as thesaurus-like
 soft knowledge structures.
 
@@ -573,7 +573,7 @@ existing vocabularies towards full ontologies.
 \label{sect:withoutrdf}
 
 RDF is a
-powerful system for expressing a wide range of semantics and enrich
+powerful system for expressing a wide range of semantics and enriching
 various documents with semantic information in a globally distributed
 fashion.  Due to its generality, handling its artefacts is relatively
 involved and in general requires special tooling, non-negligible
@@ -600,7 +600,7 @@ text/html media -- redirects to a tabular representation of the vocabulary,
 giving \emph{terms} – the strings actually used in annotation –,
 \emph{labels} – strings that should be presented to humans instead of
 the slightly formalised terms – and \emph{descriptions}, which should
-to be sufficiently precise to allow someone with a certain amount
+be sufficiently precise to allow someone with a certain amount
 of domain expertise to decide whether a certain ``thing'' is or is not
 covered by the term.
 
@@ -611,7 +611,7 @@ the user agent.
 
 Some terms may be marked as deprecated, in which case they should no
 longer be used in new annotations.  In most cases, deprecated terms will
-come with information what to use instead.
+come with information about what to use instead.
 
 Some terms may be marked as preliminary.  Such terms might disappear
 without further notice.  Casual users should avoid the use of such
@@ -1183,7 +1183,7 @@ Semantics WG can extend the distribution as they see fit.  The
 announcement in particular contains a copy of the VEP in question.
 
 As soon as possible after the upload, the chair of the Semantics WG adds
-any term(s) proposed to the vocabulary as a preliminiary term using the
+any term(s) proposed to the vocabulary as a preliminary term using the
 \vocterm{ivoasem:preliminary} property.   This means that the terms can
 immediately be used without raising warnings or errors, but in contrast
 to approved terms, they may disappear again.  Deprecation or
@@ -1250,7 +1250,7 @@ subset (in which case they are wider) of other terms' extensions.
 \end{compactenum}
 
 Put another way: When designing terms, it is as important to say what is
-not coveread as to clearly say what is.
+not covered as to clearly say what is.
 
 This is a major reason why it is important to give clear definitions
 whenever these definitions are not uniquely given by the domain.  For
@@ -1575,7 +1575,7 @@ lists and their addresses.
 \section{An Example for a Vocabulary in Desise (non-normative)}
 \label{app:desiseexample}
 
-The following example shows how a vocabulary in desise looks like.  The
+The following example shows what a vocabulary in desise looks like.  The
 content is, superficial similarities to real vocabularies
 notwithstanding, contrived.
 
