@@ -642,7 +642,7 @@ in addition to the RDF artefacts described in
 sect.~\ref{sect:deployment}, IVOA vocabularies are also available in an
 ad-hoc format called desise (``dead simple semantics'').  Clients can
 obtain vocabularies in desise by retrieving the vocabulary URI with the
-HTTP accept header set to \texttt{text/json;content=desise}.
+HTTP accept header set to \texttt{application/json;content=desise}.
 
 What is returned is a JSON-encoded \citep{std:JSON} dictionary
 containing the following keys:
@@ -1366,7 +1366,7 @@ if the accept header indicates that
 
 \item an ad-hoc JSON rendition of the vocabulary as specified in
 sect.~\ref{sect:desise} if the accept header indicates that
-\verb|text/json;content=desise| documents are preferred.
+\verb|application/json;content=desise| documents are preferred.
 \end{itemize}
 
 Individual vocabularies may be available in additional formats.
@@ -1631,6 +1631,8 @@ notwithstanding, contrived.
 \begin{itemize}
 \item Desise term values are now dicts with label and description to
 make it a bit more self-explanatory.
+\item The main media type for Desise is now application/json rather than
+text/json because there is no text/json.
 \item Mentioning licenseuri and licensename in the non-normative part on
 managing vocabulary metadata. Also stating there\todo{Should there be anything normative to this effect?} that IVOA-managed
 vocabularies are CC-0.
