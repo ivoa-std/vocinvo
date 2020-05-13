@@ -42,8 +42,8 @@ Bray, T.  \harvardyearleft 2017\harvardyearright , `{The {JavaScript} Object
 \newline\url{http://doi.org/10.5479/ADS/bib/2017ivoa.spec.0517G}
 
 \harvarditem{Gray}{2015}{local:normanspaper}
-Gray, N.  \harvardyearleft 2015\harvardyearright , Rdf, the semantic web,
-  jordan, jordan and jordan, {\em in} M.~Moss, B.~Endicott-Popovsky
+Gray, N.  \harvardyearleft 2015\harvardyearright , {RDF}, the semantic web,
+  {Jordan}, {Jordan} and {Jordan}, {\em in} M.~Moss, B.~Endicott-Popovsky
   \harvardand\ M.~J. Dupuis, eds, `Is Digital Different?: How Information
   Creation, Capture, Preservation and Discovery are Being Transformed', Facet
   Publishing.
@@ -91,7 +91,7 @@ Gray, N.  \harvardyearleft 2015\harvardyearright , Rdf, the semantic web,
 
 \harvarditem{Sauermann \harvardand\ Cyganiak}{2008}{note:cooluris}
 Sauermann, L. \harvardand\ Cyganiak, R.  \harvardyearleft 2008\harvardyearright
-  , `Cool uris for the semantic web', {W3C Interest Group Note}.
+  , `Cool {URI}s for the semantic web', {W3C Interest Group Note}.
 \newline\url{https://www.w3.org/TR/cooluris/}
 
 \harvarditem{Schreiber \harvardand\ Raimond}{2014}{note:rdfprimer}
