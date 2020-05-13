@@ -19,6 +19,8 @@
 Demleitner}
 \author[https://wiki.ivoa.net/twiki/bin/view/IVOA/NormanGray]{Norman
 Gray}
+\author[https://wiki.ivoa.net/twiki/bin/view/IVOA/MarkTaylor]{Mark
+Taylor}
 
 \editor{Markus Demleitner}
 
@@ -595,11 +597,11 @@ Each IVOA vocabulary has an associated URI starting with
 \url{http://www.ivoa.net/rdf}.  Dereferencing that URI yields a list of
 the vocabularies approved or under review.  An individual vocabulary has a
 URI like \url{http://www.ivoa.net/rdf/refposition}.  Dereferencing this URI
-with a web browser -- or, indeed, any user agent indicating it prefers
-text/html media -- redirects to a tabular representation of the vocabulary,
-giving \emph{terms} – the strings actually used in annotation –,
-\emph{labels} – strings that should be presented to humans instead of
-the slightly formalised terms – and \emph{descriptions}, which should
+with a web browser (or, indeed, any user agent indicating it prefers
+text/html media) redirects to a tabular representation of the vocabulary,
+giving \emph{terms} -- i.e., the strings actually used in annotation --,
+\emph{labels} -- i.e., strings that should be presented to humans instead of
+the slightly formalised terms --, and \emph{descriptions}, which should
 be sufficiently precise to allow someone with a certain amount
 of domain expertise to decide whether a certain ``thing'' is or is not
 covered by the term.
@@ -1119,7 +1121,7 @@ The terms are taken from the relationship types of DataCite.
 A VEP is a semistructured text file containing the following items:
 
 \begin{itemize}
-\item \vepitem{Vocabulary:} The URI or the vocabulary
+\item \vepitem{Vocabulary:} The URI of the vocabulary
 \item \vepitem{Author:}  Contact information for the author(s) of
 the VEP.
 \item \vepitem{Date:} The date on which the VEP was posted.
@@ -1502,7 +1504,7 @@ keys are understood:
   date during development and not change it for every edit.
 \item[title]
   A human-readable short phrase saying what the vocabulary describes.
-\item[flavor]
+\item[flavour]
   One of \textit{RDF Class}, \textit{RDF Property}, or \textit{SKOS}
   (where SKOS currently expects RDF/XML serialised SKOS rather than CSV).
 \item[description]
