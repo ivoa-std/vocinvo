@@ -1530,9 +1530,10 @@ keys are understood:
   sect.~\ref{sect:externally-managed} may be subject to actual licences,
   in which case this field holds a URI containing the licence's
   conditions.
-\item[licensename]
-  This is a human-readable representation of licenseuri.  Again, not to
-  be used with IVOA-managed vocabularies.
+\item[licensenhtml]
+  This is arbitrary HTML expressing whatever licence terms may be
+  attached to an external vocabulary.  Again, don't use for IVOA
+  vocabularies.
 \end{description}
 
 Currently, the global metadata is maintained in a file
@@ -1633,7 +1634,7 @@ notwithstanding, contrived.
 make it a bit more self-explanatory.
 \item The main media type for Desise is now application/json rather than
 text/json because there is no text/json.
-\item Mentioning licenseuri and licensename in the non-normative part on
+\item Mentioning licenseuri and licensehtml in the non-normative part on
 managing vocabulary metadata. Also stating there\todo{Should there be anything normative to this effect?} that IVOA-managed
 vocabularies are CC-0.
 \end{itemize}
