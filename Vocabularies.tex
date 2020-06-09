@@ -2,7 +2,7 @@
 \input tthdefs
 
 \usepackage{todonotes}
-\lstloadlanguages{XML}
+\lstloadlanguages{XML,python}
 \lstset{flexiblecolumns=true,tagstyle=\ttfamily, showstringspaces=False,
   basicstyle=\footnotesize}
 
@@ -341,7 +341,7 @@ terms \vocterm{IsServedBy} and \vocterm{IsServiceFor}.  Arguably, the VO should,
 as far as sensible, take up standards in the wider data management
 community, and so VOResource 1.1 adopts the DataCite terms.  In a minor
 version, it cannot forbid the old terms.  It can, however, say not only
-``\vocterm{served-by\/} is the same as \vocterm{isServedBy}'' but also
+``\vocterm{served-by\/} is the same as \vocterm{isServedBy\/}'' but also
 ``Use the latter term in preference to the former''.  If this information is
 available machine-readably, validators can warn against the use of
 deprecated terms and user interfaces can transparently replace 
@@ -590,12 +590,14 @@ RDF.  This section discusses these.
 \subsection{Choosing Terms From IVOA Vocabularies}
 
 Resource annotators can usually treat IVOA Vocabularies as simple lists
-of (case-sensitive) strings with definitions.  These lists can be
-inspected with a simple web browser.
+of (case-sensitive) strings with human-readable labels and definitions.  
+These lists can be inspected with a simple web browser.
 
 Each IVOA vocabulary has an associated URI starting with
 \url{http://www.ivoa.net/rdf}.  Dereferencing that URI yields a list of
-the vocabularies approved or under review.  An individual vocabulary has a
+the vocabularies approved or under review.  
+
+An individual vocabulary has a
 URI like \url{http://www.ivoa.net/rdf/refposition}.  Dereferencing this URI
 with a web browser (or, indeed, any user agent indicating it prefers
 text/html media) redirects to a tabular representation of the vocabulary,
@@ -604,12 +606,7 @@ giving \emph{terms} -- i.e., the strings actually used in annotation --,
 the slightly formalised terms --, and \emph{descriptions}, which should
 be sufficiently precise to allow someone with a certain amount
 of domain expertise to decide whether a certain ``thing'' is or is not
-covered by the term.
-
-Adding the term as a URI fragment (e.g.,
-\url{http://ivoa.net/rdf/refposition#BARYCENTER}) references the
-table row corresponding to the term; how this is represented depends on
-the user agent.
+covered by the term (or more precisely, the underlying concept).
 
 Some terms may be marked as deprecated, in which case they should no
 longer be used in new annotations.  In most cases, deprecated terms will
@@ -621,8 +618,25 @@ terms; if they find they want to use them, the semantics working group
 requests notification over its mailing list, since such use is clearly
 relevant to the term's adoption process.
 
+Once a term is located within the HTML page, annotators can usually
+directly use it in instance documents.  For instance, continuing the
+refposition example, the string \texttt{BARYCENTER} found in the
+vocabulary is directly used in VOTable's TIMESYS element.  
 
-\subsection{Reading IVOA Vocabularies Without RDF Tooling}
+Some applications (Datalink being the prime example) instead use URIs
+relative to the vocabulary URI.  In practical terms, this just means
+that a hash sign is prepended to the term (e.g., \texttt{\#progenitor}).
+
+This latter practice builds on the property of IVOA vocabularies that if
+one adds the term as fragment to the vocabulary URI (e.g.,
+\url{http://ivoa.net/rdf/refposition#BARYCENTER}), that URI is the full,
+RDF-compliant resource identifier of the concept.  When used in
+HTML-aware user agents (such as a web browser), dereferencing this URI
+(i.e., opening it) will give the table of terms with the chosen term
+highlighted.  How exactly this is represented depends on the user agent.
+
+
+\subsection{Semantic Operations Without RDF Tooling}
 \label{sect:desise}
 
 Many VO components need a machine-readable representation of the
@@ -642,10 +656,10 @@ in addition to the RDF artefacts described in
 sect.~\ref{sect:deployment}, IVOA vocabularies are also available in an
 ad-hoc format called desise (``dead simple semantics'').  Clients can
 obtain vocabularies in desise by retrieving the vocabulary URI with the
-HTTP accept header set to \texttt{application/json;content=desise}.
+HTTP accept header set to \texttt{application/x-desise+json}.
 
 What is returned is a JSON-encoded \citep{std:JSON} dictionary
-containing the following keys:
+containing the following keys (all mandatory):
 
 \begin{description}
 \item[uri] The vocabulary URI.  All terms occurring in desise documents
@@ -655,29 +669,91 @@ with this URI and a hash character.
 see sect.~\ref{sect:voccontent}).
 
 \item[terms] A dictionary mapping the (machine-readable) terms to a
-dictionary containing at least the keys
+term property dictionary as described below.
+The keys in the \textit{terms} dictionary are the strings used in
+machine-readable data.
+\end{description}
+
+The dictionaries present as values in the terms dictionary can have the
+following keys:
+
 \begin{description}
-\item[label] A human-readable label for display purposes; clients should
+\item[label] (mandatory) 
+A human-readable label for display purposes; clients should
 always try to display this rather than the raw term.
-\item[description] A human-readable definition of the underlying
+
+\item[description] (mandatory) A human-readable definition of the underlying
 concept.
+
+\item[deprecated] present and mapped to a reserved value if the term is
+deprecated and should no longer be used; validators will warn against
+its use.
+
+\item[preliminary] present and mapped to a reserved value if the term
+is preliminary, meaning that in contrast to the other, ``eternal'' terms
+it can disappear again; validators should qualify a validation as
+preliminary if a document uses such a term.
+
+\item[wider] A list of ``wider'' terms.  Most IVOA vocabularies are
+tree-like, and for them, there is only up to one term in here, which
+would be the the parent node, which is the hypernym of the current term.
+In SKOS-flavoured vocabularies, multiple terms can be here, and the
+meaning of ``wider'' is a bit less clear-cut.  The \textit{wider} list
+is empty for top-level terms.
+
+\item[narrower] A list of ``narrower'' terms.  In SKOS-flavoured
+vocabularies, that is just a list of all terms that list the current
+term as wider.  Otherwise, the vocabularies are tree-like and
+\textit{narrower} is a list of all terms on the term's branch and below
+it in the tree (it is the ``transitive closure of the inverse of
+wider'').  This is much more easily understood in an example, which we
+give below in the discussion on addressing use case~\ref{uc:links} below.
 \end{description}
-The keys in this dictionary are the strings used in machine-readable
-data and are thus what, for instance, validators would look at.
 
-\item[deprecated\_terms] A list of terms that are deprecated (i.e.,
-validators should warn against their use).
-\item[preliminary\_terms] A list of terms that are not yet fully
-reviewed and therefore can disappear again.
-\item[wider\_terms] A dictionary mapping terms to lists of ``wider''
-terms, usable for query expansion and the like.  Unless \emph{flavour}
-is ``SKOS'', the lists of wider terms are guaranteed to have length 1.
-\end{description}
+See appendix~\ref{app:desiseexample} for a example of a vocabulary
+represented in desise.
 
-Only uri, flavour, and terms are mandatory.
+For illustration, here are recipes to solve the various use cases in
+Python, assuming \texttt{voc} contains a deserialised desise structure:
 
-See appendix~\ref{app:desiseexample} for a example of such a
-desise vocabulary.
+\paragraph{See if a term is in the vocabulary} (\ref{uc:simplevoc},
+\ref{uc:votvoc})\\ \lstinline{term in voc["terms"]}
+
+\paragraph{See if a term is deprecated} (\ref{uc:deprecation})\\
+\lstinline{"deprecated" in voc["terms"][term]}
+
+\paragraph{Find a human-readable label for a term}
+(\ref{uc:discovering})\\
+\lstinline{voc["terms"][term]["label"]}
+
+\paragraph{Find a human-readable description for a term}
+(\ref{uc:discovering})\\
+\lstinline{voc["terms"][term]["description"]}
+
+\paragraph{Find out if a term is preliminary} (\ref{uc:simplereview})\\
+\lstinline{"preliminary" in voc["terms"][term]}
+
+\paragraph{Query expansion: select branch} (in \ref{uc:links}, select all
+progenitors, including flat fields, dark frames, etc)
+\begin{lstlisting}[language=python]
+base_term = "progenitor"
+expanded_terms = set(
+  [base_term]
+  +voc["terms"][base_term]["narrower"])
+is_match = datalink_row["semantics"][1:] in expanded_terms
+\end{lstlisting}
+
+\paragraph{SKOS-type query expansion by neighbouring terms}
+(\ref{uc:filtering})
+\begin{lstlisting}[language=python]
+assert voc["flavour"]=="SKOS"
+expanded_terms = set(
+  [base_term]
+  +voc["terms"][base_term]["narrower"]
+  +voc["terms"][base_term]["wider"])
+is_match = keyword_found in expanded_terms
+\end{lstlisting}
+
 
 \section{Vocabulary Content}
 \label{sect:voccontent}
@@ -695,7 +771,7 @@ In IVOA vocabularies, the concept URI MUST begin with
 ``www'' in this URI is somewhat regrettable, but existing vocabularies
 have used URIs including it, and it seems a small price to pay for
 having uniform URIs}.  It is recommended to not introduce
-additional hierarchies, i.e., vocabulary URIs SHOULD be direct children
+additional hierarchy levels, i.e., vocabulary URIs SHOULD be direct children
 of \texttt{rdf}\footnote{Some existing vocabularies do not follow this
 rule; since vocabulary URI changes will break certain usage scenarios,
 their URIs are still retained.}.
@@ -1226,8 +1302,12 @@ A vocabulary has a scope, which is a subset of the world; this could be
 ``reference systems'' or ``astronomical object types'' or even something
 as concrete as ``observatories''.
 
-In this picture, a term denotes a certain subset (its ``extension'') of
-a vocabulary's scope.  Now, in an ideal vocabulary the extensions of its
+In this picture, a term denotes a certain subset of a vocabulary's
+scope.  This set is called the term's (or, where an additional level
+between the concrete letters making up the term as defined by this
+document and the set is useful, the concept's) ``extension''.
+
+Now, in an ideal vocabulary the extensions of its
 top-level terms are disjunct (meaning: each thing in scope of the vocabulary
 belongs to not more than one top-level term's extension) and the terms cover the
 entire scope (meaning: for each thing in the scope, there is at least
@@ -1366,7 +1446,7 @@ if the accept header indicates that
 
 \item an ad-hoc JSON rendition of the vocabulary as specified in
 sect.~\ref{sect:desise} if the accept header indicates that
-\verb|application/json;content=desise| documents are preferred.
+\verb|application/x-desise+json| documents are preferred.
 \end{itemize}
 
 Individual vocabularies may be available in additional formats.
@@ -1589,15 +1669,18 @@ notwithstanding, contrived.
   "terms": {
     "EQUATORIAL": {
       "label": "Equatorial",
-      "description": "Umbrella term for all sorts of equatorial frames."
+      "description": "Umbrella term for all sorts of equatorial frames.",
+      "narrower": ["ICRS", "ICRS2"]
     },
     "ICRS": {
       "label": "ICRS",
-      "description": "As defined by 1998AJ....116..516M."
+      "description": "As defined by 1998AJ....116..516M.",
+      "wider": ["EQUATORIAL"],
     },
     "B1875.0": {
       "label": "Bonner Durchmusterung System",
-      "description": "Deprecated term for the reference system implied by BD/CD"
+      "description": "Deprecated term for the reference system implied by BD/CD",
+      "deprecated": ""
      },
      "BD": {
       "label": "Bonner Durchmusterung System",
@@ -1605,22 +1688,10 @@ notwithstanding, contrived.
      },
      "ICRS2": {
       "label": "ICRS 2",
-      "description": "The reference system defined by 2027A&A..1234...12B"
+      "description": "The reference system defined by 2027A&A..1234...12B",
+      "preliminary": "",
+      "wider": ["EQUATORIAL"],
      }
-  },
-  "deprecated_terms": [
-    "B1875.0"
-  ],
-  "preliminary_terms": [
-    "ICRS2"
-  ],
-  "wider_terms": {
-    "ICRS": [
-      "EQUATORIAL"
-    ],
-    "ICRS2": [
-      "EQUATORIAL"
-    ]
   }
 }
 \end{lstlisting}
@@ -1631,9 +1702,13 @@ notwithstanding, contrived.
 
 \begin{itemize}
 \item Desise term values are now dicts with label and description to
-make it a bit more self-explanatory.
-\item The main media type for Desise is now application/json rather than
-text/json because there is no text/json.
+make it a bit more self-explanatory; this let us pull in preliminary,
+deprecated, and wider as well.
+\item Desise now contains an inversiono of wider, narrower, with meanings
+quite different between SKOS and the other flavours.
+\item The main media type for Desise is now application/x-desise+json rather 
+than text/json because there is no text/json, and you can't have
+content media type parameters on either.
 \item Mentioning licenseuri and licensehtml in the non-normative part on
 managing vocabulary metadata. Also stating there\todo{Should there be anything normative to this effect?} that IVOA-managed
 vocabularies are CC-0.
