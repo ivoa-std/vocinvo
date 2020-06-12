@@ -7,7 +7,7 @@ DOCNAME = Vocabularies
 DOCVERSION = 2.0
 
 # Publication date, ISO format; update manually for "releases"
-DOCDATE = 2020-03-26
+DOCDATE = 2020-06-12
 
 # What is it you're writing: NOTE, WD, PR, REC, PEN, or EN
 DOCTYPE = WD
@@ -29,6 +29,6 @@ FIGURES = role_diagram.svg
 VECTORFIGURES = 
 
 # Additional files to distribute (e.g., CSS, schema files, examples...)
-AUX_FILES = revovo.py test_revovo.py
+AUX_FILES =
 
 include ivoatex/Makefile

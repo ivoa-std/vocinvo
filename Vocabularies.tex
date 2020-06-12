@@ -878,13 +878,13 @@ in RDF/XML serialisation:
 
 \begin{lstlisting}[language=XML]
 <skos:Concept rdf:about="http://ivoa.net/rdf/AstronomicalObjects#AGN">
-	<skos:prefLabel>AGN</skos:prefLabel>
-	<skos:definition>A compact object in the center of a galaxy showing 
-	  unusual emission ("active galactic nucleus").</skos:definition>
-	<skos:broader rdf:resource
-	  ="http://ivoa.net/rdf/theory/AstronomicalObjects#OpticalSource"/>
-	<skos:broader rdf:resource
-	  ="http://ivoa.net/rdf/theory/AstronomicalObjects#CompoundObject"/>
+  <skos:prefLabel>AGN</skos:prefLabel>
+  <skos:definition>A compact object in the center of a galaxy showing 
+    unusual emission ("active galactic nucleus").</skos:definition>
+  <skos:broader rdf:resource
+    ="http://ivoa.net/rdf/theory/AstronomicalObjects#OpticalSource"/>
+  <skos:broader rdf:resource
+    ="http://ivoa.net/rdf/theory/AstronomicalObjects#CompoundObject"/>
 </skos:Concept>
 \end{lstlisting}
 
@@ -1676,27 +1676,29 @@ notwithstanding, contrived.
     "EQUATORIAL": {
       "label": "Equatorial",
       "description": "Umbrella term for all sorts of equatorial frames.",
-      "narrower": ["ICRS", "ICRS2"]
+      "narrower": ["ICRS", "ICRS2", "BD", "BD1875.0"], "wider": []
     },
     "ICRS": {
       "label": "ICRS",
       "description": "As defined by 1998AJ....116..516M.",
-      "wider": ["EQUATORIAL"],
+      "wider": ["EQUATORIAL"], "narrower": []
     },
     "B1875.0": {
       "label": "Bonner Durchmusterung System",
       "description": "Deprecated term for the reference system implied by BD/CD",
-      "deprecated": ""
+      "deprecated": "",
+      "wider": ["EQUATORIAL"], "narrower": []
      },
      "BD": {
       "label": "Bonner Durchmusterung System",
       "description": "The reference system implied by BD/CD"
+      "wider": ["EQUATORIAL"], "narrower": []
      },
      "ICRS2": {
       "label": "ICRS 2",
       "description": "The reference system defined by 2027A&A..1234...12B",
       "preliminary": "",
-      "wider": ["EQUATORIAL"],
+      "wider": ["EQUATORIAL"], "narrower": []
      }
   }
 }
@@ -1710,13 +1712,13 @@ notwithstanding, contrived.
 \item Desise term values are now dicts with label and description to
 make it a bit more self-explanatory; this let us pull in preliminary,
 deprecated, and wider as well.
-\item Desise now contains an inversiono of wider, narrower, with meanings
+\item Desise now contains an inversion of wider, narrower, with meanings
 quite different between SKOS and the other flavours.
 \item The main media type for Desise is now application/x-desise+json rather 
 than text/json because there is no text/json, and you can't have
 content media type parameters on either.
 \item Mentioning licenseuri and licensehtml in the non-normative part on
-managing vocabulary metadata. Also stating there\todo{Should there be anything normative to this effect?} that IVOA-managed
+managing vocabulary metadata. Also stating there that IVOA-managed
 vocabularies are CC-0.
 \end{itemize}
 
