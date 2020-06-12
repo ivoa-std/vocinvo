@@ -658,7 +658,8 @@ ad-hoc format called desise (``dead simple semantics'').  Clients can
 obtain vocabularies in desise by retrieving the vocabulary URI with the
 HTTP accept header set to \texttt{application/x-desise+json}.
 
-What is returned is a JSON-encoded \citep{std:JSON} dictionary
+What is returned is a JSON-encoded \citep{std:JSON} mapping (``object''
+in JSON terms)
 containing the following keys (all mandatory):
 
 \begin{description}
@@ -668,13 +669,13 @@ with this URI and a hash character.
 \item[flavour] The flavour of the vocabulary (can generally be ignored;
 see sect.~\ref{sect:voccontent}).
 
-\item[terms] A dictionary mapping the (machine-readable) terms to a
-term property dictionary as described below.
-The keys in the \textit{terms} dictionary are the strings used in
+\item[terms] A JSON object mapping the (machine-readable) terms to a
+JSON object giving the term's properties as described below.
+The keys in \textit{terms} are the strings used in
 machine-readable data.
 \end{description}
 
-The dictionaries present as values in the terms dictionary can have the
+The JSON objects present as values in the terms object can have the
 following keys:
 
 \begin{description}
@@ -694,14 +695,16 @@ is preliminary, meaning that in contrast to the other, ``eternal'' terms
 it can disappear again; validators should qualify a validation as
 preliminary if a document uses such a term.
 
-\item[wider] A list of ``wider'' terms.  Most IVOA vocabularies are
+\item[wider] (mandatory) A JSON array
+of ``wider'' terms.  Most IVOA vocabularies are
 tree-like, and for them, there is only up to one term in here, which
 would be the the parent node, which is the hypernym of the current term.
 In SKOS-flavoured vocabularies, multiple terms can be here, and the
 meaning of ``wider'' is a bit less clear-cut.  The \textit{wider} list
 is empty for top-level terms.
 
-\item[narrower] A list of ``narrower'' terms.  In SKOS-flavoured
+\item[narrower] (mandatory) A JSON array
+of ``narrower'' terms.  In SKOS-flavoured
 vocabularies, that is just a list of all terms that list the current
 term as wider.  Otherwise, the vocabularies are tree-like and
 \textit{narrower} is a list of all terms on the term's branch and below
@@ -709,6 +712,9 @@ it in the tree (it is the ``transitive closure of the inverse of
 wider'').  This is much more easily understood in an example, which we
 give below in the discussion on addressing use case~\ref{uc:links} below.
 \end{description}
+
+Note that, while \textit{wider} and \textit{narrower} are mandatory
+keys, their values can of course be empty lists.
 
 See appendix~\ref{app:desiseexample} for a example of a vocabulary
 represented in desise.
