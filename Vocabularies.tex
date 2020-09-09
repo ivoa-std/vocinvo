@@ -1165,7 +1165,7 @@ Vocabulary: http://www.ivoa.net/rdf/datalink/core
 Author: msdemlei@ari.uni-heidelberg.de
 Date: 2019-07-19
 
-New Term: IsPreviousVersionOf
+Term: IsPreviousVersionOf
 Action: Addition
 Label: Newer Version
 Description: This dataset in a previous edition, e.g., processed 
@@ -1173,7 +1173,7 @@ with an older pipeline, as part of an older data release.
 Relationships: rdfs:subProperyOf(this)
 Used-in: http://example.org/datalink?ID=doc-v1
 
-New Term: IsNewVersionOf
+Term: IsNewVersionOf
 Action: Addition
 Label: Previous Version
 Description: This dataset in a newer edition, e.g., processed
@@ -1207,17 +1207,18 @@ A VEP is a semistructured text file containing the following items:
 \item \vepitem{Author:}  Contact information for the author(s) of
 the VEP.
 \item \vepitem{Date:} The date on which the VEP was posted.
-\item \vepitem{Term:} The identifier of the new term.
+\item \vepitem{Term:} The identifier of the term to be added, modified,
+or deleted.
 \item \vepitem{Action:} one of \textit{Addition}, \textit{Deprecation}, or
 \textit{Modification}.
-\item \vepitem{Label:} The English-language, human-readable label of the new term.
+\item \vepitem{Label:} The English-language, human-readable label of the term.
 \item \vepitem{Description:} The description that will come with the term.
 \item \vepitem{Relationships}: If applicable, relationships the new
 term will have to existing terms, using the properties defined in
 the present document.
 \item \vepitem{Used-In}: At least one URI of a document using the
 proposed term.
-\item \vepitem{Rationale}: A discussion of use cases, the role of the new term in
+\item \vepitem{Rationale}: A discussion of use cases, the role of the term in
 the vocabulary, and the like.  In particular, the item(s) in Used-In
 should be commented on.
 \end{itemize}
