@@ -415,6 +415,15 @@ this use case is somewhat in conflict with the basic requirement
 of stable vocabularies (i.e., a document valid once will not
 become invalid later because of changes in vocabularies).
 
+\subsubsection{Understanding Vocabulary Evolution}
+\label{uc:understanding}
+
+When a question coes up what, say, \vocterm{calibration} actually means
+in the datalink core vocabulary, and the (legacy) description is not
+sufficiently clear, people can go back to the discussions that lead up
+to the addition of that term.  This will also help clarify existing
+usage that might have begun at the time of the initial definition.
+
 \subsubsection{Offline operation}
 \label{uc:offline}
 
@@ -526,6 +535,15 @@ terms.  The history of content level annotation in VOResource mentioned
 in use case~\ref{uc:deprecation} illustrates the desirability of a
 simple process that invites standard authors to start with minimal
 vocabularies, relying on later extensions.
+
+\subsubsection{Traceable Provenance}
+\label{req:traceable}
+
+To satisfy use case~\ref{uc:understanding}, the considerations that led
+to the adoption or modification of a term must be documented publicly
+in sufficient detail.  It is clearly an advantage if a brief, accessible
+summary of these considerations can easily be found without, say,
+resorting to version control logs.
 
 \subsubsection{Preliminary Vocabularies and Terms}
 \label{req:preliminary}
@@ -1120,9 +1138,12 @@ objects, clients should normally just ignore the objects.
 \section{Vocabulary Management}
 \label{sect:management}
 
-This section discusses the processes in which new vocabularies can be
+This section discusses the processes through which new vocabularies can be
 defined and how vocabulary updates are performed in way
-that ensures community participation and at least a minimal level of consensus.
+that ensures community participation and at least a minimal level of
+consensus; prodecures here primarily address requirements
+\ref{req:consensus}, \ref{req:evolution} and \ref{req:traceable}.
+
 In the following, the phrase ``chair of the Semantics WG'' is understood
 to mean ``chair or vice-chair of the Semantics WG''; in the unlikely
 situation that chair and vice-chair dissent, the resolution of the
