@@ -31,8 +31,9 @@ Taylor}
 \begin{document}
 \begin{abstract}
 In this document, we discuss practices related to the use of RDF-based
-vocabularies in the VO.  This primarily concerns the creation,
-publication, and maintenance of vocabularies agreed upon within the IVOA.
+consensus vocabularies in the Virtual Observatory, that is the creation,
+publication, maintenance, and consumption of 
+hierarchical word lists agreed upon within the IVOA.
 To cover the wide range of use cases envisoned, we define three flavours
 of such vocabularies: SKOS for informal knowledge organisation on the
 one hand, and strict hierarchies of classes and properties on the other.
@@ -79,7 +80,13 @@ W3C standards understandably do not cover how semantic resources (e.g.,
 vocabularies or ontologies) are to be managed, let alone developed
 within organisations like the IVOA.
 
-Based on a set of use cases (sect.~\ref{sect:usecases}) and requirements
+While for many applications even within the VO, the significant
+complexity and the lack of defined management processes is acceptable, 
+for several other use cases -- in particular those given in
+sect.~\ref{sect:usecases} ––, having extra extra conventions greatly
+help implementatability and interoperability.
+
+Based on requirements derived from these use cases 
 (sect.~\ref{sect:requirements}), this standard will therefore define
 conventions for
 vocabularies based on either SKOS or RDFS in
@@ -91,7 +98,8 @@ ensure this is described in
 sect.~\ref{sect:management}.  In order
 to provide certain guarantees to clients, sect.~\ref{sect:deployment}
 defines minimal standards for how IVOA-managed vocabularies must be made
-available.  In addition, sect.~\ref{sect:withoutrdf} discusses how IVOA
+available.  In order to help adopters simply looking for simple
+vocabulary-related recipes, sect.~\ref{sect:withoutrdf} discusses how IVOA
 vocabularies can be used without knowledge of RDF.
 
 The non-normative appendices~\ref{app:tools} and \ref{app:curtech} 
@@ -113,8 +121,9 @@ IVOA.
 Fig.~\ref{fig:archdiag} shows the role the Vocabularies in VO standard
 plays within the IVOA architecture \citep{note:VOARCH}.
 
-This standard provides the glue between several W3C standards and VO
-standards that use them within the VO, including:
+This standard defines a set of conventiontions on procedures on
+top of several W3C standards that can be adopted by other VO standards
+that require interoperable, consensus vocabularies, such as:
 
 \begin{bigdescription}
 \item[Datalink \citep{2015ivoa.spec.0617D}] Datalink includes a
@@ -134,17 +143,23 @@ useful if they are.
 \item[VOTable \citep{2019ivoa.spec.1021O}] VOTable, in its version 1.4,
 introduces vocabularies for time scales and reference positions.
 
-\item[SimDM \citep{2012ivoa.spec.0503L}] The Simulation Data Model has
-several fields the values of which are required to be \vocterm{skos:narrower}
-than certain top-level concepts; this includes the computational
-methods employed, the physics simulated, or classes of objects
-simulated.
 
 \item[UCDs \citep{2007ivoa.spec.0402M}] UCDs are related to vocabularies in
 that they provide machine-readable semantics.  Because the terms listed
 in the document can be combined and have an underlying grammar, however,
 they go beyond standard RDF.
 \end{bigdescription}
+
+Other VO standards can do with fewer normative constraints; using W3C
+standards without the extra requirements laid down here is explitly
+encouraged where the use cases do not require the extra management and
+definition effort, or where perhaps more complex structures (e.g., full
+ontologies) must be employed.  An example for a direct use of SKOS
+without adoption of the present document is the Simulation Data Model
+SimDM \citep{2012ivoa.spec.0503L}, where several fields the values of
+which are required to be \vocterm{skos:narrower} than certain top-level
+concepts but no further restrictions on the vocabularies need to be
+imposed.
 
 \subsection{Relationship to Vocabularies in the VO Version 1}
 
@@ -362,6 +377,21 @@ To avoid a repetition of such an experience, we want to enable small
 initial vocabularies easily extendable as new terms are actually needed
 and the use of the existing terms is well understood.
 
+
+\subsubsection{Vocabularies in VO-DML}
+
+The modelling language VO-DML \citep{2018ivoa.spec.0910L} lets model
+designers constrain attribute values though external resources defined
+through a vocabulary URI and possibly a top concept.  The standard
+mentions both SKOS -- inspired by version 1 of this document -- and RDFS
+as possible technologies for such constraints.
+
+Depending on the nature of the attributes constrained, modellers might
+forsee the need for having these vocabularies managed by the IVOA.  Of
+course, that is up to the modeller: There are certainly many cases in
+which there is no need for the overhead this specification brings with
+it, be it because vocabularies are externally defined or because the
+concrete application profits from less-constrained vocabularies.
 
 \subsubsection{Discovering Meanings}
 \label{uc:discovering}
@@ -1619,7 +1649,7 @@ keys are understood:
   conditions.
 \item[licensenhtml]
   This is arbitrary HTML expressing whatever licence terms may be
-  attached to an external vocabulary.  Again, don't use for IVOA
+  attached to an external vocabulary.  Again, do not use for IVOA
   vocabularies.
 \end{description}
 
