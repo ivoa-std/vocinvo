@@ -453,7 +453,13 @@ We need to be able to represent simple lists of terms even for the most
 basic use case~\ref{uc:simplevoc}.  As per
 use case~\ref{uc:votvoc}, we will have to represent instances of both
 \vocterm{rdf:Property} and \vocterm{rdfs:Class} (though not necessarily
-in one vocabulary).
+in one vocabulary).  In order to not break existing practices (e.g., 
+use cases \ref{uc:simplevoc}, \ref{uc:votvoc}, \ref{uc:links}), the
+machine-readable terms must be allowed to follow existing patterns of
+essentially human-readable identifiers (against external best practices
+of using non-informative URI forms).  In general, in essentially all use
+cases discussed, making the machine-readable terms discernable by a
+human is an advantage.
 
 \subsubsection{Hierarchies of Terms}
 \label{req:hierarchy}
