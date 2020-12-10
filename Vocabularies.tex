@@ -768,7 +768,20 @@ See appendix~\ref{app:desiseexample} for a example of a vocabulary
 represented in desise.
 
 For illustration, here are recipes to solve the various use cases in
-Python, assuming \texttt{voc} contains a deserialised desise structure:
+Python:
+
+\paragraph{Load a vocabulary} Using the popular requests module:\\
+\begin{lstlisting}
+import requests
+voc = requests.get(
+    "http://www.ivoa.net/rdf/uat", 
+    headers={"accept": "application/x-desise+json"}
+  ).json()
+\end{lstlisting}
+
+Note, however, that non-trivial clients should cache files retrieved in
+this way for a reasonable time span; IVOA vocabularies typically do not
+change on time scales of months.
 
 \paragraph{See if a term is in the vocabulary} (\ref{uc:simplevoc},
 \ref{uc:votvoc})\\ \lstinline{term in voc["terms"]}
