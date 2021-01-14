@@ -7,7 +7,23 @@
   basicstyle=\footnotesize}
 
 \definecolor{termcolor}{rgb}{0.6,0.1,0.1}
-\newcommand{\vocterm}[1]{\emph{\color{termcolor}#1}}
+
+\iftth
+\def\vocterm#1{\emph{\color{termcolor}#1}}
+
+\else
+\def\vocterm{\startvocterm\realvocterm}
+\def\realvocterm#1{\emph{\color{termcolor}#1}\endvocterm}
+\begingroup
+\gdef\breakablecolon{:\hskip0pt}
+\catcode`\:=\active
+\gdef\startvocterm{\begingroup
+  \catcode`\:=\active\let:=\breakablecolon}
+\gdef\endvocterm{\endgroup}
+\endgroup
+\fi
+
+
 \newcommand{\vepitem}[1]{\emph{#1}}
 
 \title{Vocabularies in the VO}
@@ -24,6 +40,10 @@ Taylor}
 
 \editor{Markus Demleitner}
 
+\previousversion[https://ivoa.net/documents/Vocabularies/20200612/]
+  {WD-20200612}
+\previousversion[https://ivoa.net/documents/Vocabularies/20200326/]
+  {WD-20200326}
 \previousversion[http://ivoa.net/documents/Vocabularies/20190905/]
   {WD-20190905}
        
@@ -119,7 +139,7 @@ IVOA.
 \end{figure}
 
 Fig.~\ref{fig:archdiag} shows the role the Vocabularies in VO standard
-plays within the IVOA architecture \citep{note:VOARCH}.
+plays within the IVOA architecture \citep{2010ivoa.rept.1123A}.
 
 This standard defines a set of conventiontions on procedures on
 top of several W3C standards that can be adopted by other VO standards
@@ -1776,6 +1796,14 @@ notwithstanding, contrived.
 \end{lstlisting}
 
 \section{Changes from Previous Versions}
+
+\subsection{Changes from WD-2020-06-12}
+
+\begin{itemize}
+\item No changes to normative material.
+\item Adding a use case on vocabulary evolution and on VO-DML.
+\item Various editorial changes.
+\end{itemize}
 
 \subsection{Changes from WD-2020-03-26}
 

@@ -1,10 +1,11 @@
 \begin{thebibliography}{xx}
 
-\harvarditem[Arviset \harvardand\ Gaudet et~al.]{Arviset, Gaudet \harvardand\
-  the {IVOA} Technical Coordination~Group}{2010}{note:VOARCH}
-Arviset, C., Gaudet, S. \harvardand\ the {IVOA} Technical Coordination~Group
-  \harvardyearleft 2010\harvardyearright , `{IVOA} architecture', {IVOA Note}.
-\newline\url{http://www.ivoa.net/documents/Notes/IVOAArchitecture}
+\harvarditem[{Arviset} \harvardand\ {Gaudet} et~al.]{{Arviset}, {Gaudet}
+  \harvardand\ {IVOA Technical Coordination Group}}{2010}{2010ivoa.rept.1123A}
+{Arviset}, C., {Gaudet}, S. \harvardand\ {IVOA Technical Coordination Group}
+  \harvardyearleft 2010\harvardyearright , `{IVOA Architecture Version 1.0}',
+  IVOA Note 23 November 2010.
+\newline\url{http://doi.org/10.5479/ADS/bib/2010ivoa.rept.1123A}
 
 \harvarditem{Bradner}{1997}{std:RFC2119}
 Bradner, S.  \harvardyearleft 1997\harvardyearright , `Key words for use in
