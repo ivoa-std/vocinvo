@@ -103,8 +103,8 @@ within organisations like the IVOA.
 While for many applications even within the VO, the significant
 complexity and the lack of defined management processes is acceptable, 
 for several other use cases -- in particular those given in
-sect.~\ref{sect:usecases} ––, having extra extra conventions greatly
-help implementatability and interoperability.
+sect.~\ref{sect:usecases} ––, having extra conventions greatly
+help implementability and interoperability.
 
 Based on requirements derived from these use cases 
 (sect.~\ref{sect:requirements}), this standard will therefore define
@@ -141,7 +141,7 @@ IVOA.
 Fig.~\ref{fig:archdiag} shows the role the Vocabularies in VO standard
 plays within the IVOA architecture \citep{2010ivoa.rept.1123A}.
 
-This standard defines a set of conventiontions on procedures on
+This standard defines a set of conventions on procedures on
 top of several W3C standards that can be adopted by other VO standards
 that require interoperable, consensus vocabularies, such as:
 
@@ -250,14 +250,14 @@ underlying W3C standards are normative where applicable.
 
 When we speak of \emph{term} here, that either means a \vocterm{skos:Concept}
 in SKOS vocabularies, an \vocterm{rdfs:Class} in RDF class vocabularies,
-and an \vocterm{rdf:Property} in RDF property vocabularies.  We also use
+or an \vocterm{rdf:Property} in RDF property vocabularies.  We also use
 \emph{term} for ``the string after the hash character in
 the RDF resource URI'', i.e., the machine-readable string typically used
 in annotation.  It is rarely necessary to distinguish between the two
 meanings.
 
 We refer to classes and properties by CURIEs.  The prefixes in this
-document correspond the the following URIs:
+document correspond to the following URIs:
 
 \begin{compactitem}
 \item dc -- \url{http://purl.org/dc/terms/}
@@ -440,7 +440,7 @@ become invalid later because of changes in vocabularies).
 
 When a question coes up what, say, \vocterm{calibration} actually means
 in the datalink core vocabulary, and the (legacy) description is not
-sufficiently clear, people can go back to the discussions that lead up
+sufficiently clear, people can go back to the discussions that led up
 to the addition of that term.  This will also help clarify existing
 usage that might have begun at the time of the initial definition.
 
@@ -1468,7 +1468,7 @@ available in the form prescribed by this specification, a proposal for
 doing this needs to pass the endorsed notes process of the IVOA as laid
 out in the IVOA Document Standards \citep{2017ivoa.spec.0517G}.  As it
 concerns external relationships of the IVOA, it additionally needs
-endorsment by the IVOA Execuive Committee to become effective.
+endorsment by the IVOA Executive Committee to become effective.
 
 This proposal has to specify:
 \begin{itemize}
@@ -1560,7 +1560,7 @@ RDF triples.  Always use URIs of the form
 \subsection{Referencing Vocabularies}
 
 Since IVOA vocabularies, at least after some time, generally are a
-collective effort with a continious evolution, it is inappropriate to
+collective effort with a continuous evolution, it is inappropriate to
 cite them in the conventional author-year-title format.
 
 However, the vocabulary URI is intended to be stable and uniquely
@@ -1707,7 +1707,7 @@ keys are understood:
   sect.~\ref{sect:externally-managed} may be subject to actual licences,
   in which case this field holds a URI containing the licence's
   conditions.
-\item[licensenhtml]
+\item[licensehtml]
   This is arbitrary HTML expressing whatever licence terms may be
   attached to an external vocabulary.  Again, do not use for IVOA
   vocabularies.
