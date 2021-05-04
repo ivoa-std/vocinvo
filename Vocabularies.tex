@@ -167,7 +167,10 @@ introduces vocabularies for time scales and reference positions.
 \item[UCDs \citep{2007ivoa.spec.0402M}] UCDs are related to vocabularies in
 that they provide machine-readable semantics.  Because the terms listed
 in the document can be combined and have an underlying grammar, however,
-they go beyond standard RDF.
+they go beyond standard RDF.  Hence, no attempt is being made to
+integrate them into the framework proposed here at this time.  The
+UCD atoms might be organised in an RDF vocabulary, though, and doing so
+might be considered in the future.
 \end{bigdescription}
 
 Other VO standards can do with fewer normative constraints; using W3C
@@ -256,7 +259,8 @@ the RDF resource URI'', i.e., the machine-readable string typically used
 in annotation.  It is rarely necessary to distinguish between the two
 meanings.
 
-We refer to classes and properties by CURIEs.  The prefixes in this
+We refer to classes and properties by CURIEs \citep{std:curie}.  
+The prefixes in this
 document correspond to the following URIs:
 
 \begin{compactitem}
@@ -867,7 +871,7 @@ In IVOA vocabularies, the concept URI MUST begin with
 \url{http://www.ivoa.net/rdf}\footnote{In retrospect, the unnecessary
 ``www'' in this URI is somewhat regrettable, but existing vocabularies
 have used URIs including it, and it seems a small price to pay for
-having uniform URIs}.  It is recommended to not introduce
+having uniform URIs.}.  It is recommended to not introduce
 additional hierarchy levels, i.e., vocabulary URIs SHOULD be direct children
 of \texttt{rdf}\footnote{Some existing vocabularies do not follow this
 rule; since vocabulary URI changes will break certain usage scenarios,
@@ -886,6 +890,17 @@ preferred label.  In the IVOA, we do \emph{not} use natural
 language-neutral concept identifiers but instead expect that domain
 experts will already have an impression of a term's meaning from looking
 at its URI.
+
+Examples of URIs in the recommended form include:
+
+\begin{itemize}
+\item \url{http://www.ivoa.net/rdf/ivoasem#preliminary} for a
+preliminary term by this specification.
+\item \url{http://www.ivoa.net/rdf/timescale#TT} for the Terrestial Time
+time scale.
+\item \url{http://www.ivoa.net/rdf/uat#active-galactic-nuclei} for the
+concept ``Active Galactic Nuclei''.
+\end{itemize}
 
 In this specification, we distinguish three different ``flavours'' of
 vocabularies.  Each covers a particular domain of problems and is

@@ -7,6 +7,12 @@
   IVOA Note 23 November 2010.
 \newline\url{http://doi.org/10.5479/ADS/bib/2010ivoa.rept.1123A}
 
+\harvarditem{Birbeck \harvardand\ McCarron}{2010}{std:curie}
+Birbeck, M. \harvardand\ McCarron, S.  \harvardyearleft 2010\harvardyearright ,
+  `Curie syntax 1.0, a syntax for expressing compact uris', W3C Working Group
+  Note 16 December 2010.
+\newline\url{https://www.w3.org/TR/2010/NOTE-curie-20101216/}
+
 \harvarditem{Bradner}{1997}{std:RFC2119}
 Bradner, S.  \harvardyearleft 1997\harvardyearright , `Key words for use in
   {RFCs} to indicate requirement levels', RFC 2119.
