@@ -66,7 +66,7 @@ Non-normative appendices detail the current vocabulary-related tooling.
 
 \section*{Acknowledgments}
 
-While this is a complete rewrite of the specification how vocabularies
+While this is a complete rewrite of the specification of how vocabularies
 are treated in the VO, we gratefully acknowlegde the groundbreaking work
 of the authors of version 1 of Vocabulary in the VO, S\'ebastien
 Derriere, Alasdair Gray, Norman Gray, Frederic Hessmann, Tony Linde,
@@ -138,7 +138,7 @@ IVOA.
 \label{fig:archdiag}
 \end{figure}
 
-Fig.~\ref{fig:archdiag} shows the role the Vocabularies in VO standard
+Fig.~\ref{fig:archdiag} shows the role the Vocabularies in the VO standard
 plays within the IVOA architecture \citep{2010ivoa.rept.1123A}.
 
 This standard defines a set of conventions on procedures on
@@ -321,7 +321,7 @@ this, a client needs information of the type ``\vocterm{HST}
 There is also another difference between this and at least the
 VOResource relationship vocabulary from use case~\ref{uc:simplevoc}
 in that the latter is property-like, as
-in ``Resource-1 \vocterm{isServedBy} Resource-2\/''.  In constrast with
+in ``Resource-1 \vocterm{isServedBy} Resource-2\/''.  In contrast with
 this, a time scale would be used like ``Time-coordinate
 \vocterm{is-given-in}
 \vocterm{TT\/}''.  In RDFS terminology, they are therefore better modelled
@@ -341,7 +341,7 @@ progenitors should be made accessible, and so on.
 
 Operators of datalink services, on the other hand, want to be precise in
 their annotation of datasets.  For instance, they may want to discern
-among progenitors the raw image, a dark frame, and a flat field.  In all
+among progenitors: the raw image, a dark frame, and a flat field.  In all
 these cases, clients should still be able to work out that such
 artefacts are progenitors.
 
@@ -387,7 +387,7 @@ Another use case in the context of VOResource and vocabulary updating
 is the definition of content levels.  In VOResource 1.0, a list of
 terms was adopted that was far too fine-grained in the area of public
 outreach, distinguishing, for instance, ``Middle School'' from
-``Secondary Education''; while this granularity was useful for the
+``Secondary Education''. While this granularity was useful for the
 original realm of the list of terms, in the VO it resulted in extremely
 inhomogeneous annotation.  Obviously, persons employed in research
 institutions can hardly be expected to assess needs and capabilities of
@@ -438,7 +438,7 @@ become invalid later because of changes in vocabularies).
 \subsubsection{Understanding Vocabulary Evolution}
 \label{uc:understanding}
 
-When a question coes up what, say, \vocterm{calibration} actually means
+When a question comes up, such as what \vocterm{calibration} actually means
 in the datalink core vocabulary, and the (legacy) description is not
 sufficiently clear, people can go back to the discussions that led up
 to the addition of that term.  This will also help clarify existing
@@ -447,7 +447,7 @@ usage that might have begun at the time of the initial definition.
 \subsubsection{Offline operation}
 \label{uc:offline}
 
-A system doing, say, coordinate transformations runs without an internet
+A system doing, say, coordinate transformations might run without an internet
 connection but still needs to use semantic resources on frames and
 reference positions (e.g., figure out that a given space probe is in L1
 and use that as reference position).  To do that, it wants to use a
@@ -675,12 +675,16 @@ An individual vocabulary has a
 URI like \url{http://www.ivoa.net/rdf/refposition}.  Dereferencing this URI
 with a web browser (or, indeed, any user agent indicating it prefers
 text/html media) redirects to a tabular representation of the vocabulary,
-giving \emph{terms} -- i.e., the strings actually used in annotation --,
-\emph{labels} -- i.e., strings that should be presented to humans instead of
-the slightly formalised terms --, and \emph{descriptions}, which should
+giving: 
+\begin{itemize}
+	\item \emph{terms} -- i.e., the strings actually used in annotation,
+	\item \emph{labels} -- i.e., strings that should be presented to humans instead of
+the slightly formalised terms, and 
+    \item \emph{descriptions}, which should
 be sufficiently precise to allow someone with a certain amount
 of domain expertise to decide whether a certain ``thing'' is or is not
 covered by the term (or more precisely, the underlying concept).
+\end{itemize}
 
 Some terms may be marked as deprecated, in which case they should no
 longer be used in new annotations.  In most cases, deprecated terms will
@@ -1180,7 +1184,7 @@ objects, clients should normally just ignore the objects.
 This section discusses the processes through which new vocabularies can be
 defined and how vocabulary updates are performed in way
 that ensures community participation and at least a minimal level of
-consensus; prodecures here primarily address requirements
+consensus. Procedures here primarily address requirements
 \ref{req:consensus}, \ref{req:evolution} and \ref{req:traceable}.
 
 In the following, the phrase ``chair of the Semantics WG'' is understood
@@ -1194,10 +1198,10 @@ problem is up to the TCG chair.
 
 New vocabularies in the VO should be introduced with a document going
 through the normal IVOA approval process, i.e., intended to become a
-recommendation or an endorsed note with RFC as described in the IVOA
+recommendation or an endorsed note, with RFC as described in the IVOA
 Document Standards \citep{2017ivoa.spec.0517G}.
 
-At the discretion of the chair or the Semantics WG, the vocabulary is
+At the discretion of the chair of the Semantics WG, the vocabulary is
 uploaded to the vocabulary repository when a document reaches the state
 of a Working Draft.  At the latest, the vocabulary is uploaded when the
 document becomes a Proposed Recommendation or a Proposed Endorsed Note
@@ -1346,7 +1350,7 @@ contents is done at this stage.
 
 VEPs formally valid then receive a running number. The first VEP was
 VEP-0001, the second VEP-0002, and so on.  The chair of the Semantics WG
-then adds the new VEP is added to the public index of VEPs as
+then adds the new VEP to the public index of VEPs as
 ``Current'' (see Appendix~\ref{app:curtech} for the technical details).
 This index has a link to each VEP's text (in general, a location in a
 version control system).
@@ -1408,7 +1412,7 @@ Now, in an ideal vocabulary the extensions of its
 top-level terms are disjunct (meaning: each thing in scope of the vocabulary
 belongs to not more than one top-level term's extension) and the terms cover the
 entire scope (meaning: for each thing in the scope, there is at least
-one term's extension that contains that thing): The top-level terms are
+one term's extension that contains that thing). The top-level terms are
 equivalence classes over the vocabulary's scope.
 
 Where vocabularies are hierarchical, analogous considerations would
