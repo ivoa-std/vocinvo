@@ -174,7 +174,7 @@ might be considered in the future.
 \end{bigdescription}
 
 Other VO standards can do with fewer normative constraints; using W3C
-standards without the extra requirements laid down here is explitly
+standards without the extra requirements laid down here is explicitly
 encouraged where the use cases do not require the extra management and
 definition effort, or where perhaps more complex structures (e.g., full
 ontologies) must be employed.  An example for a direct use of SKOS
@@ -188,7 +188,7 @@ imposed.
 
 Published in 2009, version 1.19 of the IVOA Recommendation on
 Vocabularies in the VO had an outlook fairly different from the present
-document: The big use case was VOEvent's Why and What, and so its focus
+document: the big use case was VOEvent's Why and What, and so its focus
 was on large, general-purpose vocabularies, of which several existed even
 back then, while an overhaul of a thesaurus of general astronomical
 terms approved by the IAU in 1993 was underway as part of IVOA's
@@ -792,7 +792,7 @@ term as wider.  Otherwise, the vocabularies are tree-like and
 \textit{narrower} is a list of all terms on the term's branch and below
 it in the tree (it is the ``transitive closure of the inverse of
 wider'').  This is much more easily understood in an example, which we
-give below in the discussion on addressing use case~\ref{uc:links} below.
+give below in the discussion on addressing use case~\ref{uc:links}.
 \end{description}
 
 Note that, while \textit{wider} and \textit{narrower} are mandatory
@@ -1059,8 +1059,8 @@ RDF class vocabularies should be used when the terms in the vocabulary
 are reasonably class-like, i.e., would usually be either subjects or
 objects in RDF triples.  As opposed to SKOS vocabularies, the hierarchy
 implied is strict in the sense of \vocterm{rdfs:subClassOf}
--- roughly, that statements true for a wider term must be true
-a more specialised term, too.  This lets clients confidently perform
+(roughly: statements that are true for a wider term must be true
+for a more specialised term, too).  This lets clients confidently perform
 inferences.
 
 For instance, coordinates in the FK4 reference frame are equatorial, and
@@ -1229,7 +1229,7 @@ vocabulary are marked as preliminary using the
 order to satisfy requirement~\ref{req:preliminary}.
 
 The entire new vocabulary gets approved as the document introducing it
-reaches the status of a Recommendation or an Endorsed Note.  From then
+reaches the status of Recommendation or Endorsed Note.  From then
 on, it is managed by the Semantics WG using the process defined in
 the next section.
 
@@ -1759,7 +1759,7 @@ major version of the standard.
 
 The list of vocabulary enhancement proposals is maintained in the IVOA's
 wiki at
-\url{https://wiki.ivoa.net/twiki/bin/view/IVOA/WebHome?topic=VEPs}.
+\url{https://wiki.ivoa.net/twiki/bin/view/IVOA/VEPs}.
 Approved VEPs will be moved to an archive page linked there.
 VEPs may be added as attachments to this page, but authors are
 encouraged to maintain them in version controlled repositories instead.
