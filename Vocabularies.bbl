@@ -23,6 +23,11 @@ Bray, T.  \harvardyearleft 2017\harvardyearright , `{The {JavaScript} Object
   Notation ({JSON}) Data Interchange Format}', {IETF RFC 7159}.
 \newline\url{https://tools.ietf.org/html/rfc8259}
 
+\harvarditem{Brickley \harvardand\ Guha}{2014}{std:rdfs}
+Brickley, D. \harvardand\ Guha, R.  \harvardyearleft 2014\harvardyearright ,
+  `Rdf schema 1.1', W3C Recommendation 25 February 2014.
+\newline\url{https://www.w3.org/TR/2014/REC-rdf-schema-20140225/}
+
 \harvarditem[{Demleitner} \harvardand\ {Harrison} et~al.]{{Demleitner},
   {Harrison}, {Molinaro}, {Greene}, {Dower} \harvardand\
   {Perdikeas}}{2019}{2019ivoa.spec.1011D}
@@ -75,6 +80,12 @@ Gray, N.  \harvardyearleft 2015\harvardyearright , {RDF}, the semantic web,
   1.0}', IVOA Recommendation 03 May 2012,  arXiv:1402.4744.
 \newline\url{http://doi.org/10.5479/ADS/bib/2012ivoa.spec.0503L}
 
+\harvarditem{Miles \harvardand\ Bechhofer}{2009}{std:skos}
+Miles, A. \harvardand\ Bechhofer, S.  \harvardyearleft 2009\harvardyearright ,
+  `Skos simple knowledge organization system -- reference', W3C Recommendation
+  18 August 2009.
+\newline\url{https://www.w3.org/TR/2009/REC-skos-reference-20090818/}
+
 \harvarditem[{Ochsenbein} \harvardand\ {Taylor} et~al.]{{Ochsenbein}, {Taylor},
   {Donaldson}, {Williams}, {Davenhall}, {Demleitner}, {Durand}, {Fernique},
   {Giaretta}, {Hanisch}, {McGlynn}, {Szalay} \harvardand\
@@ -85,6 +96,16 @@ Gray, N.  \harvardyearleft 2015\harvardyearright , {RDF}, the semantic web,
   \harvardyearleft 2019\harvardyearright , `{VOTable Format Definition Version
   1.4}', IVOA Recommendation 21 October 2019.
 \newline\url{https://ui.adsabs.harvard.edu/abs/2019ivoa.spec.1021O}
+
+\harvarditem[{Plante} \harvardand\ {Benson} et~al.]{{Plante}, {Benson},
+  {Graham}, {Greene}, {Harrison}, {Lemson}, {Linde}, {Rixon}, {St{\'e}b{\'e}}
+  \harvardand\ {IVOA Registry Working Group}}{2008}{2008ivoa.spec.0222P}
+{Plante}, R., {Benson}, K., {Graham}, M., {Greene}, G., {Harrison}, P.,
+  {Lemson}, G., {Linde}, T., {Rixon}, G., {St{\'e}b{\'e}}, A. \harvardand\
+  {IVOA Registry Working Group}  \harvardyearleft 2008\harvardyearright ,
+  `{VOResource: an XML Encoding Schema for Resource Metadata Version 1.03}',
+  IVOA Recommendation 22 February 2008,  arXiv:1110.0515.
+\newline\url{http://doi.org/10.5479/ADS/bib/2008ivoa.spec.0222P}
 
 \harvarditem[{Plante} \harvardand\ {Demleitner} et~al.]{{Plante}, {Demleitner},
   {Benson}, {Graham}, {Greene}, {Harrison}, {Lemson}, {Linde} \harvardand\

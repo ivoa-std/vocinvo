@@ -54,8 +54,8 @@ In this document, we discuss practices related to the use of RDF-based
 consensus vocabularies in the Virtual Observatory, that is the creation,
 publication, maintenance, and consumption of 
 hierarchical word lists agreed upon within the IVOA.
-To cover the wide range of use cases envisoned, we define three flavours
-of such vocabularies: SKOS for informal knowledge organisation on the
+To cover the wide range of use cases envisoned, we define different
+vocabulary types for informal knowledge organisation on the
 one hand, and strict hierarchies of classes and properties on the other.
 While the framework rests on the solid foundations of W3C RDF,
 provisions are made to facilitate using IVOA vocabularies without
@@ -108,8 +108,8 @@ help implementability and interoperability.
 
 Based on requirements derived from these use cases 
 (sect.~\ref{sect:requirements}), this standard will therefore define
-conventions for
-vocabularies based on either SKOS or RDFS in
+conventions for vocabularies based on either SKOS \citep{std:skos} or
+RDFS \citep{std:rdfs} in
 sect.~\ref{sect:voccontent}.  Where these vocabularies -- and hence, in
 particular, the permanent URIs of their RDF resources (``terms'') 
 -- are managed by the
@@ -179,12 +179,11 @@ encouraged where the use cases do not require the extra management and
 definition effort, or where perhaps more complex structures (e.g., full
 ontologies) must be employed.  An example for a direct use of SKOS
 without adoption of the present document is the Simulation Data Model
-SimDM \citep{2012ivoa.spec.0503L}, where several fields the values of
-which are required to be \vocterm{skos:narrower} than certain top-level
-concepts but no further restrictions on the vocabularies need to be
-imposed.
+SimDM \citep{2012ivoa.spec.0503L}, where several fields constrain their
+values to be \vocterm{skos:narrower} than certain top-level concepts.
 
 \subsection{Relationship to Vocabularies in the VO Version 1}
+\label{sect:version1rel}
 
 Published in 2009, version 1.19 of the IVOA Recommendation on
 Vocabularies in the VO had an outlook fairly different from the present
@@ -259,9 +258,10 @@ the RDF resource URI'', i.e., the machine-readable string typically used
 in annotation.  It is rarely necessary to distinguish between the two
 meanings.
 
-We refer to classes and properties by CURIEs \citep{std:curie}.  
-The prefixes in this
-document correspond to the following URIs:
+We refer to classes and properties by CURIEs \citep{std:curie}, i.e.,
+URIs shortened by replacing long strings with compact prefixes and a
+colon.  The prefixes in this
+document correspond to the following base URIs:
 
 \begin{compactitem}
 \item dc -- \url{http://purl.org/dc/terms/}
@@ -327,9 +327,8 @@ VOResource relationship vocabulary from use case~\ref{uc:simplevoc}
 in that the latter is property-like, as
 in ``Resource-1 \vocterm{isServedBy} Resource-2\/''.  In contrast with
 this, a time scale would be used like ``Time-coordinate
-\vocterm{is-given-in}
-\vocterm{TT\/}''.  In RDFS terminology, they are therefore better modelled
-as classes rather than properties.
+\vocterm{is-given-in} \vocterm{TT\/}''.  In RDFS terminology, time scales
+are therefore better modelled as classes rather than properties.
 
 \subsubsection{Datalink Link Selection}
 \label{uc:links}
@@ -374,7 +373,8 @@ and possibly for subjects of VO resources.
 \subsubsection{Vocabulary Updates in VOResource}
 \label{uc:deprecation}
 
-In VOResource 1.0, relationship types like \vocterm{served-by} or
+In VOResource 1.0 \citep{2008ivoa.spec.0222P}, relationship types 
+like \vocterm{served-by} or
 \vocterm{service-for} were defined.  Later, DataCite defined equivalent
 terms \vocterm{IsServedBy} and \vocterm{IsServiceFor}.  Arguably, the VO should,
 as far as sensible, take up standards in the wider data management
@@ -665,7 +665,7 @@ To lower the bar for an adoption of IVOA vocabularies
 two formats usable without RDF tooling or, indeed, deeper knowledge of
 RDF.  This section discusses these.
 
-\subsection{Choosing Terms From IVOA Vocabularies}
+\subsection{Choosing Terms From IVOA Vocabularies (non-normative)}
 
 Resource annotators can usually treat IVOA Vocabularies as simple lists
 of (case-sensitive) strings with human-readable labels and definitions.  
@@ -733,12 +733,15 @@ relationships, or
 terms.
 \end{compactitem}
 
+\subsubsection{Vocabularies in desise}
+
 To let VO programs perform such tasks with minimal technical overhead,
 in addition to the RDF artefacts described in
 sect.~\ref{sect:deployment}, IVOA vocabularies are also available in an
-ad-hoc format called desise (``dead simple semantics'').  Clients can
-obtain vocabularies in desise by retrieving the vocabulary URI with the
-HTTP accept header set to \texttt{application/x-desise+json}.
+ad-hoc format defined here for VO-internal use, nicknamed ``desise''
+(``dead simple semantics'').  Clients can retrieve vocabularies in
+desise by requesting the vocabulary URI with the HTTP accept header set
+to \texttt{application/x-desise+json}.
 
 What is returned is a JSON-encoded \citep{std:JSON} mapping (``object''
 in JSON terms)
@@ -801,8 +804,10 @@ keys, their values can of course be empty lists.
 See appendix~\ref{app:desiseexample} for a example of a vocabulary
 represented in desise.
 
-For illustration, here are recipes to solve the various use cases in
-Python:
+\subsubsection{Working with desise (non-normative)}
+
+For illustration, here are recipes showing how to address 
+the various use cases in Python:
 
 \paragraph{Load a vocabulary} Using the popular requests module:\\
 \begin{lstlisting}
@@ -952,7 +957,7 @@ permitted [again, this helps requirement~\ref{req:mtm}].
 \item \vocterm{skos:exactMatch} -- for externally managed vocabularies
 the IVOA has endorsed (see sect.~\ref{sect:externally-managed}), this
 property links the IVOA term (subject) to the external RDF resource
-(object).
+(object) [mostly for requirement~\ref{req:external}].
 
 \item General properties discussed in \ref{sect:genprop} [this is
 for requirements~\ref{req:deprecating} and
@@ -1157,7 +1162,8 @@ are encountered.
 \item \vocterm{ivoasem:useInstead} -- for a deprecated term, the
 objects of RDF triples using this property indicate
 which terms should be
-used instead of the deprecated one.
+used instead of the deprecated one.  This property MUST NOT be used with
+non-deprecated subjects.
 
 \end{itemize}
 
@@ -1229,7 +1235,8 @@ vocabulary are marked as preliminary using the
 order to satisfy requirement~\ref{req:preliminary}.
 
 The entire new vocabulary gets approved as the document introducing it
-reaches the status of Recommendation or Endorsed Note.  From then
+reaches the status of Recommendation or Endorsed Note.  At that point,
+all its terms become un-deprecated.  From then
 on, it is managed by the Semantics WG using the process defined in
 the next section.
 
@@ -1793,7 +1800,7 @@ notwithstanding, contrived.
       "description": "As defined by 1998AJ....116..516M.",
       "wider": ["EQUATORIAL"], "narrower": []
     },
-    "B1875.0": {
+    "B1875": {
       "label": "Bonner Durchmusterung System",
       "description": "Deprecated term for the reference system implied by BD/CD",
       "deprecated": "",
@@ -1872,6 +1879,11 @@ index, is now assigned to them.
 \item Adding a soapbox section with advice on what to do when proposing
 new terms and introducing a naive semantics model.
 \end{itemize}
+
+\subsection{Changes from REC-1.19}
+
+The present document is a full re-write of Version 1 of Vocabularies in
+the VO.  See sect.~\ref{sect:version1rel} for details.
 
 \bibliography{local.bib,ivoatex/ivoabib,ivoatex/docrepo}
 
