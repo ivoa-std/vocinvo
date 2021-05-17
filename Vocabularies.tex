@@ -156,9 +156,9 @@ of relationships between VO resources, their intended audiences, or
 classes of actions performed on them.
 
 \item[VOEvent \citep{2006ivoa.spec.1101S}] VOEvent defines \emph{Why}
-and \emph{What} elements which, while not formally required to be drawn
-from a specific vocabulary in version 1.11, certainly become much more
-useful if they are.
+and \emph{What} elements.  While their content is not formally required
+to be drawn from a specific vocabulary in version VOEvent's version
+1.11, it certainly becomes significantly more useful if it is.
 
 \item[VOTable \citep{2019ivoa.spec.1021O}] VOTable, in its version 1.4,
 introduces vocabularies for time scales and reference positions.
@@ -189,7 +189,7 @@ Published in 2009, version 1.19 of the IVOA Recommendation on
 Vocabularies in the VO had an outlook fairly different from the present
 document: the big use case was VOEvent's Why and What, and so its focus
 was on large, general-purpose vocabularies, of which several existed even
-back then, while an overhaul of a thesaurus of general astronomical
+back then.  Meanwhile, an overhaul of a thesaurus of general astronomical
 terms approved by the IAU in 1993 was underway as part of IVOA's
 activities.  Mapping between vocabularies maintained by different VO
 and non-VO parties seemed to be the way to ensure interoperability and
@@ -197,11 +197,11 @@ therefore played a large role in the document.  Also, the use cases
 called for ``soft'' relations, which is why the standard confined itself
 to SKOS as the vocabulary formalism.
 
-Since then, ``the'' large astronomy thesaurus is being maintained
-outside of the IVOA (the UAT\footnote{\url{http://astrothesaurus.org}}),
-and there is hope that its takeup will be sufficient to make mapping
-between it and, say, legacy journal keyword systems an exercise general
-clients will not have to perform.
+In contrast, today ``the'' large astronomy thesaurus is being maintained
+outside of the IVOA (the UAT\footnote{\url{http://astrothesaurus.org}}).
+It seems likely that its takeup will be sufficient that general clients
+will not have to map between it and, say, legacy journal keyword
+systems.
 
 Instead, in 2010, a fairly formal vocabulary of what
 should be properties (in the RDF sense) rather than \vocterm{skos:Concept}-s
@@ -306,18 +306,18 @@ will lead to hard-to-debug problems in data discovery.
 \subsubsection{Controlled Vocabularies in VOTable}
 \label{uc:votvoc}
 
-VOTable 1.4 constrains two attributes of the TIMESYS elements 
+VOTable 1.4 constrains two attributes of TIMESYS elements 
 -- reference positions and time
 scales -- using vocabularies.  
-While with time scales the situation is not fundamentally
+With time scales the situation is not fundamentally
 different from the VOResource case discussed in
-use case.~\ref{uc:simplevoc} -- a simple enumeration of agreed-upon strings
+use case~\ref{uc:simplevoc}: a simple enumeration of agreed-upon strings
 is enough to uniquely determine what operations need to be performed to
-combine times given in different time scales --, the situation for
-reference positions is probably different. There, even if a client does
+combine times given in different time scales.  With
+reference positions, however, even if a client does
 not exactly know the location of, say, the Hubble Space Telescope at any
 given time, several important use cases can already be satisfied if a
-client knows that it is in lower Earth orbit (e.g., assuming a reference
+client knows it is in lower Earth orbit (e.g., assuming a reference
 position Geocenter and adjusting the systematic error estimates).  For
 this, a client needs information of the type ``\vocterm{HST}
 \vocterm{is-close-to} \vocterm{GEOCENTER\/}'' (or similar).
@@ -384,7 +384,7 @@ version, it cannot forbid the old terms.  It can, however, say not only
 ``Use the latter term in preference to the former''.  If this information is
 available machine-readably, validators can warn against the use of
 deprecated terms and user interfaces can transparently replace 
-deprecated terms with current ones.  This latter use case is is
+deprecated terms with current ones.  This latter use case is
 already specified in RegTAP 1.1 \citep{2019ivoa.spec.1011D}.
 
 Another use case in the context of VOResource and vocabulary updating
@@ -405,7 +405,7 @@ and the use of the existing terms is well understood.
 \subsubsection{Vocabularies in VO-DML}
 
 The modelling language VO-DML \citep{2018ivoa.spec.0910L} lets model
-designers constrain attribute values though external resources defined
+designers constrain attribute values using external resources defined
 through a vocabulary URI and possibly a top concept.  The standard
 mentions both SKOS -- inspired by version 1 of this document -- and RDFS
 as possible technologies for such constraints.
@@ -461,8 +461,8 @@ previously downloaded copy of the vocabulary.
 \label{uc:uat}
 
 VOResource 1.1, in the description of the \xmlel{subject} element, says
-that its content ``should be drawn from the Unified Astronomy Thesaurus''
-(here: UAT).  This is intended to later facilitate interactive topic
+that its content ``should be drawn from the Unified Astronomy
+Thesaurus''.  This is intended to later facilitate interactive topic
 navigation within the Registry or semantic expansion of Registry queries
 (``include narrower terms'').
 
@@ -489,9 +489,9 @@ human is an advantage.
 \label{req:hierarchy}
 
 Both use case~\ref{uc:links} and use case~\ref{uc:filtering} require a hierarchy
-of terms, where clients can find wider and potentially narrower terms
+of terms, where clients can find wider and narrower terms
 relative to an original one.  There is a difference,
-however: in the datalink use-case, strict \vocterm{is-a} relationships
+however: in the datalink use case, strict \vocterm{is-a} relationships
 are what clients need (e.g., ``give me all kinds of previews'').  In the
 VOEvent case, however, a somewhat softer sort of hierarchy is required.
 For instance, a filter for accretion disks might very well expand to
@@ -532,8 +532,8 @@ deprecations must be forseen.
 In particular in use cases~\ref{uc:links} and \ref{uc:filtering},
 clients can flexibly incorporate vocabulary updates without code
 changes, perhaps even without re-deployment, if vocabularies are
-available at constant, public URIs, where clients can retrieve them in
-formats reasonably easy to parse.
+available at constant, public URIs.  Using these, clients must be able to 
+retrieve vocabulary data in formats reasonably easy to parse.
 
 Use case~\ref{uc:discovering} implies that at least one representation
 of the vocabulary should be human-readable.
@@ -542,7 +542,7 @@ of the vocabulary should be human-readable.
 \label{req:mtm}
 
 To support use case~\ref{uc:discovering}, all terms in IVOA vocabularies
-MUST come with a non-trivial description.
+must come with a non-trivial description.
 
 \subsubsection{Simple Cases do not Require RDF Tooling}
 \label{req:nordf}
@@ -610,7 +610,7 @@ use by clients (which typically look for natural language in subject),
 even though the labels are not considered stable?
 
 Regardless of how VOResource clarifies this matter, UAT artefacts (e.g.,
-SKOS files), do not match some of our other requirements. In particular,
+SKOS files) do not match some of our other requirements. In particular,
 the human-readable URIs from \ref{req:lists}, the specific way we
 satisfy \ref{req:machine}, and the non-RDF requirement \ref{req:nordf} are
 not immediately satisfied by the UAT as distributed at the time of
@@ -633,10 +633,11 @@ is left open what exactly the domain or range of properties might be or
 what subject and predicate the classes or concepts should be used with.
 
 This is partly because this would substantially complicate the
-generation of vocabularies -- which would quickly turn into proper
-ontologies --, partly because the information encoded by
-the triples has traditionally been expressed using techniques developed
-by the Data Models working group.
+generation of vocabularies, which would quickly turn into proper
+ontologies.  Another consideration is that the information encoded by
+triples generated in this way has traditionally been expressed 
+using techniques developed
+by the Data Models working group in the VO.
 
 In particular with a view to later use in linked data scenarios,
 vocabulary authors should neverthess take care that, given appropriate
