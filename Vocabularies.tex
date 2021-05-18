@@ -100,11 +100,11 @@ W3C standards understandably do not cover how semantic resources (e.g.,
 vocabularies or ontologies) are to be managed, let alone developed
 within organisations like the IVOA.
 
-While for many applications even within the VO, the significant
-complexity and the lack of defined management processes is acceptable, 
-for several other use cases -- in particular those given in
-sect.~\ref{sect:usecases} ––, having extra conventions greatly
-help implementability and interoperability.
+For many applications, even within the VO, the significant
+complexity and the lack of defined management processes is acceptable.
+However, for several other use cases -- in particular those given in
+sect.~\ref{sect:usecases} -- extra conventions 
+help with implementability and interoperability.
 
 Based on requirements derived from these use cases 
 (sect.~\ref{sect:requirements}), this standard will therefore define
@@ -173,11 +173,11 @@ UCD atoms might be organised in an RDF vocabulary, though, and doing so
 might be considered in the future.
 \end{bigdescription}
 
-Other VO standards can do with fewer normative constraints; using W3C
-standards without the extra requirements laid down here is explicitly
-encouraged where the use cases do not require the extra management and
-definition effort, or where perhaps more complex structures (e.g., full
-ontologies) must be employed.  An example for a direct use of SKOS
+Not all VO standards need these normative constraints though. 
+In situations when the use cases do not require extra management and definition, 
+or where more complex structures such as full ontologies are needed, it is 
+encouraged to use  W3C standards without the extra requirements listed here.
+An example for a direct use of SKOS
 without adoption of the present document is the Simulation Data Model
 SimDM \citep{2012ivoa.spec.0503L}, where several fields constrain their
 values to be \vocterm{skos:narrower} than certain top-level concepts.
@@ -213,7 +213,7 @@ from external vocabularies would only be used as temporary stand-ins
 until the consensus vocabulary was updated.  Of course, this required a
 process for managing such vocabularies.  The lack of such a process
 became even more noticeable when VOResource 1.1 and VOTable 1.4
-introduced vocabularies of their own similar in size and scope to the
+introduced vocabularies of their own, similar in size and scope to the
 datalink vocabulary.
 
 On the other hand, we are not aware of a single attempt to map
@@ -230,7 +230,7 @@ Vocabularies in the VO standard.
 \subsection{Reading Guide}
 
 We hope that software authors or annotators just wanting to consume IVOA
-vocabularies or use them to annotate documents will be able to
+vocabularies, or use them to annotate documents, will be able to
 do so after reading just section~\ref{sect:withoutrdf}.  In particular, no
 deeper understanding of RDF should be necessary.
 
@@ -309,7 +309,7 @@ will lead to hard-to-debug problems in data discovery.
 VOTable 1.4 constrains two attributes of TIMESYS elements 
 -- reference positions and time
 scales -- using vocabularies.  
-With time scales the situation is not fundamentally
+With time scales, the situation is not fundamentally
 different from the VOResource case discussed in
 use case~\ref{uc:simplevoc}: a simple enumeration of agreed-upon strings
 is enough to uniquely determine what operations need to be performed to
@@ -323,8 +323,8 @@ this, a client needs information of the type ``\vocterm{HST}
 \vocterm{is-close-to} \vocterm{GEOCENTER\/}'' (or similar).
 
 There is also another difference between this and at least the
-VOResource relationship vocabulary from use case~\ref{uc:simplevoc}
-in that the latter is property-like, as
+VOResource relationship vocabulary from use case~\ref{uc:simplevoc}.
+The latter is property-like, as
 in ``Resource-1 \vocterm{isServedBy} Resource-2\/''.  In contrast with
 this, a time scale would be used like ``Time-coordinate
 \vocterm{is-given-in} \vocterm{TT\/}''.  In RDFS terminology, time scales
@@ -359,10 +359,10 @@ another event, and a different event stream might not be able to
 distinguish between different sorts of supernovae at all.
 
 In this situation, an event broker looking for supernovae of type Ia
-will filter out anything not related to supernovae; however, since for
-one reason or another a Ia supernova might only be tagged as supernova,
-it will want to widen its filter somewhat, where some backend process
-might prioritise events classified as Ia upstream over those only tagged
+will filter out anything not related to supernovae. However, since a Ia 
+supernova might be tagged only as ``supernova'',
+it will want to widen its filter somewhat. Some backend process
+might then prioritise events classified as Ia upstream over those only tagged
 as a generic supernova, and those, again, over those tagged explicitly
 as some different type of supernova.
 
