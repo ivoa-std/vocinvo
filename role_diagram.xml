@@ -1,30 +1,12 @@
-<!--
-Document authors (ivoatex maintainers have different rules):
-
-* svn cp this file to role_diagram.xml, and then:
-
-* Remove all <rec> elements in there referring to standards not related
-  to the current one,
-
-* change the tag name for the current one from rec to thisrec
-
-* make role_diagram.pdf
-
-For the time being, keep both role_diagram.pdf and role_diagram.svg as
-created by this in the VCS.  This helps document builds on machines
-with missing dependencies.
--->
-
 <archdiag xmlns="http://ivoa.net/archdiag">
-	<!-- Registry: x=55, y=150..450 -->
-	<rec name="VOResource" x="55" y="155"/>
-	<rec name="VOTable" x="270" y="325"/>
-	<rec name="DataLink" x="610" y="400"/>
+	<rec name="VOResource" x="64.5" y="155" w="71"/>
+	<rec name="VOTable" x="270" y="325" w="50"/>
+	<rec name="DataLink" x="628" y="405" w="53"/>
 
-	<rec name="SimDM" x="450" y="230"/>
+	<rec name="SimDM" x="473" y="230" w="44"/>
 
-	<rec name="UCD" x="160" y="310"/>
-	<thisrec name="Vocabularies" x="160" y="335"/>
+	<rec name="UCD" x="189" y="310" w="32"/>
+	<thisrec name="Vocabularies" x="168.5" y="335" w="73"/>
 
-	<rec name="VOEvent"  x="530" y="375"/>
+	<rec name="VOEvent"  x="549" y="375" w="52"/>
 </archdiag>
