@@ -40,6 +40,8 @@ Taylor}
 
 \editor{Markus Demleitner}
 
+\previousversion[https://ivoa.net/documents/Vocabularies/20210114/]
+  {PR-20210114}
 \previousversion[https://ivoa.net/documents/Vocabularies/20200612/]
   {WD-20200612}
 \previousversion[https://ivoa.net/documents/Vocabularies/20200326/]
@@ -344,8 +346,8 @@ progenitors should be made accessible, and so on.
 
 Operators of datalink services, on the other hand, want to be precise in
 their annotation of datasets.  For instance, they may want to discern
-among progenitors: the raw image, a dark frame, and a flat field.  In all
-these cases, clients should still be able to work out that such
+between a dark frame and a flat field in calibration data.  
+Clients should, however, still be able to work out that both sorts of
 artefacts are progenitors.
 
 \subsubsection{VOEvent Filtering, Query Expansion}
