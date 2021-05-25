@@ -1,0 +1,62 @@
+<ri:Resource 
+	xsi:type="vstd:Standard" 
+	created="2021-05-25T11:10:00" 
+	updated="2021-05-25T11:10:00"
+	status="active"
+	xmlns:vr="http://www.ivoa.net/xml/VOResource/v1.0" 
+	xmlns:vstd="http://www.ivoa.net/xml/StandardsRegExt/v1.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:ri="http://www.ivoa.net/xml/RegistryInterface/v1.0"
+	xsi:schemaLocation="http://www.ivoa.net/xml/VOResource/v1.0
+		http://www.ivoa.net/xml/VOResource/v1.0
+	http://www.ivoa.net/xml/StandardsRegExt/v1.0
+		http://www.ivoa.net/xml/StandardsRegExt/v1.0
+	http://www.ivoa.net/xml/VOResource/v1.0
+		http://www.ivoa.net/xml/VOResource/v1.0">
+
+  <title>Vocabularies in the VO</title>
+  <shortName>vocabularies</shortName>
+  <identifier>ivo://ivoa.net/std/vocabularies</identifier> 
+  <!-- <altIdentifier>doi:Look up on ADS once your standard has made
+    it there and then update this. </altIdentifier> -->
+  <curation>
+    <publisher>IVOA</publisher>
+    <creator>
+      <name>Demleitner, M.</name>
+    </creator>
+    <creator>
+      <name>Gray, N.</name>
+    </creator>
+    <creator>
+      <name>Taylor, M.</name>
+    </creator>
+
+    <date role="update">2021-05-25</date>
+    <version>2.0</version>
+    <contact>
+      <name>IVOA Semantics WG</name>
+      <email>semantics@ivoa.net</email>
+    </contact>
+  </curation>
+  <content>
+    <subject>virtual-observatories</subject>
+    <description>
+    	In this document, we discuss practices related to the use of RDF-based
+    	consensus vocabularies in the Virtual Observatory, that is the creation,
+    	publication, maintenance, and consumption of hierarchical word lists
+    	agreed upon within the IVOA. To cover the wide range of use cases
+    	envisoned, we define different vocabulary types for informal knowledge
+    	organisation on the one hand, and strict hierarchies of classes and
+    	properties on the other. While the framework rests on the solid
+    	foundations of W3C RDF, provisions are made to facilitate using IVOA
+    	vocabularies without specific RDF tooling. Non-normative appendices
+    	detail the current vocabulary-related tooling.
+    </description>
+    <referenceURL>https://ivoa.net/documents/Vocabularies</referenceURL>
+    <type>Other</type>
+  	<contentLevel>Research</contentLevel>
+  </content>
+
+  <endorsedVersion status="rec">2.0</endorsedVersion>
+
+</ri:Resource>
