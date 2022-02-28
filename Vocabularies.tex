@@ -1371,18 +1371,24 @@ the example in Fig.~\ref{fig:vepsample}.
 
 \subsubsection{Publishing a VEP}
 
-To publish a VEP, it is sent to the chair of the Semantics WG,
-preferably by e-mail.  The chair of the Semantics WG will perform a
-formal validation, in particular as regards the presence of all required
+No formal process for submitting a VEP is defined here; authors can, if
+the choose to do so, simply send them via e-mail to the chair of the
+Semantics WG, for instance.  Authors are, however, encouraged to follow
+the recommended procedure laid out in
+Appendix~\ref{app:submitting-a-vep}.
+
+The chair of the Semantics WG will perform a
+formal validation of submitted VEPs, 
+in particular as regards the presence of all required
 items and syntactically valid relationships.  No assessment of the
 contents is done at this stage.
 
 VEPs formally valid then receive a running number. The first VEP was
-VEP-0001, the second VEP-0002, and so on.  The chair of the Semantics WG
-then adds the new VEP to the public index of VEPs as
+VEP-001, the second VEP-002, and so on.  The chair of the Semantics WG
+adds the new VEP to the public index of VEPs as
 ``Current'' (see Appendix~\ref{app:curtech} for the technical details).
-This index has a link to each VEP's text (in general, a location in a
-version control system).
+This index has a link to each VEP's text as kept in the IVOA's
+designated version control system.
 
 Once the VEP is uploaded, it is announced to the IVOA Semantics Working
 Group and all other IVOA Working Groups concerned (again, the technical
@@ -1777,13 +1783,43 @@ wiki at
 Approved VEPs will be moved to an archive page linked there.
 VEPs may be added as attachments to this page, but authors are
 encouraged to maintain them in version controlled repositories instead.
-The recommended place to do that is
-\url{https://volute.g-vo.org/svn/trunk/projects/semantics/veps}.
 
 The discussion of VEPs (see sect.~\ref{sect:approval}) is to take place
 on the appropriate  mailing list(s).  See
 \url{http://ivoa.net/members/index.html} for a directory of IVOA mailing
 lists and their addresses.
+
+The sources of the vocabularies are kept in the ivoa-std/Vocabularies
+repository\footnote{\url{https://github.com/ivoa-std/Vocabularies}}.  In
+general, only the chair of the Semantics working group or appointed
+maintainers of specific vocabularies have reason to work with this
+repository.
+
+\section{Submitting a VEP (non-normative)}
+\label{app:submitting-a-vep}
+
+Authors of VEPs sufficiently unconcerned with the privacy implications
+are encouraged to submit their vocabulary enhancement proposals through
+github in the following way:
+
+\begin{enumerate}
+\item Using github's web page, fork the VEP
+repository\footnote{\url{https://github.com/ivoa-std/VEPs}}.
+\item In a local shell clone the repository:\\
+\verb|git clone https://github.com/ivoa-std/VEPs|
+\item Add the private fork created as an upstream:\\
+\verb|git remote add mine git@github.com:<your user id>/VEPs.git|
+\item \verb|cp template.txt VEP-new.txt| -- the name VEP-new is constant
+for all such pull requests.  The chair of the semantics working group
+will assign the running number when merging the pull request.
+\item Edit the \verb|VEP-new.txt|, filling out the required fields.
+\item Commit your changes locally:\\
+\verb|git add VEP-new.txt && git commit -am "Adding VEP for ..."|
+\item Push the changes to your fork:\\
+\verb|git push --set-upstream mine main|
+\item Create a pull request for your VEP using github's web page.
+Please make sure edits by the maintainer are allowed.
+\end{enumerate}
 
 \section{An Example for a Vocabulary in Desise (non-normative)}
 \label{app:desiseexample}
