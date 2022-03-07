@@ -1447,7 +1447,7 @@ Now, in an ideal vocabulary the extensions of its
 top-level terms are disjunct (meaning: each thing in scope of the vocabulary
 belongs to not more than one top-level term's extension) and the terms cover the
 entire scope (meaning: for each thing in the scope, there is at least
-one term's extension that contains that thing). The top-level terms are
+one term's extension that contains that thing): The top-level extensions are
 equivalence classes over the vocabulary's scope.
 
 Where vocabularies are hierarchical, analogous considerations would
@@ -1476,7 +1476,7 @@ instance, while an object type vocabulary probably does not need to be
 very diligent in defining $\delta$~Cephei stars because the extension of
 that term is uncontroversial to first order\footnote{Although it might
 seem desirable to clarify whether, say, W~Virginis stars are or are not
-excluded}, a term like ``dataset'' should come with a precise
+excluded.}, a term like ``dataset'' should come with a precise
 definition, ideally containing a reference to a longer explanation.
 
 \subsection{Externally Managed Vocabularies}
@@ -1795,31 +1795,109 @@ general, only the chair of the Semantics working group or appointed
 maintainers of specific vocabularies have reason to work with this
 repository.
 
-\section{Submitting a VEP (non-normative)}
+\section{VEP operations(non-normative)}
+
+\subsection{Submitting a VEP}
 \label{app:submitting-a-vep}
 
-Authors of VEPs sufficiently unconcerned with the privacy implications
-are encouraged to submit their vocabulary enhancement proposals through
-github in the following way:
+Authors of VEPs prepared to accept the privacy cost involved with
+working through github are encouraged to submit their vocabulary
+enhancement proposals in the following way:
 
 \begin{enumerate}
-\item Using github's web page, fork the VEP
+\item \label{step:vepfork} Using github's web page, fork the VEP
 repository\footnote{\url{https://github.com/ivoa-std/VEPs}}.
+
 \item In a local shell clone the repository:\\
 \verb|git clone https://github.com/ivoa-std/VEPs|
-\item Add the private fork created as an upstream:\\
+
+\item Add the private fork created in step~\ref{step:vepfork}
+as an upstream:\\
 \verb|git remote add mine git@github.com:<your user id>/VEPs.git|
-\item \verb|cp template.txt VEP-new.txt| -- the name VEP-new is constant
-for all such pull requests.  The chair of the semantics working group
-will assign the running number when merging the pull request.
-\item Edit the \verb|VEP-new.txt|, filling out the required fields.
+
+\item \label{step:branch} 
+Create a branch for your VEP; for the branch name, use some 
+suitable variant of \verb|<vocname>-<term>|.  A term \vocterm{validated}
+in the date\_role vocabulary might use:\\
+\verb|git checkout -b date-role-validated|
+
+\item \verb|cp template.txt VEP-new.txt| -- 
+the name \verb|VEP-new.txt| is constant
+for all VEP-introducing pull requests.  The chair of the semantics
+working group will assign the running number when merging the pull
+request.
+
+\item Edit \verb|VEP-new.txt|, filling out the required fields.
+
 \item Commit your changes locally:\\
 \verb|git add VEP-new.txt && git commit -am "Adding VEP for ..."|
-\item Push the changes to your fork:\\
-\verb|git push --set-upstream mine main|
+
+\item Push the changes to your fork; replace \verb|date-role-validated|
+by the branch name you chose in step \ref{step:branch}:\\
+\verb|git push --set-upstream mine date-role-validated|
+
 \item Create a pull request for your VEP using github's web page.
 Please make sure edits by the maintainer are allowed.
+
 \end{enumerate}
+
+
+\subsection{Merging a VEP}
+
+This subsection is a checklist for vocabulary maintainers.  It can be
+ignored by general readers.
+
+When a VEP is submitted, the vocabulary maintainer will perform the
+following steps in a checkout of the VEP repository; when VEPs are
+submitted through some other means than github, the vocabulary
+maintainer will create the branch to be merged themselves:
+
+\begin{enumerate}
+\item Add the fork of the submitter to the local checkout (replacing
+\verb|other-user| as appropriate; use the ssh checkout URI, since you
+will be committing to the branch):\\
+\verb|git remote add other-id git@github.com:other-id/VEPs.git|
+
+\item Check out the branch corresponding to the VEP:\\
+\verb|git fetch other-id && git checkout branch-name-of-pr|
+
+\item Inspect \verb|VEP-new.txt| in the checkout.  Make sure the VEP is
+technically complete.  In particular, ensure there is a sufficiently
+precise description, resources mentioned in \vepitem{Used-in} can be reached
+and reflect the proposed term, and that there is a rationale that
+explains what the proposed change is supposed to enable or repair.  In
+case of formal deficiencies, ask the submitter to improve the VEP and
+postpone the following steps until the VEP is amended.
+
+\item Obtain the next VEP running number from the IVOA VEP
+index\footnote{\url{https://wiki.ivoa.net/twiki/bin/view/IVOA/VEPs}}.
+Replace NNN in the following command with that number:\\
+\verb|git mv VEP-new.txt VEP-NNN.txt|
+
+\item Update the PR so it is mergable into the main branch of the VEP
+repository (which must never contain a \verb|VEP-new.txt|):\\
+\verb|git commit -am "New VEP is NNN" && git push|
+
+\item Merge the PR.  The vocabulary maintainer will, in general,
+force-merge.  Since any evolution to the VEP while it was a pull request
+is probably irrelevant to the VEP repository, you will generally squash
+the commits while merging.
+Use ``VEP-NNN: vocabulary\#term'' as the commit message;
+the longer comment will usually be empty.
+
+\item Delete the branch, and locally check out the main branch again:\\
+\verb|git checkout main && git pull|
+
+\item Update the IVOA VEP index, adding one to the number of the next
+VEP and adding a link to the raw text of the VEP in the section
+``Current VEPs''.
+
+\item For VEPs with Addition actions, update the Vocabularies
+repository, ensuring any addition has a \vocterm{ivoasem:preliminary}
+relationship.
+
+\end{enumerate}
+
 
 \section{An Example for a Vocabulary in Desise (non-normative)}
 \label{app:desiseexample}
