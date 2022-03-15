@@ -1876,7 +1876,13 @@ Replace NNN in the following command with that number:\\
 
 \item Update the PR so it is mergable into the main branch of the VEP
 repository (which must never contain a \verb|VEP-new.txt|):\\
-\verb|git commit -am "New VEP is NNN" && git push|
+\verb|git commit -am "Accepting <term> as VEP-nnn" && git push|
+
+\item If the VEP supercedes another VEP, edit the other VEP to include
+the discussion that lead up to the other VEP's retirement and add the
+\vepitem{superceded-by} item.  In the same commit, add a
+\vepitem{supercedes} item to the new VEP unless it was already provided
+by the original author.
 
 \item Merge the PR.  The vocabulary maintainer will, in general,
 force-merge.  Since any evolution to the VEP while it was a pull request
