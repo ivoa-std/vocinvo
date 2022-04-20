@@ -1758,15 +1758,20 @@ section per vocabulary.  The section name is the vocabulary name.
 
 \subsection{Vocabulary Source Repository}
 
-Vocabulary authors are encouraged to maintain their vocabularies in the
-shared version control system of the IVOA.  At the time of writing, this
-is a subversion repository at
-\url{https://volute.g-vo.org/svn/trunk/projects/semantics/voc-source}.
+Source files for all IVOA vocabularies are managed in a common version
+controlled repository.  At this point, this is
+\url{https://github.com/ivoa-std/Vocabularies}.
 
-Authors of new vocabularies should create a child directory and place
-their terms.csv file in there.  They should then edit \verb|vocabs.conf|
-and add a section named after their directory with the content discussed
-in sect.~\ref{sect:vocmeta}.
+As long as a vocabulary has not been approved, their develoment can
+take place by forking that repository and using normal pull requests.
+Since unapproved vocabularies will be reviewed as part of their approval
+process, such pull requests can be merged with only minimal formal
+review.
+
+Changes to approved vocabularies are only performed by the chair of the
+Semantics WG based on VEPs.  Therefore, third-party pull requests against
+this repository must not change anything within the source files of
+approved vocabularies.
 
 
 \section{Current Network Resources (non-normative)}
