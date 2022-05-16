@@ -41,6 +41,8 @@ Taylor}
 
 \editor{Markus Demleitner}
 
+\previousversion[https://ivoa.net/documents/Vocabularies/20210525/]
+  {REC-2.0}
 \previousversion[https://ivoa.net/documents/Vocabularies/20210114/]
   {PR-20210114}
 \previousversion[https://ivoa.net/documents/Vocabularies/20200612/]
@@ -142,7 +144,7 @@ IVOA.
 \end{figure}
 
 Fig.~\ref{fig:archdiag} shows the role the Vocabularies in the VO standard
-plays within the IVOA architecture \citep{2010ivoa.rept.1123A}.
+plays within the IVOA architecture \citep{2021ivoa.spec.1101D}.
 
 This standard defines a set of conventions on procedures on
 top of several W3C standards that can be adopted by other VO standards
@@ -158,7 +160,7 @@ several (rather flat) vocabularies enumerating, for instance, the types
 of relationships between VO resources, their intended audiences, or
 classes of actions performed on them.
 
-\item[VOEvent \citep{2006ivoa.spec.1101S}] VOEvent defines \emph{Why}
+\item[VOEvent \citep{2011ivoa.spec.0711S}] VOEvent defines \emph{Why}
 and \emph{What} elements.  While their content is not formally required
 to be drawn from a specific vocabulary in VOEvent's version
 1.11, it certainly becomes significantly more useful if it is.
@@ -167,7 +169,7 @@ to be drawn from a specific vocabulary in VOEvent's version
 introduces vocabularies for time scales and reference positions.
 
 
-\item[UCDs \citep{2007ivoa.spec.0402P}] UCDs are related to vocabularies in
+\item[UCDs \citep{2005ivoa.spec.0819D}] UCDs are related to vocabularies in
 that they provide machine-readable semantics.  Because the terms listed
 in the document can be combined and have an underlying grammar, however,
 they go beyond standard RDF.  Hence, no attempt is being made to
@@ -1216,7 +1218,8 @@ that ensures community participation and at least a minimal level of
 consensus. Procedures here primarily address requirements
 \ref{req:consensus}, \ref{req:evolution} and \ref{req:traceable}.
 
-In the following, the phrase ``chair of the Semantics WG'' is understood
+In the following, the phrase 
+``vocabulary mainainer'' is understood
 to mean ``chair or vice-chair of the Semantics WG, or a person
 designated by them for the purpose with the consent of the TCG''.
 
@@ -1229,7 +1232,7 @@ through the normal IVOA approval process, i.e., intended to become a
 recommendation or an endorsed note, with RFC as described in the IVOA
 Document Standards \citep{2017ivoa.spec.0517G}.
 
-At the discretion of the chair of the Semantics WG, the vocabulary is
+At the discretion of the vocabulary maintainer, the vocabulary is
 uploaded to the vocabulary repository when a document reaches the state
 of a Working Draft.  At the latest, the vocabulary is uploaded when the
 document becomes a Proposed Recommendation or a Proposed Endorsed Note
@@ -1243,8 +1246,9 @@ order to satisfy requirement~\ref{req:preliminary}.
 
 The entire new vocabulary gets approved as the document introducing it
 reaches the status of Recommendation or Endorsed Note.  At that point,
-all its terms become un-deprecated.  From then
-on, it is managed by the Semantics WG using the process defined in
+all its terms become permanent, i.e., the \vocterm{ivoasem:preliminary}
+triples on them are removed.  From then
+on, the vocabulary is managed by the Semantics WG using the process defined in
 the next section.
 
 Once approved (i.e., no longer marked as preliminary), 
@@ -1277,8 +1281,8 @@ VEP, but not, say, azimuthal and supergalactic coordinates.  The
 arguments for both terms in the former pair are rather
 analogous\footnote{This does not rule out that, in the example, one
 might argue that old-style galactic coordinates are so ancient that
-perhaps they should not be supported in the VO at all; the chair of the
-Semantics WG might then decree that the VEP still needs to be split.}.
+perhaps they should not be supported in the VO at all; the vocabulary
+maintainer might then decree that the VEP still needs to be split.}.
 In the latter case, two very different rationales would have
 to be put forward, which is a clear sign that two VEPs are in order.
 
@@ -1372,19 +1376,19 @@ the example in Fig.~\ref{fig:vepsample}.
 \subsubsection{Publishing a VEP}
 
 No formal process for submitting a VEP is defined here; authors can, if
-the choose to do so, simply send them via e-mail to the chair of the
-Semantics WG, for instance.  Authors are, however, encouraged to follow
+they choose to do so, simply send them via e-mail to the vocabulary
+maintainer, for instance.  Authors are, however, encouraged to follow
 the recommended procedure laid out in
 Appendix~\ref{app:submitting-a-vep}.
 
-The chair of the Semantics WG will perform a
+The vocabulary maintainer will perform a
 formal validation of submitted VEPs, 
 in particular as regards the presence of all required
 items and syntactically valid relationships.  No assessment of the
 contents is done at this stage.
 
 VEPs formally valid then receive a running number. The first VEP was
-VEP-001, the second VEP-002, and so on.  The chair of the Semantics WG
+VEP-001, the second VEP-002, and so on.  The vocabulary maintainer
 adds the new VEP to the public index of VEPs as
 ``Current'' (see Appendix~\ref{app:curtech} for the technical details).
 This index has a link to each VEP's text as kept in the IVOA's
@@ -1392,11 +1396,11 @@ designated version control system.
 
 Once the VEP is uploaded, it is announced to the IVOA Semantics Working
 Group and all other IVOA Working Groups concerned (again, the technical
-details are found in Appendix~\ref{app:curtech}).  The chair of the
-Semantics WG can extend the distribution as they see fit.  The
+details are found in Appendix~\ref{app:curtech}).  The vocabulary
+maintainer can extend the distribution as they see fit.  The
 announcement in particular contains a copy of the VEP in question.
 
-As soon as possible after the upload, the chair of the Semantics WG adds
+As soon as possible after the upload, the vocabulary maintainer adds
 any term(s) proposed to the vocabulary as a preliminary term using the
 \vocterm{ivoasem:preliminary} property.   This means that the terms can
 immediately be used without raising warnings or errors, but in contrast
@@ -1407,7 +1411,7 @@ modification VEPs have no immediate effect.
 \label{sect:approval}
 
 Discussion of a VEP takes place in the WGs' discussion forums (again,
-see Appendix~\ref{app:curtech}).  The chair of the Semantics WG will
+see Appendix~\ref{app:curtech}).  The vocabulary maintainer will
 summarise the discussion in the VEP in a \textit{Discussion} section.
 
 During the process, all parts of the VEP may be changed except the
@@ -1538,7 +1542,7 @@ specification, which means that for now, externally managed vocabularies
 must use the SKOS flavour.
 
 Once an external vocabulary is endorsed by both the TCG and the
-Executive Committee, the chair of the Semantics working group has the
+Executive Committee, the vocabulary maintainer has the
 responsibility to keep the IVOA mirror of the vocabulary synchronised,
 ideally by using a monitored, automatised process like a post-commit
 action on an external version control system.
@@ -1639,7 +1643,7 @@ usage from citation in literature.
 This appendix describes the recommended toolset for authoring IVOA
 vocabularies as of 2019.  Vocabulary authors may decide to use other
 tools but should consider that that may incur additional work for the
-chair of the Semantics WG in later maintenance.
+vocabulary maintainer in later maintenance.
 
 This appendix is non-normative.  It will serve as documentation of the
 toolset and will occasionally be updated as the tooling evolves;
@@ -1722,7 +1726,8 @@ keys are understood:
   A human-readable short phrase saying what the vocabulary describes.
 \item[flavour]
   One of \textit{RDF Class}, \textit{RDF Property}, or \textit{SKOS}
-  (where SKOS currently expects RDF/XML serialised SKOS rather than CSV).
+  (where SKOS will accept RDF/XML serialised SKOS as input format in
+  addition to CSV).
 \item[description]
   A longer text (about a paragraph) stating what the vocabulary should
   be used for.  No markup is supported here.
@@ -1763,14 +1768,14 @@ Source files for all IVOA vocabularies are managed in a common version
 controlled repository.  At this point, this is
 \url{https://github.com/ivoa-std/Vocabularies}.
 
-As long as a vocabulary has not been approved, their develoment can
+As long as a vocabulary has not been approved, its develoment can
 take place by forking that repository and using normal pull requests.
 Since unapproved vocabularies will be reviewed as part of their approval
 process, such pull requests can be merged with only minimal formal
 review.
 
-Changes to approved vocabularies are only performed by the chair of the
-Semantics WG based on VEPs.  Therefore, third-party pull requests against
+Changes to approved vocabularies are only performed by the vocabulary
+maintainer based on VEPs.  Therefore, third-party pull requests against
 this repository must not change anything within the source files of
 approved vocabularies.
 
@@ -1818,7 +1823,7 @@ repository\footnote{\url{https://github.com/ivoa-std/VEPs}}.
 \verb|git clone https://github.com/ivoa-std/VEPs|
 
 \item Add the private fork created in step~\ref{step:vepfork}
-as an upstream:\\
+as a remote repository:\\
 \verb|git remote add mine git@github.com:<your user id>/VEPs.git|
 
 \item \label{step:branch} 
@@ -1829,8 +1834,8 @@ in the date\_role vocabulary might use:\\
 
 \item \verb|cp template.txt VEP-new.txt| -- 
 the name \verb|VEP-new.txt| is constant
-for all VEP-introducing pull requests.  The chair of the semantics
-working group will assign the running number when merging the pull
+for all VEP-introducing pull requests.  The vocabulary maintainer 
+will assign the running number when merging the pull
 request.
 
 \item Edit \verb|VEP-new.txt|, filling out the required fields.
@@ -1880,7 +1885,7 @@ index\footnote{\url{https://wiki.ivoa.net/twiki/bin/view/IVOA/VEPs}}.
 Replace NNN in the following command with that number:\\
 \verb|git mv VEP-new.txt VEP-NNN.txt|
 
-\item Update the PR so it is mergable into the main branch of the VEP
+\item Update the PR so it is mergeable into the main branch of the VEP
 repository (which must never contain a \verb|VEP-new.txt|):\\
 \verb|git commit -am "Accepting <term> as VEP-nnn" && git push|
 
@@ -1894,10 +1899,10 @@ by the original author.
 force-merge.  Since any evolution to the VEP while it was a pull request
 is probably irrelevant to the VEP repository, you will generally squash
 the commits while merging.
-Use ``VEP-NNN: vocabulary\#term'' as the commit message;
-the longer comment will usually be empty.
+Use ``VEP-NNN: vocabulary\#term'' as the commit message.
 
-\item Delete the branch, and locally check out the main branch again:\\
+\item Where the PR's branch belongs to you, delete it branch. 
+Locally check out the main branch again:\\
 \verb|git checkout main && git pull|
 
 \item Update the IVOA VEP index, adding one to the number of the next
@@ -1955,6 +1960,17 @@ notwithstanding, contrived.
 \end{lstlisting}
 
 \section{Changes from Previous Versions}
+
+\subsection{Changes from REC-2.0}
+
+\begin{itemize}
+\item When a vocabulary coming with a standard is approved, REC-2.0 said
+the terms would become ``un-deprecated''.  Fixing this to ``permanent'', as was
+obviously intended from the start.
+
+\item Updated appendices A, B, and C to reflect practices on github
+(these do not change the normative content).
+\end{itemize}
 
 \subsection{Changes from PR-2021-01-14}
 
