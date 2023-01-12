@@ -1,0 +1,64 @@
+* "each vocabulary must be clearly identified as \emph{either} giving
+  SKOS concepts" -- that's a simple condition on ivoasem:vocflavour
+* "The reverse property, \vocterm{skos:narrower}, MAY be given, but
+  clients MUST NOT depend on their presence" -- not validatable
+
+[SKOS]
+
+* "all concepts MUST have an English-language preferred label" --
+  "English-language" will probably not be reasonably validatable, "a
+  non-empty string" is easy.
+* "all concepts MUST have a non-trivial English-language definition"
+  -- again, "non-empty" would work.  There is a problem with the UAT
+  here, because they still don't have proper descriptions for the
+  majority of their concepts, and they certainly won't be complete
+  for many years.  Let's see if I live with regular errors on that.
+
+[RDF property]
+
+* as for SKOS
+* "term MUST NOT appear as subject of more than one
+  \vocterm{rdfs:subPropertyOf} triple" -- that's an interesting one,
+  as it's trivial to validate in Desise, so if we trust the Desise
+  tooling, that would be done.  With a bit more work, we could
+  validate this from the RDF artefacts.  Can't say whether I'll do
+  that.
+
+[RDF class]
+
+* as for RDF Property
+
+[General]
+
+* "IVOA vocabularies MUST include exactly one triple with the
+  vocabulary as subject and a predicate \vocterm{dc:created}" --
+  straightforward, with the caveat on desise.
+* "IVOA vocabularies MUST include exactly one triple with the
+  vocabulary as subject and a string literal specifying the kind of
+  vocabulary as per this specification." -- as mentioned above.
+* "\vocterm{ivoasem:useInstead} [...] This property MUST NOT be
+  used with non-deprecated subjects." -- ah, that one could
+  definitely go wrong at the moment.
+* "The rationale MUST discuss the reasons for a deprecation." -- not
+  validatable.
+* "...he VEP in question must be withdrawn..." -- not validatable
+* "Each term in the IVOA vocabulary mirror MUST declare its identity to
+  the original, external RDF resource." -- tricky; since the spec
+  does not, I think, forbid extra terms on the IVOA end and I'm not
+  sure I'd like to outlaw that before I understand just why I should
+  do that, I can't just blindly raise an error if there's a concept
+  in an externally managed vocabulary that has no skos:exactMatch.
+  The reason for the MUST here is to enable external tools knowing
+  about the upstream vocabulary to work with our vocabularies.  It's
+  not entriely clear that's something that will actually happen (even
+  though we're using it as a selling point).  I'd for now look the
+  other way.
+* "Externally managed vocabularies must use the SKOS flavour." --
+  that's a technicality, and to validate it, I'd have to have a list
+  of externally managed vocabularies.  That's not hard to do (this
+  list has one element at this point, and I'd be surprised if it had
+  more than five entries by 2030), but given the complications of the
+  adoption process there's no plausible way this could break.
+* "[versioned] URIs, however, MUST NOT be used externally" -- not
+  validatable.
+
