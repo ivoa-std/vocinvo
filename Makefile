@@ -7,10 +7,10 @@ DOCNAME = Vocabularies
 DOCVERSION = 2.1
 
 # Publication date, ISO format; update manually for "releases"
-DOCDATE = 2022-08-01
+DOCDATE = 2023-02-06
 
 # What is it you're writing: NOTE, WD, PR, REC, PEN, or EN
-DOCTYPE = PR
+DOCTYPE = REC
 
 # An e-mail address of the person doing the submission to the document
 # repository (can be empty until a make upload is being made)
@@ -26,7 +26,7 @@ FIGURES = role_diagram.svg
 
 # List of PDF figures (figures that must be converted to pixel images to
 # work in web browsers).
-VECTORFIGURES = 
+VECTORFIGURES =
 
 # Additional files to distribute (e.g., CSS, schema files, examples...)
 AUX_FILES =

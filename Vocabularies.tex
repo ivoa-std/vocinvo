@@ -41,6 +41,8 @@ Taylor}
 
 \editor{Markus Demleitner}
 
+\previousversion[https://ivoa.net/documents/Vocabularies/20220801/]
+  {PR-20220801}
 \previousversion[https://ivoa.net/documents/Vocabularies/20220516/]
   {WD-20220516}
 \previousversion[https://ivoa.net/documents/Vocabularies/20210525/]
@@ -53,13 +55,13 @@ Taylor}
   {WD-20200326}
 \previousversion[http://ivoa.net/documents/Vocabularies/20190905/]
   {WD-20190905}
-       
+
 
 \begin{document}
 \begin{abstract}
 In this document, we discuss practices related to the use of RDF-based
 consensus vocabularies in the Virtual Observatory, that is the creation,
-publication, maintenance, and consumption of 
+publication, maintenance, and consumption of
 hierarchical word lists agreed upon within the IVOA.
 To cover the wide range of use cases envisoned, we define different
 vocabulary types for informal knowledge organisation on the
@@ -110,15 +112,15 @@ within organisations like the IVOA.
 For many applications, even within the VO, the significant
 complexity and the lack of defined management processes is acceptable.
 However, for several other use cases -- in particular those given in
-sect.~\ref{sect:usecases} -- extra conventions 
+sect.~\ref{sect:usecases} -- extra conventions
 help with implementability and interoperability.
 
-Based on requirements derived from these use cases 
+Based on requirements derived from these use cases
 (sect.~\ref{sect:requirements}), this standard will therefore define
 conventions for vocabularies based on either SKOS \citep{std:skos} or
 RDFS \citep{std:rdfs} in
 sect.~\ref{sect:voccontent}.  Where these vocabularies -- and hence, in
-particular, the permanent URIs of their RDF resources (``terms'') 
+particular, the permanent URIs of their RDF resources (``terms'')
 -- are managed by the
 IVOA, they need to be reviewed and consensus be found.  A process to
 ensure this is described in
@@ -129,7 +131,7 @@ available.  In order to help adopters simply looking for simple
 vocabulary-related recipes, sect.~\ref{sect:withoutrdf} discusses how IVOA
 vocabularies can be used without knowledge of RDF.
 
-The non-normative appendices~\ref{app:tools} and \ref{app:curtech} 
+The non-normative appendices~\ref{app:tools} and \ref{app:curtech}
 describe the tooling
 currently used or recommended for building and managing vocabularies in the
 IVOA.
@@ -180,9 +182,9 @@ UCD atoms might be organised in an RDF vocabulary, though, and doing so
 might be considered in the future.
 \end{bigdescription}
 
-Not all VO standards need these normative constraints though. 
-In situations when the use cases do not require extra management and definition, 
-or where more complex structures such as full ontologies are needed, it is 
+Not all VO standards need these normative constraints though.
+In situations when the use cases do not require extra management and definition,
+or where more complex structures such as full ontologies are needed, it is
 encouraged to use  W3C standards without the extra requirements listed here.
 An example for a direct use of SKOS
 without adoption of the present document is the Simulation Data Model
@@ -229,7 +231,7 @@ some vocabularies that Vocabularies 1 declared as normative in its
 section~4 were largely unused and have been unmaintained for a while now.
 
 Since large parts of the original specification turned out to be
-irrelevant or unsustainable as the VO ecosystem evolved, 
+irrelevant or unsustainable as the VO ecosystem evolved,
 while some core requirements found later
 were not addressed, it was decided to prepare a new major version of the
 Vocabularies in the VO standard.
@@ -247,7 +249,7 @@ vocabulary they want to modify, and must study
 sect.~\ref{sect:management}.
 
 Readers unfamiliar with RDF should read \citet{local:normanspaper} before
-reading anything outside of section~\ref{sect:withoutrdf}.  
+reading anything outside of section~\ref{sect:withoutrdf}.
 In particular, we assume familiarity with all RDF
 terminology discussed there.  Concepts not covered by Gray's
 essay will be informally introduced here.  Of course, the
@@ -313,9 +315,9 @@ will lead to hard-to-debug problems in data discovery.
 \subsubsection{Controlled Vocabularies in VOTable}
 \label{uc:votvoc}
 
-VOTable 1.4 constrains two attributes of TIMESYS elements 
+VOTable 1.4 constrains two attributes of TIMESYS elements
 -- reference positions and time
-scales -- using vocabularies.  
+scales -- using vocabularies.
 With time scales, the situation is not fundamentally
 different from the VOResource case discussed in
 use case~\ref{uc:simplevoc}: a simple enumeration of agreed-upon strings
@@ -351,7 +353,7 @@ progenitors should be made accessible, and so on.
 
 Operators of datalink services, on the other hand, want to be precise in
 their annotation of datasets.  For instance, they may want to discern
-between a dark frame and a flat field in calibration data.  
+between a dark frame and a flat field in calibration data.
 Clients should, however, still be able to work out that both sorts of
 artefacts are progenitors.
 
@@ -366,7 +368,7 @@ another event, and a different event stream might not be able to
 distinguish between different sorts of supernovae at all.
 
 In this situation, an event broker looking for supernovae of type Ia
-will filter out anything not related to supernovae. However, since a Ia 
+will filter out anything not related to supernovae. However, since a Ia
 supernova might be tagged only as ``supernova'',
 it will want to widen its filter somewhat. Some backend process
 might then prioritise events classified as Ia upstream over those only tagged
@@ -380,7 +382,7 @@ and possibly for subjects of VO resources.
 \subsubsection{Vocabulary Updates in VOResource}
 \label{uc:deprecation}
 
-In VOResource 1.0 \citep{2008ivoa.spec.0222P}, relationship types 
+In VOResource 1.0 \citep{2008ivoa.spec.0222P}, relationship types
 like \vocterm{served-by} or
 \vocterm{service-for} were defined.  Later, DataCite defined equivalent
 terms \vocterm{IsServedBy} and \vocterm{IsServiceFor}.  Arguably, the VO should,
@@ -390,7 +392,7 @@ version, it cannot forbid the old terms.  It can, however, say not only
 ``\vocterm{served-by\/} is the same as \vocterm{isServedBy\/}'' but also
 ``Use the latter term in preference to the former''.  If this information is
 available machine-readably, validators can warn against the use of
-deprecated terms and user interfaces can transparently replace 
+deprecated terms and user interfaces can transparently replace
 deprecated terms with current ones.  This latter use case is
 already specified in RegTAP 1.1 \citep{2019ivoa.spec.1011D}.
 
@@ -484,7 +486,7 @@ We need to be able to represent simple lists of terms even for the most
 basic use case~\ref{uc:simplevoc}.  As per
 use case~\ref{uc:votvoc}, we will have to represent instances of both
 \vocterm{rdf:Property} and \vocterm{rdfs:Class} (though not necessarily
-in one vocabulary).  In order to not break existing practices (e.g., 
+in one vocabulary).  In order to not break existing practices (e.g.,
 use cases \ref{uc:simplevoc}, \ref{uc:votvoc}, \ref{uc:links}), the
 machine-readable terms must be allowed to follow existing patterns of
 essentially human-readable identifiers (against external best practices
@@ -513,7 +515,7 @@ Where we expect some sort of semi-formal inference to take place on the
 vocabularies, the hierarchy should be a tree in order to facilitate
 traversal and controlled query expansion.  In other words, outside of
 SKOS we do not support multiple inheritance.  Use cases requiring
-something equivalent would have to resort to supporting multiple terms 
+something equivalent would have to resort to supporting multiple terms
 on the annotation level.
 
 \subsubsection{Consensus Vocabularies}
@@ -539,7 +541,7 @@ deprecations must be forseen.
 In particular in use cases~\ref{uc:links} and \ref{uc:filtering},
 clients can flexibly incorporate vocabulary updates without code
 changes, perhaps even without re-deployment, if vocabularies are
-available at constant, public URIs.  Using these, clients must be able to 
+available at constant, public URIs.  Using these, clients must be able to
 retrieve vocabulary data in formats reasonably easy to parse.
 
 Use case~\ref{uc:discovering} implies that at least one representation
@@ -606,7 +608,7 @@ site for each session).
 
 Regrettably, VOResource does not explain how use case~\ref{uc:uat} would
 look like in actual documents, and the example given in the document
-clearly does not use UAT concepts. 
+clearly does not use UAT concepts.
 
 The first difficulty in a straightforward uptake is that UAT URIs look
 like \url{http://astrothesaurus.org/uat/1774}. Given that, should
@@ -638,7 +640,7 @@ because we do \emph{not} intend to prescribe ways to turn any VO
 artefact into RDF triples\footnote{i.e., basic statements of the form
 (subject, predicate, object) within the
 RDF; see page 8 of \citet{local:normanspaper} for a less terse
-definition.}.  
+definition.}.
 Indeed, for many existing vocabularies, it
 is left open what exactly the domain or range of properties might be or
 what subject and predicate the classes or concepts should be used with.
@@ -646,7 +648,7 @@ what subject and predicate the classes or concepts should be used with.
 This is partly because this would substantially complicate the
 generation of vocabularies, which would quickly turn into proper
 ontologies.  Another consideration is that the information encoded by
-triples generated in this way has traditionally been expressed 
+triples generated in this way has traditionally been expressed
 using techniques developed
 by the Data Models working group in the VO.
 
@@ -680,22 +682,22 @@ RDF.  This section discusses these.
 \subsection{Choosing Terms From IVOA Vocabularies (non-normative)}
 
 Resource annotators can usually treat IVOA Vocabularies as simple lists
-of (case-sensitive) strings with human-readable labels and definitions.  
+of (case-sensitive) strings with human-readable labels and definitions.
 These lists can be inspected with a simple web browser.
 
 Each IVOA vocabulary has an associated URI starting with
 \url{http://www.ivoa.net/rdf}.  Dereferencing that URI yields a list of
-the vocabularies approved or under review.  
+the vocabularies approved or under review.
 
 An individual vocabulary has a
 URI like \url{http://www.ivoa.net/rdf/refposition}.  Dereferencing this URI
 with a web browser (or, indeed, any user agent indicating it prefers
 text/html media) redirects to a tabular representation of the vocabulary,
-giving: 
+giving:
 \begin{itemize}
 	\item \emph{terms} -- i.e., the strings actually used in annotation,
 	\item \emph{labels} -- i.e., strings that should be presented to humans instead of
-the slightly formalised terms, and 
+the slightly formalised terms, and
     \item \emph{descriptions}, which should
 be sufficiently precise to allow someone with a certain amount
 of domain expertise to decide whether a certain ``thing'' is or is not
@@ -715,7 +717,7 @@ relevant to the term's adoption process.
 Once a term is located within the HTML page, annotators can usually
 directly use it in instance documents.  For instance, continuing the
 refposition example, the string \texttt{BARYCENTER} found in the
-vocabulary is directly used in VOTable's TIMESYS element.  
+vocabulary is directly used in VOTable's TIMESYS element.
 
 Some applications (Datalink being the prime example) instead use URIs
 relative to the vocabulary URI.  In practical terms, this just means
@@ -776,7 +778,7 @@ The JSON objects present as values in the terms object can have the
 following keys:
 
 \begin{description}
-\item[label] (mandatory) 
+\item[label] (mandatory)
 A human-readable label for display purposes; clients should
 always try to display this rather than the raw term.
 
@@ -818,14 +820,14 @@ represented in desise.
 
 \subsubsection{Working with desise (non-normative)}
 
-For illustration, here are recipes showing how to address 
+For illustration, here are recipes showing how to address
 the various use cases in Python:
 
 \paragraph{Load a vocabulary} Using the popular requests module:\\
 \begin{lstlisting}
 import requests
 voc = requests.get(
-    "http://www.ivoa.net/rdf/uat", 
+    "http://www.ivoa.net/rdf/uat",
     headers={"accept": "application/x-desise+json"}
   ).json()
 \end{lstlisting}
@@ -895,7 +897,7 @@ rule; since vocabulary URI changes will break certain usage scenarios,
 their URIs are still retained.}.
 
 Since all vocabularies specified here are
-single-file, the full term (i.e., RDF resource) 
+single-file, the full term (i.e., RDF resource)
 URI is formed by appending a hash sign
 and a fragment identifier.  In IVOA vocabularies, this fragment
 identifier MUST consist of ASCII letters, numbers, underscores and
@@ -932,7 +934,7 @@ for details.
 \subsection{SKOS Vocabularies}
 \label{sect:skosvoc}
 
-SKOS vocabularies should be used where terms are organised 
+SKOS vocabularies should be used where terms are organised
 in informal (i.e., non necessarily strict is-a)
 hierarchies.  The classic use case here is query expansion, where, for
 instance, a search for ``AGN'' might be expanded to include matches for
@@ -978,7 +980,7 @@ vocabularies is \verb|SKOS|.
 \end{itemize}
 
 This specification does not include requirements on the use or the
-interpretation of \vocterm{skos:related}, 
+interpretation of \vocterm{skos:related},
 \vocterm{skos:closeMatch}, \vocterm{skos:broadMatch},
 \vocterm{skos:narrowMatch}, \vocterm{skos:ConceptScheme},
 \vocterm{skos:inScheme}, \vocterm{skos:hasTopconcept},
@@ -1002,7 +1004,7 @@ in RDF/XML serialisation:
 \begin{lstlisting}[language=XML]
 <skos:Concept rdf:about="http://ivoa.net/rdf/AstronomicalObjects#AGN">
   <skos:prefLabel>AGN</skos:prefLabel>
-  <skos:definition>A compact object in the center of a galaxy showing 
+  <skos:definition>A compact object in the center of a galaxy showing
     unusual emission ("active galactic nucleus").</skos:definition>
   <skos:broader rdf:resource
     ="http://ivoa.net/rdf/theory/AstronomicalObjects#OpticalSource"/>
@@ -1023,7 +1025,7 @@ like is-progenitor-for in a provenance chain or, indeed, the special
 properties for IVOA vocabularies introduced in sect.~\ref{sect:genprop}.
 
 
-The terms in RDF Properties vocabularies have the RDF type 
+The terms in RDF Properties vocabularies have the RDF type
 \vocterm{rdf:Property}.
 
 \subsubsection{Properties in RDF Properties Vocabularies}
@@ -1049,8 +1051,8 @@ sect.~\ref{sect:skosvoc-prop} apply.  As for those, only one
 the hierarchy of terms; a term MUST NOT appear as subject of more than
 one \vocterm{rdfs:subPropertyOf} triple (i.e., the hierarchy is a tree).
 
-\item General properties discussed in sect.~\ref{sect:genprop}.  
-The \vocterm{ivoasem:vocflavour} of these vocabularies is 
+\item General properties discussed in sect.~\ref{sect:genprop}.
+The \vocterm{ivoasem:vocflavour} of these vocabularies is
 \verb|RDF Property|.
 
 \end{itemize}
@@ -1061,7 +1063,7 @@ The \vocterm{ivoasem:vocflavour} of these vocabularies is
 \begin{lstlisting}[language=XML]
 <rdf:Property rdf:about
   ="http://www.ivoa.net/rdf/datalink/core#preview-image">
-    <rdfs:comment>preview of the data as a 2-dimensional 
+    <rdfs:comment>preview of the data as a 2-dimensional
       image</rdfs:comment>
     <rdfs:label>Image preview</rdfs:label>
     <rdfs:subPropertyOf rdf:resource
@@ -1086,7 +1088,7 @@ infer that the coordinates are right ascension and declination, and that
 right ascensions increase eastwards.  Reasoning of this type is
 impossible within a SKOS vocabulary.
 
-The terms in RDF Class vocabularies have the RDF type 
+The terms in RDF Class vocabularies have the RDF type
 \vocterm{rdfs:Class}.
 
 \subsubsection{Properties in RDF Class Vocabularies}
@@ -1111,7 +1113,7 @@ the hierarchy of terms; a term MUST NOT appear as subject of more than
 one \vocterm{rdfs:subClassOf} triple (i.e., the hierarchy is a tree).
 
 \item General properties discussed in \ref{sect:genprop}.
-The \vocterm{ivoasem:vocflavour} of these vocabularies is 
+The \vocterm{ivoasem:vocflavour} of these vocabularies is
 \verb|RDF Class|.
 \end{itemize}
 
@@ -1138,7 +1140,7 @@ specification in RDF/XML serialisation:
 To cover requirements~\ref{req:deprecating} and
 \ref{req:preliminary} and to facilitate the handling of vocabularies not
 directly retrieved via HTTP (which means that the application may not
-know the vocabulary URI a priori; cf.~requirement~\ref{req:standalone}), 
+know the vocabulary URI a priori; cf.~requirement~\ref{req:standalone}),
 the Semantics WG defines some
 properties of its own in the vocabulary
 \url{http://www.ivoa.net/rdf/ivoasem}.  The following properties may be
@@ -1167,7 +1169,7 @@ of preliminary terms, but as they encounter them, they SHOULD
 qualify their validation to the effect that it is temporary.
 
 \item \vocterm{ivoasem:deprecated} -- this property indicates
-that a term is deprecated.  The object of triples using it 
+that a term is deprecated.  The object of triples using it
 is a blank node.  Validators SHOULD issue warnings if such terms
 are encountered.
 
@@ -1220,7 +1222,7 @@ that ensures community participation and at least a minimal level of
 consensus. Procedures here primarily address requirements
 \ref{req:consensus}, \ref{req:evolution} and \ref{req:traceable}.
 
-In the following, the phrase 
+In the following, the phrase
 ``vocabulary mainainer'' is understood
 to mean ``chair or vice-chair of the Semantics WG, or a person
 designated by them for the purpose with the consent of the TCG''.
@@ -1253,7 +1255,7 @@ triples on them are removed.  From then
 on, the vocabulary is managed by the Semantics WG using the process defined in
 the next section.
 
-Once approved (i.e., no longer marked as preliminary), 
+Once approved (i.e., no longer marked as preliminary),
 terms in IVOA vocabularies cannot be removed.  They can,
 however, be marked as deprecated.
 
@@ -1297,7 +1299,7 @@ Date: 2019-07-19
 Term: IsPreviousVersionOf
 Action: Addition
 Label: Newer Version
-Description: This dataset in a previous edition, e.g., processed 
+Description: This dataset in a previous edition, e.g., processed
 with an older pipeline, as part of an older data release.
 Relationships: rdfs:subProperyOf(this)
 Used-in: http://example.org/datalink?ID=doc-v1
@@ -1310,7 +1312,7 @@ with a newer pipeline, as part of a newer data release.
 Relationships: rdfs:subProperyOf(this)
 Used-in: http://example.org/datalink?ID=doc-v2
 
-Rationale: 
+Rationale:
 
 The terms are mainly intended for projects with data releases.
 IsPreviousVersionOf allows services to mark up links to (typically
@@ -1320,7 +1322,7 @@ rendition of the current dataset is available and should
 presumably be used instead of what they are looking at.  The
 inverse relationship, IsNewVersionOf, is useful if projects want
 to keep previous versions of the dataset findable without having
-them show up in the default queries. 
+them show up in the default queries.
 
 The terms are taken from the relationship types of DataCite.
 \end{verbatim}
@@ -1353,7 +1355,7 @@ should be commented on.
 \end{itemize}
 
 The items \vepitem{Term}, \vepitem{Action}, \vepitem{Label},
-\vepitem{Description}, \vepitem{Used-in}, 
+\vepitem{Description}, \vepitem{Used-in},
 and \vepitem{Relationships},  may be repeated if
 multiple terms are affected by a VEP.  In \textit{Addition} VEPs, all items
 except \vepitem{Relationships} are mandatory.
@@ -1367,7 +1369,7 @@ term(s) will be proposed within the same VEP.
 When \vepitem{Action} is \textit{Modification}, \vepitem{Label},
 \vepitem{Description}, and \vepitem{Relationships} give the proposed new
 values of the term.  The term itself cannot be modified.  The rationale
-will usually detail the changes proposed while mentioning the previous 
+will usually detail the changes proposed while mentioning the previous
 values.
 
 We do not expect the VEPs to be evaluated by machines.  Therefore, we
@@ -1384,7 +1386,7 @@ the recommended procedure laid out in
 Appendix~\ref{app:submitting-a-vep}.
 
 The vocabulary maintainer will perform a
-formal validation of submitted VEPs, 
+formal validation of submitted VEPs,
 in particular as regards the presence of all required
 items and syntactically valid relationships.  No assessment of the
 contents is done at this stage.
@@ -1460,10 +1462,10 @@ Where vocabularies are hierarchical, analogous considerations would
 apply for the extensions of a general term and its more specialised
 terms.
 
-When natural language and the real world are involved, 
+When natural language and the real world are involved,
 this ideal generally is unreachable.
 But when proposing a term and its definition, authors should try to
-make sure that 
+make sure that
 
 \begin{compactenum}
 \item their new term has a useful extension (i.e., consumers actually
@@ -1584,7 +1586,7 @@ indicates that \verb|text/turtle| documents are preferred.
 
 \item an RDF/XML rendition of the vocabulary
 if the accept header indicates that
-\verb|application/rdf+xml| documents are preferred. 
+\verb|application/rdf+xml| documents are preferred.
 
 \item an ad-hoc JSON rendition of the vocabulary as specified in
 sect.~\ref{sect:desise} if the accept header indicates that
@@ -1656,7 +1658,7 @@ the standard.
 
 \subsection{Input Format}
 
-In the current tooling, RDF class and property 
+In the current tooling, RDF class and property
 vocabularies are authored in simple CSV files
 with five columns.  These columns are:
 
@@ -1687,12 +1689,12 @@ with five columns.  These columns are:
   This is a longer explanation of what the term means.  We do not
   support any markup here, not even paragraphs, so there is probably a
   limit to how much can be communicated.
-\item[more\_relations] 
+\item[more\_relations]
   This column can be used to declare non-hierarchical relationships
   and contains whitespace-separated declarations.  Each declaration has
   the form property[(term)].  Omitting the term is allowed for certain
-  properties; in RDF, this corresponds to a blank node.  See below for 
-  the common properties supported here.  Plain terms are resolved 
+  properties; in RDF, this corresponds to a blank node.  See below for
+  the common properties supported here.  Plain terms are resolved
   within the vocabulary, but CURIEs with known prefixes or full URIs are
   admitted, too.
 \end{description}
@@ -1827,15 +1829,15 @@ repository\footnote{\url{https://github.com/ivoa-std/VEPs}}.
 as a remote repository:\\
 \verb|git remote add mine git@github.com:<your user id>/VEPs.git|
 
-\item \label{step:branch} 
-Create a branch for your VEP; for the branch name, use some 
+\item \label{step:branch}
+Create a branch for your VEP; for the branch name, use some
 suitable variant of \verb|<vocname>-<term>|.  A term \vocterm{validated}
 in the date\_role vocabulary might use:\\
 \verb|git checkout -b date-role-validated|
 
-\item \verb|cp template.txt VEP-new.txt| -- 
+\item \verb|cp template.txt VEP-new.txt| --
 the name \verb|VEP-new.txt| is constant
-for all VEP-introducing pull requests.  The vocabulary maintainer 
+for all VEP-introducing pull requests.  The vocabulary maintainer
 will assign the running number when merging the pull
 request.
 
@@ -1902,7 +1904,7 @@ is probably irrelevant to the VEP repository, you will generally squash
 the commits while merging.
 Use ``VEP-NNN: vocabulary\#term'' as the commit message.
 
-\item Where the PR's branch belongs to you, delete the branch. 
+\item Where the PR's branch belongs to you, delete the branch.
 Locally check out the main branch again:\\
 \verb|git checkout main && git pull|
 
@@ -1962,6 +1964,11 @@ notwithstanding, contrived.
 
 \section{Changes from Previous Versions}
 
+\subsection{Changes from PR-20220801}
+
+Editorial changes after review.  Also, the repository now contains a
+validator for the vocabulary repository.
+
 \subsection{Changes from WD-20220516}
 
 No changes.
@@ -2001,7 +2008,7 @@ make it a bit more self-explanatory; this let us pull in preliminary,
 deprecated, and wider as well.
 \item Desise now contains an inversion of wider, narrower, with meanings
 quite different between SKOS and the other flavours.
-\item The main media type for Desise is now application/x-desise+json rather 
+\item The main media type for Desise is now application/x-desise+json rather
 than text/json because there is no text/json, and you can't have
 content media type parameters on either.
 \item Mentioning licenseuri and licensehtml in the non-normative part on
